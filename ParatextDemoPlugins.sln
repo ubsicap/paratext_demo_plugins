@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParatextHelloWorldMenuPlugin", "ParatextHelloWorldMenuPlugin\ParatextHelloWorldMenuPlugin.csproj", "{CB32A400-6C60-4813-A122-8D576B8BF5C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTextEditorPlugin", "ParatextTestPlugin\ProjectTextEditorPlugin.csproj", "{10347427-A049-49D1-9C24-E96AE5611BF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChapterWordCloudPlugin", "ChapterWordle\ChapterWordCloudPlugin.csproj", "{6A715F31-42AC-4C17-9A34-E1FD42E49DAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCloud", "Lib\WordCloud\WordCloud.csproj", "{3C717173-CB43-417E-963A-83C4C4D9AC32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParatextTipOfTheDayPlugin", "ParatextTipOfTheDayPlugin\ParatextTipOfTheDayPlugin.csproj", "{05B9DB73-E8AC-4B89-80EC-8A8A232733DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB32A400-6C60-4813-A122-8D576B8BF5C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB32A400-6C60-4813-A122-8D576B8BF5C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB32A400-6C60-4813-A122-8D576B8BF5C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB32A400-6C60-4813-A122-8D576B8BF5C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10347427-A049-49D1-9C24-E96AE5611BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10347427-A049-49D1-9C24-E96AE5611BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10347427-A049-49D1-9C24-E96AE5611BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10347427-A049-49D1-9C24-E96AE5611BF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A715F31-42AC-4C17-9A34-E1FD42E49DAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A715F31-42AC-4C17-9A34-E1FD42E49DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A715F31-42AC-4C17-9A34-E1FD42E49DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A715F31-42AC-4C17-9A34-E1FD42E49DAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C717173-CB43-417E-963A-83C4C4D9AC32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C717173-CB43-417E-963A-83C4C4D9AC32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C717173-CB43-417E-963A-83C4C4D9AC32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C717173-CB43-417E-963A-83C4C4D9AC32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05B9DB73-E8AC-4B89-80EC-8A8A232733DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05B9DB73-E8AC-4B89-80EC-8A8A232733DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05B9DB73-E8AC-4B89-80EC-8A8A232733DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05B9DB73-E8AC-4B89-80EC-8A8A232733DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = ParatextHelloWorldMenuPlugin\ParatextHelloWorldMenuPlugin.csproj
+	EndGlobalSection
+EndGlobal
