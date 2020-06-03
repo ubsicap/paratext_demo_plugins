@@ -4,16 +4,16 @@
 
 These are the interfaces with which every plugin will have to interact.
 
-* [IParatextAddIn](/paratext/paratext-demo-plugins/wiki/IParatextAddIn)
+* [IParatextAddIn](docs/IParatextAddIn.md)
 
-* [IHost](/paratext/paratext-demo-plugins/wiki/IHost)
+* [IHost](docs/IHost.md)
 
 ## Secondary Interfaces
 
-* [IKeyTerm](/paratext/paratext-demo-plugins/wiki/IKeyTerm)
+* [IKeyTerm](docs/IKeyTerm.md)
 
-* [IScrExtractor](/paratext/paratext-demo-plugins/wiki/IScrExtractor)
+* [IScrExtractor](docs/IScrExtractor.md)
 
-* [IPluginDataFileMergeInfo](/paratext/paratext-demo-plugins/wiki/IPluginDataFileMergeInfo)
+* [IPluginDataFileMergeInfo](docs/IPluginDataFileMergeInfo.md)
 
-* [IMergeLevel](/paratext/paratext-demo-plugins/wiki/IMergeLevel)
+* [IMergeLevel](docs/IMergeLevel.md)

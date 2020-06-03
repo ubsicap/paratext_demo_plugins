@@ -1,4 +1,4 @@
-**IMergeLevel** represents one level of the XML file to merge. See [IPluginDataFileMergeInfo](/paratext/paratext-demo-plugins/wiki/IPluginDataFileMergeInfo) for more information.
+**IMergeLevel** represents one level of the XML file to merge. See [IPluginDataFileMergeInfo](docs/IPluginDataFileMergeInfo.md) for more information.
 
 # API Reference
 

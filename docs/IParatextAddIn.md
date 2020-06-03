@@ -1,4 +1,4 @@
-**IParatextAddin** facilitates the ability for **Paratext** to discover and communicate to a plugin. Every plugin *must* have a class that implements this interface. Metadata is also required to be added to the class implementing this interface for a plugin to function properly (see the [Plugin Metadata Reference](/paratext/paratext-demo-plugins/wiki/Plugin%20Metadata%20Reference) for more information).
+**IParatextAddin** facilitates the ability for **Paratext** to discover and communicate to a plugin. Every plugin *must* have a class that implements this interface. Metadata is also required to be added to the class implementing this interface for a plugin to function properly (see the [Plugin Metadata Reference](docs/Plugin%20Metadata%20Reference.md) for more information).
 
 # API Reference #
 
@@ -14,7 +14,7 @@ void Run(IHost host, string activeProjectName);
 
 Called to execute the add-in.
 
-* **host** An object representing the host (see [IHost](/paratext/paratext-demo-plugins/wiki/IHost))
+* **host** An object representing the host (see [IHost](docs/IHost.md))
 
 * **activeProjectName** The currently active project when the plugin is run or null if there is no active project.
 
@@ -36,7 +36,7 @@ Dictionary<string, IPluginDataFileMergeInfo> DataFileKeySpecifications { get; }
 ```
 (*from version 1.0*)
 
-Defines the merge handling for data for which a plugin wants to have special merge-handling during a send/receive conflict. The string is the name of the data identifier used when saving and the merge info defines the  merge handling for that data. (see [IPluginDataFileMergeInfo](/paratext/paratext-demo-plugins/wiki/IPluginDataFileMergeInfo) for more information).
+Defines the merge handling for data for which a plugin wants to have special merge-handling during a send/receive conflict. The string is the name of the data identifier used when saving and the merge info defines the  merge handling for that data. (see [IPluginDataFileMergeInfo](docs/IPluginDataFileMergeInfo.md) for more information).
 
 # IParatextAddin2
 

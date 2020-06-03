@@ -336,5 +336,5 @@ Gets a project setting (i.e., the kinds of settings stored in a project's SSF fi
 
 * **settingName** The name of the desired setting. Hint: Look in the SSF file to see what settings are stored.
 
-[IKeyTerm]: /paratext/paratext-demo-plugins/wiki/IKeyTerm
-[IParatextAddIn]: /paratext/paratext-demo-plugins/wiki/IParatextAddIn
+[IKeyTerm:](docs/IKeyTerm.md)
+[IParatextAddIn:](docs/IParatextAddIn.md)
