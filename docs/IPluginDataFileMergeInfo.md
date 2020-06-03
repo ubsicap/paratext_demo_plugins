@@ -38,7 +38,7 @@ IList<IMergeLevel> MergeLevels { get; }
 ```
 (*from version 1.0*)
 
-Gets the merge information for each list-level in the file. See [IMergeLevel](docs/IMergeLevel.md)
+Gets the merge information for each list-level in the file. See [IMergeLevel](IMergeLevel.md)
 
 ### RequiresStrictMergeOrder
 
