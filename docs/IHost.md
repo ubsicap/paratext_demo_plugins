@@ -6,8 +6,7 @@
 
 ### ApplicationName
 
-```
-#!c#
+```csharp
 string ApplicationName { get; }
 ```
 (*from version 1.0*)
@@ -16,8 +15,7 @@ Gets the host application name (Always **'Paratext'**).
 
 ### ApplicationVersion
 
-```
-#!c#
+```csharp
 string ApplicationVersion { get; }
 ```
 (*from version 1.0*)
@@ -26,8 +24,7 @@ Gets the version of the host application
 
 ### UserName
 
-```
-#!c#
+```csharp
 string UserName { get; }
 ```
 (*from version 1.0*)
@@ -36,8 +33,7 @@ Gets the name of the current user
 
 ### GetProjectFont
 
-```
-#!c#
+```csharp
 Font GetProjectFont(string projectName);
 ```
 (*from version 1.0*)
@@ -46,8 +42,7 @@ Gets the font used by a project.
 
 ### GetProjectLanguageId
 
-```
-#!c#
+```csharp
 string GetProjectLanguageId(string projectName, string operation);
 ```
 (*from version 1.0*)
@@ -56,8 +51,7 @@ Gets the language ID for a project. Operation is used to tell the user what oper
 
 ### GetProjectRtoL
 
-```
-#!c#
+```csharp
 bool GetProjectRtoL(string projectName);
 ```
 (*from version 1.0*)
@@ -66,8 +60,7 @@ Gets whether a project language is displayed right-to-left.
 
 ### GetProjectVersificationName
 
-```
-#!c#
+```csharp
 string GetProjectVersificationName(string projectName);
 ```
 (*from version 1.0*)
@@ -76,8 +69,7 @@ Gets the name of the versification in use by the given project.
 
 ### GetCurrentRef
 
-```
-#!c#
+```csharp
 int GetCurrentRef(string versificationName);
 ```
 (*from version 1.0*)
@@ -86,8 +78,7 @@ Gets the current Scripture reference of the Paratext main window. The returned v
 
 ### GetCssStylesheet
 
-```
-#!c#
+```csharp
 string GetCssStylesheet(string projectName);
 ```
 (*from version 1.0*)
@@ -96,8 +87,7 @@ Gets the cascading stylesheet for the requested project.
 
 ### LookUpKeyTerm
 
-```
-#!c#
+```csharp
 void LookUpKeyTerm(string projectName, IList<string> terms);
 ```
 (*from version 1.0*)
@@ -106,8 +96,7 @@ Shows a key term in the Biblical Terms tool. It will show the first term that is
 
 ### GetScriptureExtractor
 
-```
-#!c#
+```csharp
 IScrExtractor GetScriptureExtractor(string projectName, ExtractorType type);
 ```
 (*from version 1.0*)
@@ -116,8 +105,7 @@ Gets an extractor from which Scripture data can be requested.
 
 ### GetLastChapter
 
-```
-#!c#
+```csharp
 int GetLastChapter(int bookNum, string vrsName);
 ```
 (*from version 1.0*)
@@ -126,8 +114,7 @@ Gets the last chapter for the specified book in the specified versification
 
 ### GetLastVerse
 
-```
-#!c#
+```csharp
 int GetLastVerse(int bookNum, int chapterNum, string vrsName);
 ```
 (*from version 1.0*)
@@ -136,8 +123,7 @@ Gets the last verse for the specified chapter of the specified book in the speci
 
 ### ChangeVersification
 
-```
-#!c#
+```csharp
 int ChangeVersification(int reference, string vrsSourceName, string vrsDestName);
 ```
 (*from version 1.0*)
@@ -146,8 +132,7 @@ Converts the specified Scripture reference from the specified source versificati
 
 ### PutPlugInData
 
-```
-#!c#
+```csharp
 bool PutPlugInData(IParatextAddIn plugin, string projectName, string dataIdentifier, string data);
 ```
 (*from version 1.0*)
@@ -156,8 +141,7 @@ Saves plugin data for a project for Send/Receive purposes. (see [IParatextAddIn]
 
 ### GetPlugInData
 
-```
-#!c#
+```csharp
 string GetPlugInData(IParatextAddIn plugin, string projectName, string dataIdentifier);
 ```
 (*from version 1.0*)
@@ -166,8 +150,7 @@ Retrieves plugin data that was previously saved using **PutPlugInData**. (see [I
 
 ### GetPlugInDataLastModifiedTime
 
-```
-#!c#
+```csharp
 DateTime GetPlugInDataLastModifiedTime(IParatextAddIn plugin, string projectName, string dataIdentifier);
 ```
 (*from version 1.0*)
@@ -176,8 +159,7 @@ Gets the date/time in coordinated universal time (UTC) when the plugin data was 
 
 ### WriteLineToLog
 
-```
-#!c#
+```csharp
 void WriteLineToLog(IParatextAddIn plugin, string line);
 ```
 (*from version 1.0*)
@@ -186,8 +168,7 @@ Writes the given line to the hosts log file (tagged with the plugin's path to id
 
 ### GetFigurePath
 
-```
-#!c#
+```csharp
 string GetFigurePath(string projectName, bool local);
 ```
 (*from version 1.0*)
@@ -200,8 +181,7 @@ Gets the absolute path to the figures for the specified project. (Location is no
 
 ### GetProjectKeyboard
 
-```
-#!c#
+```csharp
 string GetProjectKeyboard(string projectName);
 ```
 (*from version 1.0*)
@@ -210,8 +190,7 @@ Gets the default keyboard for the given project, null if there is no keyboard fo
 
 ### GetProjectKeyTermListType
 
-```
-#!c#
+```csharp
 string GetProjectKeyTermListType(string projectName);
 ```
 (*from version 1.0*)
@@ -220,8 +199,7 @@ Gets the type of the biblical terms list associated with the given project. (Thi
 
 ### GetKeyTermListName
 
-```
-#!c#
+```csharp
 string GetKeyTermListName(string listTypeName, string projectName);
 ```
 (*from version 1.0*)
@@ -234,8 +212,7 @@ Gets the user-friendly name (in the locale that Paratext is currently displaying
 
 ### GetFactoryKeyTerms
 
-```
-#!c#
+```csharp
 IList<IKeyTerm> GetFactoryKeyTerms(string listTypeName, string glossLanguageId);
 ```
 (*from version 1.0*)
@@ -248,8 +225,7 @@ Gets the key terms and occurrences for the built-in list having the given name. 
 
 ### GetFactoryKeyTerms
 
-```
-#!c#
+```csharp
 IList<IKeyTerm> GetFactoryKeyTerms(string listTypeName, string glossLangId, int firstBCV, int lastBCV);
 ```
 (*from version 1.0*)
@@ -266,8 +242,7 @@ Gets the key terms and occurrences for the built-in list having the given name, 
 
 ### GetProjectKeyTerms
 
-```
-#!c#
+```csharp
 IList<IKeyTerm> GetProjectKeyTerms(string projectName, string glossLanguageId);
 ```
 (*from version 1.0*)
@@ -280,8 +255,7 @@ Gets the key terms and occurrences for a project. (see [IKeyTerm][])
 
 ### GetProjectTermRenderings
 
-```
-#!c#
+```csharp
 IList<string> GetProjectTermRenderings(string projectName, string termId, bool guessIfNotRendered);
 ```
 (*from version 1.0*)
@@ -296,8 +270,7 @@ Gets the vernacular renderings from the project for the requested term. The most
 
 ### GetTermOccurrences
 
-```
-#!c#
+```csharp
 IList<int> GetTermOccurrences(string listTypeName, string projectName, string termId);
 ```
 (*from version 1.0*)
@@ -312,8 +285,7 @@ Gets the occurrences of the requested term (as BBBCCCVVV references)
 
 ### GetApplicationSetting
 
-```
-#!c#
+```csharp
 string GetApplicationSetting(string settingName);
 ```
 (*from version 1.0.2*)
@@ -324,8 +296,7 @@ Gets an application (system or user) setting. (If the setting is not a string, t
 
 ### GetProjectSetting
 
-```
-#!c#
+```csharp
 string GetProjectSetting(string projectName, sstring settingName);
 ```
 (*from version 1.0.2*)
