@@ -2,8 +2,7 @@
 
 Consider the following XML file:
 
-```
-#!xml#
+```xml
 <?xml version="1.0" encoding="utf-16"?>
 <KeyTermRenderingInfo>
   <Info id="king" default="rey">
@@ -19,8 +18,7 @@ The XML contains two lists. One at the KeyTermRenderingInfo level (multiple Info
 
 To create the merge information for this XML file you would give the following:
 
-```
-#!c#
+```csharp
 return new PluginDataFileMergeInfo(
     new MergeLevel("/KeyTermRenderingInfo", "@id"),
     new MergeLevel("AdditionalRenderings", "."));
@@ -32,8 +30,7 @@ return new PluginDataFileMergeInfo(
 
 ### MergeLevels
 
-```
-#!c#
+```csharp
 IList<IMergeLevel> MergeLevels { get; }
 ```
 (*from version 1.0*)
@@ -42,8 +39,7 @@ Gets the merge information for each list-level in the file. See [IMergeLevel](IM
 
 ### RequiresStrictMergeOrder
 
-```
-#!c#
+```csharp
 bool RequiresStrictMergeOrder { get; }
 ```
 (*from version 1.0*)
