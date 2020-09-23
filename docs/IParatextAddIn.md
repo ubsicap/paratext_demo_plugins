@@ -6,8 +6,7 @@
 
 ### Run
 
-```
-#!c#
+```csharp
 void Run(IHost host, string activeProjectName);
 ```
 (*from version 1.0*)
@@ -20,8 +19,7 @@ Called to execute the add-in.
 
 ### RequestShutdown
         
-```
-#!c#
+```csharp
 void RequestShutdown();
 ```
 (*from version 1.0*)
@@ -30,8 +28,7 @@ Called to request the add-in to shut down nicely.
 
 ### DataFileKeySpecifications
 
-```
-#!c#
+```csharp
 Dictionary<string, IPluginDataFileMergeInfo> DataFileKeySpecifications { get; }
 ```
 (*from version 1.0*)
@@ -44,8 +41,7 @@ Defines the merge handling for data for which a plugin wants to have special mer
 
 ### Activate
 
-```
-#!c#
+```csharp
 void Activate(string activeProjectName)
 ```
 (*from version 1.0.1*)
