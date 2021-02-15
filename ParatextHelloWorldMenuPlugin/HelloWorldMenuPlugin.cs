@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using Paratext.PluginInterfaces;
 
 namespace ParatextHelloWorldMenuPlugin
 {
+    [PublicAPI]
     public class HelloWorldMenuPlugin : IParatextStandalonePlugin
     {
         public string Name => "Hello World";
@@ -29,14 +31,13 @@ namespace ParatextHelloWorldMenuPlugin
         /// Called by Paratext when the menu item created for this plugin was clicked.
         /// </summary>
         private static void Run(IPluginHost host, IParatextChildWindow window)
-        {
-            host.ActiveWindow
+		{
+			var activeProjectName = host.ActiveWindow?.Project?.ShortName;
             string message = string.IsNullOrEmpty(activeProjectName) ?
                 "You clicked the menu item when there was no active project." :
-                string.Format("You clicked the menu item while the {0} project was active.", activeProjectName);
+				$"You clicked the menu item while the {activeProjectName} project was active.";
 
             MessageBox.Show(message, "Paratext Menu Plugin Demo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Environment.Exit(0);
         }
 
         private class MenuEntry : IPluginMenuEntry<IPluginHost>

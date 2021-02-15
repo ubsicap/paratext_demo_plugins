@@ -1,11 +1,9 @@
 ﻿using System;
-using System.AddIn;
-using System.AddIn.Pipeline;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using AddInSideViews;
+using Paratext.PluginInterfaces;
 
 namespace ProjectTextEditorPlugin
 {
@@ -20,7 +18,7 @@ namespace ProjectTextEditorPlugin
     [QualificationData(PluginMetaDataKeys.menuImagePath, @"ProjectTextEditorPlugin\icon.gif")]
     [QualificationData(PluginMetaDataKeys.enableWhen, WhenToEnable.anyProjectActive)]
     [QualificationData(PluginMetaDataKeys.multipleInstances, CreateInstanceRule.forEachActiveProject)]
-    public class TestPlugin : IParatextAddIn2
+    public class TestPlugin : IParatextWindowPlugin // TODO: Make EmbeddedUiPluginInterfaces create a nuget package
     {
         private const string savedDataId = "savedTextData.xml";
         public const string xmlRoot = "ExtraProjectData";
@@ -47,7 +45,6 @@ namespace ProjectTextEditorPlugin
                 form.Closed += form_Closed;
             }
             Application.Run(formToShow);
-            Environment.Exit(0);
         }
 
         void form_Closed(object sender, EventArgs e)

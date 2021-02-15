@@ -2,3 +2,4 @@
 _ReSharper.Caches/*
 **/obj/*
 packages/*
+**/bin/*
