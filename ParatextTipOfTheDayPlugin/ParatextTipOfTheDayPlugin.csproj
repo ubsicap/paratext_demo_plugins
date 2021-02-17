@@ -89,7 +89,8 @@
 IF NOT EXIST "%25ParatextInstallDir%25" goto nocopy
 
 @echo Copying files to %25ParatextInstallDir%25\plugins\$(ProjectName)
-xcopy $(TargetDir)$(TargetName).* "%25ParatextInstallDir%25\plugins\$(ProjectName)" /y /i
+xcopy $(TargetPath) "%25ParatextInstallDir%25\plugins\$(ProjectName)\*.ptxplg" /y /i
+xcopy $(TargetDir)$(TargetName).pdb "%25ParatextInstallDir%25\plugins\$(ProjectName)" /y /i
 
 :nocopy</PostBuildEvent>
   </PropertyGroup>
