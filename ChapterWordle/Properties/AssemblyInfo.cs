@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ChapterWordCloud")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Paratext plugin to show a \"Word Cloud\" of the current chapter.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("SIL, United Bible Societies")]
 [assembly: AssemblyProduct("ChapterWordCloud")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
+[assembly: AssemblyCopyright("Copyright © SIL, United Bible Societies 2013-2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
+using System.Linq;
 using JetBrains.Annotations;
 using Paratext.PluginInterfaces;
+using static System.String;
 
 namespace ChapterWordCloudPlugin
 {
@@ -11,26 +11,16 @@ namespace ChapterWordCloudPlugin
     /// Simple plugin that shows a word cloud based on the text of the current chapter.
     /// </summary>
 	[PublicAPI]
-	public class ChapterWordCloudPlugin : IParatextStandalonePlugin
+	public class ChapterWordCloudPlugin : IParatextWindowPlugin
     {
         public const string pluginName = "Chapter Word Cloud";
-	//	private WordCloudForm form;
-
-		//public void RequestShutdown()
-  //      {
-  //          lock (this)
-		//	{
-		//		form?.Close();
-		//	}
-  //      }
-
 		public string Name => pluginName;
 		public string Description => "Shows a \"Word Cloud\" of the current chapter.";
 		public Version Version => new Version(2, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";
 
-		public IEnumerable<IPluginMenuEntry<IPluginHost>> PluginMenuEntries
+		public IEnumerable<IPluginMenuEntry<IWindowPluginHost>> PluginMenuEntries
 		{
 			get
 			{
@@ -41,40 +31,15 @@ namespace ChapterWordCloudPlugin
 		/// <summary>
 		/// Called by Paratext when the menu item created for this plugin was clicked.
 		/// </summary>
-		private static void Run(IPluginHost host, IParatextChildWindow window)
+		private static void Run(IWindowPluginHost host, IParatextChildWindow window)
 		{
-			Form formToShow;
-			//lock (this)
-			//{
-				var project = window.Project;
-				IScriptureExtractor extractor = project.GetScriptureExtractor(ExtractorType.USFM);
-				IVersification vrs = project.Versification;
-				var currRef = window.CurrentScriptureReference.AsBBBCCCVVV;
-				int book = currRef / 1000000;
-				int chapter = (currRef / 1000) % 1000;
-				int bookAndChapter = (currRef / 1000) * 1000;
-				int startOfChapter = bookAndChapter + 1;
-				int endOfChapter = bookAndChapter + vrs.GetLastVerse(book, chapter);
-				string text = extractor.Extract(startOfChapter, endOfChapter);
-				StringBuilder bldr = new StringBuilder();
-				bool skipping = false;
-				for (int i = 0; i < text.Length; i++)
-				{
-					char ch = text[i];
-					if (ch == ' ')
-						skipping = false;
-					else
-						skipping |= (ch == '\\');
-					if (!skipping)
-						bldr.Append(ch);
-				}
-				formToShow = /* form = */ new WordCloudForm(bldr.ToString());
-				formToShow.Show();
-			//}
-			//Application.Run(formToShow);
+			var currRef = window.CurrentVerseRef;
+			var tokens = window.Project.GetUSFMTokens(currRef.BookNum, currRef.ChapterNum).OfType<IUSFMTextToken>();
+			var formToShow = new WordCloudForm(Join(" ", tokens));
+			host.ShowEmbeddedUi(formToShow);
 		}
 
-		private class MenuEntry : IPluginMenuEntry<IPluginHost>
+		private class MenuEntry : IPluginMenuEntry<IWindowPluginHost>
 		{
 			public string GetText(string locale)
 			{
@@ -87,7 +52,7 @@ namespace ChapterWordCloudPlugin
 
 			public string ImagePath => null;
 			public WhenToShow ShowWhen => WhenToShow.EditableProject;
-			public Action<IPluginHost, IParatextChildWindow> Clicked => Run;
+			public Action<IWindowPluginHost, IParatextChildWindow> Clicked => Run;
 		}
 	}
 }

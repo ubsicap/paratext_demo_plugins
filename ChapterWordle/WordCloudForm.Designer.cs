@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cloudControl = new Gma.CodeCloud.Controls.CloudControl();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.cloudControl.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // cloudControl
-            // 
-            this.cloudControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cloudControl.Controls.Add(this.progressBar1);
-            this.cloudControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cloudControl.LayoutType = Gma.CodeCloud.Controls.LayoutType.Spiral;
-            this.cloudControl.Location = new System.Drawing.Point(0, 0);
-            this.cloudControl.MaxFontSize = 68;
-            this.cloudControl.MinFontSize = 6;
-            this.cloudControl.Name = "cloudControl";
-            this.cloudControl.Palette = new System.Drawing.Color[] {
+			this.cloudControl = new Gma.CodeCloud.Controls.CloudControl();
+			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			this.cloudControl.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// cloudControl
+			// 
+			this.cloudControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.cloudControl.Controls.Add(this.progressBar1);
+			this.cloudControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.cloudControl.LayoutType = Gma.CodeCloud.Controls.LayoutType.Spiral;
+			this.cloudControl.Location = new System.Drawing.Point(0, 0);
+			this.cloudControl.MaxFontSize = 68;
+			this.cloudControl.MinFontSize = 6;
+			this.cloudControl.Name = "cloudControl";
+			this.cloudControl.Palette = new System.Drawing.Color[] {
         System.Drawing.Color.DarkRed,
         System.Drawing.Color.DarkBlue,
         System.Drawing.Color.DarkGreen,
@@ -55,30 +55,25 @@
         System.Drawing.Color.Blue,
         System.Drawing.Color.Red,
         System.Drawing.Color.Green};
-            this.cloudControl.Size = new System.Drawing.Size(550, 336);
-            this.cloudControl.TabIndex = 0;
-            this.cloudControl.WeightedWords = null;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(224, 157);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 23);
-            this.progressBar1.TabIndex = 0;
-            // 
-            // WordCloudForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 336);
-            this.Controls.Add(this.cloudControl);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "WordCloudForm";
-            this.ShowIcon = false;
-            this.Text = "Chapter Word Cloud";
-            this.cloudControl.ResumeLayout(false);
-            this.ResumeLayout(false);
+			this.cloudControl.Size = new System.Drawing.Size(715, 461);
+			this.cloudControl.TabIndex = 0;
+			this.cloudControl.WeightedWords = null;
+			// 
+			// progressBar1
+			// 
+			this.progressBar1.Location = new System.Drawing.Point(224, 157);
+			this.progressBar1.Name = "progressBar1";
+			this.progressBar1.Size = new System.Drawing.Size(100, 23);
+			this.progressBar1.TabIndex = 0;
+			// 
+			// WordCloudForm
+			// 
+			this.ClientSize = new System.Drawing.Size(715, 461);
+			this.Controls.Add(this.cloudControl);
+			this.Name = "WordCloudForm";
+			this.Text = "Chapter Word Cloud";
+			this.cloudControl.ResumeLayout(false);
+			this.ResumeLayout(false);
 
         }
 

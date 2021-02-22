@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Gma.CodeCloud.Controls.TextAnalyses.Extractors;
 using Gma.CodeCloud.Controls.TextAnalyses.Processing;
+using Paratext.PluginInterfaces;
 
 namespace ChapterWordCloudPlugin
 {
-    public partial class WordCloudForm : Form
+    public partial class WordCloudForm : EmbeddedPluginControl
     {
         public WordCloudForm(string text)
         {
@@ -47,5 +49,21 @@ namespace ChapterWordCloudPlugin
                 Application.DoEvents();
             }
         }
-    }
+
+		public override void OnClosing(CancelEventArgs args)
+		{
+		}
+
+		public override void Save()
+		{
+			// No need to save
+		}
+
+		public override bool PrepareToClose()
+		{
+			return true;
+		}
+
+		public override string Title => ChapterWordCloudPlugin.pluginName;
+	}
 }
