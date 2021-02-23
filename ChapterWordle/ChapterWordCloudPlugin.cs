@@ -31,12 +31,10 @@ namespace ChapterWordCloudPlugin
 		/// <summary>
 		/// Called by Paratext when the menu item created for this plugin was clicked.
 		/// </summary>
-		private static void Run(IWindowPluginHost host, IParatextChildWindow window)
+		private static void Run(IWindowPluginHost host, IParatextChildState activeWindow)
 		{
-			var currRef = window.CurrentVerseRef;
-			var tokens = window.Project.GetUSFMTokens(currRef.BookNum, currRef.ChapterNum).OfType<IUSFMTextToken>();
-			var formToShow = new WordCloudForm(Join(" ", tokens));
-			host.ShowEmbeddedUi(formToShow);
+			var wordle = new WordCloudControl(activeWindow.CurrentVerseRef, activeWindow.Project);
+			host.ShowEmbeddedUi(wordle);
 		}
 
 		private class MenuEntry : IPluginMenuEntry<IWindowPluginHost>
@@ -52,7 +50,7 @@ namespace ChapterWordCloudPlugin
 
 			public string ImagePath => null;
 			public WhenToShow ShowWhen => WhenToShow.EditableProject;
-			public Action<IWindowPluginHost, IParatextChildWindow> Clicked => Run;
+			public Action<IWindowPluginHost, IParatextChildState> Clicked => Run;
 		}
 	}
 }
