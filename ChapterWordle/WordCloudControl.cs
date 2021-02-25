@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Gma.CodeCloud.Controls.TextAnalyses.Extractors;
@@ -19,24 +18,49 @@ namespace ChapterWordCloudPlugin
 			m_project = project;
 			InitializeComponent();
 
-            Update();
+            UpdateWordle();
         }
 
-        private void Update()
+        #region Implementation of EmbeddedPluginControl
+        public override string Title => ChapterWordCloudPlugin.pluginName;
+
+		public override void OnAddedToParent(IPluginChildWindow parent)
 		{
-			progressBar1.Hide();
-			var tokens = m_project.GetUSFMTokens(m_reference.BookNum, m_reference.ChapterNum).OfType<IUSFMTextToken>();
-			var text = string.Join(" ", tokens);
+			parent.VerseRefChanged += Parent_VerseRefChanged;
+            parent.ProjectChanged += Parent_ProjectChanged;
+		}
+        #endregion
 
-			IProgressIndicator progress = new ProgressBarWrapper(progressBar1);
-
-			IEnumerable<string> terms = new StringExtractor(text, progress);
-
-			cloudControl.WeightedWords = terms.CountOccurences().SortByOccurences();
-
-			progressBar1.Hide();
+        private void Parent_VerseRefChanged(IPluginChildWindow sender, IVerseRef oldReference, IVerseRef newReference)
+		{
+			m_reference = newReference;
+            UpdateWordle();
 		}
 
+        private void Parent_ProjectChanged(IPluginChildWindow sender, IProject newProject)
+        {
+            m_project = newProject;
+            UpdateWordle();
+        }
+
+        private void UpdateWordle()
+        {
+            progressBar1.Hide();
+            var tokens = m_project.GetUSFMTokens(m_reference.BookNum, m_reference.ChapterNum).OfType<IUSFMTextToken>();
+            var text = string.Join(" ", tokens);
+
+            IProgressIndicator progress = new ProgressBarWrapper(progressBar1);
+
+            IEnumerable<string> terms = new StringExtractor(text, progress);
+            if (!terms.Any())
+                terms = new[] {"Empty", "chapter"};
+
+            cloudControl.WeightedWords = terms.CountOccurences().SortByOccurences();
+
+            progressBar1.Hide();
+        }
+
+        #region ProgressBarWrapper class
         private class ProgressBarWrapper : IProgressIndicator
         {
             private readonly ProgressBar m_ProgressBar;
@@ -64,18 +88,6 @@ namespace ChapterWordCloudPlugin
                 Application.DoEvents();
             }
         }
-
-		public override void OnAddedToParent(IPluginChildWindow parent)
-		{
-			parent.ReferenceChanged += Parent_ReferenceChanged;
-		}
-
-		private void Parent_ReferenceChanged(IVerseRef oldReference, IVerseRef newReference)
-		{
-			m_reference = newReference;
-            Update();
-		}
-
-		public override string Title => ChapterWordCloudPlugin.pluginName;
+        #endregion
 	}
 }

@@ -57,10 +57,13 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EmbeddedUiPluginInterfaces, Version=0.1.0.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\ParatextEmbeddedUiPluginInterfaces.0.1.0-alpha\lib\net461\EmbeddedUiPluginInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="JetBrains.Annotations, Version=2021.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.2021.1.0-eap01\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
-    <Reference Include="PluginInterfaces, Version=9.2.0.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
+    <Reference Include="PluginInterfaces, Version=0.1.0.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
       <HintPath>..\packages\ParatextPluginInterfaces.0.1.0-alpha\lib\netstandard2.0\PluginInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -79,18 +82,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditTextForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="EditTextControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="EditTextForm.Designer.cs">
-      <DependentUpon>EditTextForm.cs</DependentUpon>
+    <Compile Include="EditTextControl.Designer.cs">
+      <DependentUpon>EditTextControl.cs</DependentUpon>
     </Compile>
     <Compile Include="TestPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EditTextForm.resx">
-      <DependentUpon>EditTextForm.cs</DependentUpon>
+    <EmbeddedResource Include="EditTextControl.resx">
+      <DependentUpon>EditTextControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -115,8 +118,9 @@
 IF NOT EXIST "%25ParatextInstallDir%25" goto nocopy
 
 @echo Copying files to %25ParatextInstallDir%25\plugins\$(ProjectName)
-xcopy $(TargetPath) "%25ParatextInstallDir%25\plugins\$(ProjectName)\*.ptxplg" /y /i
-xcopy $(TargetDir)$(TargetName).pdb "%25ParatextInstallDir%25\plugins\$(ProjectName)" /y /i
+xcopy "$(TargetPath)" "%25ParatextInstallDir%25\plugins\$(ProjectName)\*.ptxplg" /y /i
+xcopy "$(TargetDir)$(TargetName).pdb" "%25ParatextInstallDir%25\plugins\$(ProjectName)" /y /i
+xcopy "$(TargetDir)\icon.gif" "%25ParatextInstallDir%25\plugins\$(ProjectName)" /y /i
 
 :nocopy</PostBuildEvent>
   </PropertyGroup>

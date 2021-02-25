@@ -20,37 +20,21 @@ namespace ChapterWordCloudPlugin
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";
 
-		public IEnumerable<IPluginMenuEntry<IWindowPluginHost>> PluginMenuEntries
+		public IEnumerable<WindowPluginMenuEntry> PluginMenuEntries
 		{
 			get
-			{
-				yield return new MenuEntry();
+            {
+                yield return new WindowPluginMenuEntry("&" + pluginName + "...", Run, PluginMenuLocation.ScrTextTools);
 			}
 		}
 
 		/// <summary>
 		/// Called by Paratext when the menu item created for this plugin was clicked.
 		/// </summary>
-		private static void Run(IWindowPluginHost host, IParatextChildState activeWindow)
+		private static void Run(IWindowPluginHost host, IParatextChildState windowState)
 		{
-			var wordle = new WordCloudControl(activeWindow.CurrentVerseRef, activeWindow.Project);
-			host.ShowEmbeddedUi(wordle);
-		}
-
-		private class MenuEntry : IPluginMenuEntry<IWindowPluginHost>
-		{
-			public string GetText(string locale)
-			{
-				return "&" + pluginName + "...";
-			}
-
-			public PluginMenuLocation Location => PluginMenuLocation.ScrTextTools;
-
-			public IEnumerable<string> InsertAfterMenuHierarchy => null;
-
-			public string ImagePath => null;
-			public WhenToShow ShowWhen => WhenToShow.EditableProject;
-			public Action<IWindowPluginHost, IParatextChildState> Clicked => Run;
+			var wordle = new WordCloudControl(windowState.CurrentVerseRef, windowState.Project);
+			host.ShowEmbeddedUi(wordle, windowState.Project);
 		}
 	}
 }

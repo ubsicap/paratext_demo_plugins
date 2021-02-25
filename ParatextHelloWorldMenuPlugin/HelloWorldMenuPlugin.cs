@@ -19,45 +19,34 @@ namespace ParatextHelloWorldMenuPlugin
         
         public string Publisher => "SIL/UBS";
         
-        public IEnumerable<IPluginMenuEntry<IPluginHost>> PluginMenuEntries
+        public IEnumerable<PluginMenuEntry> PluginMenuEntries
         {
             get
             {
-                yield return new MenuEntry();
+                PluginMenuEntry entry = new PluginMenuEntry("Hello World Demo Menu Plugin...", Run, PluginMenuLocation.ParatextAdvanced);
+                entry.LocalizedTextNeeded += delegate(string defaultText, string locale)
+                {
+                    switch (locale)
+                    {
+                        case "es": return "Hola mundo...";
+                        default: return defaultText;
+                    }
+                };
+                yield return entry;
             }
         }
 
         /// <summary>
         /// Called by Paratext when the menu item created for this plugin was clicked.
         /// </summary>
-        private static void Run(IPluginHost host, IParatextChildWindow window)
+        private static void Run(IPluginHost host, IParatextChildState state)
 		{
-			var activeProjectName = host.ActiveWindow?.Project?.ShortName;
+			var activeProjectName = host.ActiveWindowState?.Project?.ShortName;
             string message = string.IsNullOrEmpty(activeProjectName) ?
                 "You clicked the menu item when there was no active project." :
 				$"You clicked the menu item while the {activeProjectName} project was active.";
 
             MessageBox.Show(message, "Paratext Menu Plugin Demo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private class MenuEntry : IPluginMenuEntry<IPluginHost>
-        {
-            public string GetText(string locale)
-            {
-                switch (locale)
-                {
-                    case "es": return "Hola mundo...";
-                    default: return "Hello World Demo Menu Plugin...";
-                }
-            }
-
-            public PluginMenuLocation Location => PluginMenuLocation.ParatextAdvanced;
-
-            public IEnumerable<string> InsertAfterMenuHierarchy => null;
-
-            public string ImagePath => null;
-            public WhenToShow ShowWhen => WhenToShow.Always;
-            public Action<IPluginHost, IParatextChildWindow> Clicked => Run;
         }
     }
 }

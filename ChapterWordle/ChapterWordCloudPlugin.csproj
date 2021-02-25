@@ -85,7 +85,7 @@
     <Compile Include="ChapterWordCloudPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WordCloudControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WordCloudControl.Designer.cs">
       <DependentUpon>WordCloudControl.cs</DependentUpon>
@@ -118,9 +118,9 @@
 IF NOT EXIST "%25ParatextInstallDir%25" goto nocopy
 
 @echo Copying files to %25ParatextInstallDir%25\plugins\$(ProjectName)
-xcopy $(TargetPath) "%25ParatextInstallDir%25\plugins\$(ProjectName)\*.ptxplg" /y /i
-xcopy $(TargetDir)$(TargetName).pdb "%25ParatextInstallDir%25\plugins\$(ProjectName)" /y /i
-xcopy $(TargetDir)WordCloud.* "%25ParatextInstallDir%25\plugins\$(ProjectName)" /y /i
+xcopy "$(TargetPath)" "%25ParatextInstallDir%25\plugins\$(ProjectName)\*.ptxplg" /y /i
+xcopy "$(TargetDir)$(TargetName).pdb" "%25ParatextInstallDir%25\plugins\$(ProjectName)" /y /i
+xcopy "$(TargetDir)WordCloud.*" "%25ParatextInstallDir%25\plugins\$(ProjectName)" /y /i
 
 :nocopy</PostBuildEvent>
   </PropertyGroup>
