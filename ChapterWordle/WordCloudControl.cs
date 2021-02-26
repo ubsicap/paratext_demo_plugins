@@ -12,24 +12,37 @@ namespace ChapterWordCloudPlugin
 		private IVerseRef m_reference;
 		private IProject m_project;
 
-		public WordCloudControl(IVerseRef reference, IProject project)
+		public WordCloudControl()
+		{
+			InitializeComponent();
+		}
+
+		public WordCloudControl(IVerseRef reference, IProject project) : this()
         {
 			m_reference = reference;
 			m_project = project;
-			InitializeComponent();
+            Title = ChapterWordCloudPlugin.pluginName;
 
             UpdateWordle();
         }
 
         #region Implementation of EmbeddedPluginControl
-        public override string Title => ChapterWordCloudPlugin.pluginName;
-
 		public override void OnAddedToParent(IPluginChildWindow parent)
 		{
 			parent.VerseRefChanged += Parent_VerseRefChanged;
             parent.ProjectChanged += Parent_ProjectChanged;
 		}
-        #endregion
+
+		public override string GetState()
+		{
+			return null;
+		}
+
+		public override void RestoreFromState(IVerseRef reference, IProject project, string state)
+		{
+			throw new System.NotImplementedException();
+		}
+		#endregion
 
         private void Parent_VerseRefChanged(IPluginChildWindow sender, IVerseRef oldReference, IVerseRef newReference)
 		{

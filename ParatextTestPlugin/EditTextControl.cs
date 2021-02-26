@@ -15,11 +15,16 @@ namespace ProjectTextEditorPlugin
         private readonly TestPlugin plugin;
         private IProject project;
 
+		public EditTextControl()
+		{
+		}
+
         public EditTextControl(TestPlugin plugin, IProject project)
         {
             InitializeComponent();
             this.plugin = plugin;
             label1.Text = string.Format(label1.Text, project.ShortName);
+			Title = TestPlugin.pluginName;
 
             UpdateProject(project);
         }
@@ -37,16 +42,25 @@ namespace ProjectTextEditorPlugin
             }
         }
 
-        public override string Title => TestPlugin.pluginName + " - " + project.ShortName;
+		public override bool IncludeReferenceInTitleBar => false;
 
-        public override void OnAddedToParent(IPluginChildWindow parent)
+		public override void OnAddedToParent(IPluginChildWindow parent)
         {
             parent.SaveRequested += Parent_SaveRequested;
             parent.WindowClosing += Parent_WindowClosing;
             parent.ProjectChanged += Parent_ProjectChanged;
         }
 
-        private void Parent_ProjectChanged(IPluginChildWindow sender, IProject newProject)
+		public override string GetState()
+		{
+			return null;
+		}
+
+		public override void RestoreFromState(IVerseRef reference, IProject proj, string state)
+		{
+		}
+
+		private void Parent_ProjectChanged(IPluginChildWindow sender, IProject newProject)
         {
             UpdateProject(newProject);
         }
