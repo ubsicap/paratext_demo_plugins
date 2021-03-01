@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using Gma.CodeCloud.Controls.TextAnalyses.Extractors;
@@ -15,18 +16,22 @@ namespace ChapterWordCloudPlugin
 		public WordCloudControl()
 		{
 			InitializeComponent();
+            Title = ChapterWordCloudPlugin.pluginName;
 		}
 
 		public WordCloudControl(IVerseRef reference, IProject project) : this()
         {
-			m_reference = reference;
-			m_project = project;
-            Title = ChapterWordCloudPlugin.pluginName;
-
-            UpdateWordle();
+            Initialize(project, reference);
         }
 
-        #region Implementation of EmbeddedPluginControl
+		private void Initialize(IProject project, IVerseRef reference)
+		{
+			m_project = project;
+			m_reference = reference;
+			UpdateWordle();
+		}
+
+		#region Implementation of EmbeddedPluginControl
 		public override void OnAddedToParent(IPluginChildWindow parent)
 		{
 			parent.VerseRefChanged += Parent_VerseRefChanged;
@@ -40,14 +45,16 @@ namespace ChapterWordCloudPlugin
 
 		public override void RestoreFromState(IVerseRef reference, IProject project, string state)
 		{
-			throw new System.NotImplementedException();
+            Initialize(project, reference);
 		}
 		#endregion
 
         private void Parent_VerseRefChanged(IPluginChildWindow sender, IVerseRef oldReference, IVerseRef newReference)
 		{
+            Debug.Assert(oldReference.Equals(m_reference));
 			m_reference = newReference;
-            UpdateWordle();
+			if (oldReference.BookNum != newReference.BookNum || oldReference.ChapterNum != newReference.ChapterNum)
+				UpdateWordle();
 		}
 
         private void Parent_ProjectChanged(IPluginChildWindow sender, IProject newProject)

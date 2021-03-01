@@ -12,21 +12,19 @@ namespace ProjectTextEditorPlugin
         public const string xmlRoot = "ExtraProjectData";
 
         private readonly XmlSerializer dataSerializer = new XmlSerializer(typeof(ProjectTextData));
-        private readonly TestPlugin plugin;
         private IProject project;
+		private string lastSavedValue;
 
 		public EditTextControl()
 		{
+            InitializeComponent();
+			label1.Tag = label1.Text;
+			Title = ProjectTextEditorPlugin.pluginName;
 		}
 
-        public EditTextControl(TestPlugin plugin, IProject project)
+		public EditTextControl(IProject project) : this()
         {
-            InitializeComponent();
-            this.plugin = plugin;
-            label1.Text = string.Format(label1.Text, project.ShortName);
-			Title = TestPlugin.pluginName;
-
-            UpdateProject(project);
+			UpdateProject(project);
         }
 
         /// <summary>
@@ -39,7 +37,8 @@ namespace ProjectTextEditorPlugin
             { 
                 txtText.Text = value;
                 txtText.Select(txtText.Text.Length, 0);
-            }
+				lastSavedValue = value;
+			}
         }
 
 		public override bool IncludeReferenceInTitleBar => false;
@@ -58,6 +57,7 @@ namespace ProjectTextEditorPlugin
 
 		public override void RestoreFromState(IVerseRef reference, IProject proj, string state)
 		{
+			UpdateProject(proj);
 		}
 
 		private void Parent_ProjectChanged(IPluginChildWindow sender, IProject newProject)
@@ -72,18 +72,27 @@ namespace ProjectTextEditorPlugin
 
         private void Parent_WindowClosing(IPluginChildWindow sender, System.ComponentModel.CancelEventArgs args)
         {
-            if (MessageBox.Show(this, "Do you want to save the text?", TestPlugin.pluginName,
-                MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                SaveText(EditText);
-            }
+            if (lastSavedValue == EditText)
+                return;
+			var result = MessageBox.Show(this, "Do you want to save the text?", ProjectTextEditorPlugin.pluginName,
+				MessageBoxButtons.YesNoCancel);
+			switch (result)
+			{
+				case DialogResult.Cancel:
+					args.Cancel = true;
+					break;
+				case DialogResult.Yes:
+					SaveText(EditText);
+					break;
+			}
         }
         
         private void UpdateProject(IProject newProject)
         {
             project = newProject;
+			label1.Text = string.Format((string)label1.Tag, project.ShortName);
 
-            TextReader reader = project.GetPluginDataReader(plugin, savedDataId);
+			TextReader reader = project.GetPluginDataReader(this, savedDataId);
             if (reader == null)
                 return;
 
@@ -103,15 +112,17 @@ namespace ProjectTextEditorPlugin
             data.Lines = text.Split(new [] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
             try
             {
-                MergeLevel[] mergeLevels = new[] {new MergeLevel("/" + xmlRoot, ".")};
-                using (TextWriter writer = project.GetPluginDataWriter(plugin, savedDataId, mergeLevels))
+                MergeLevel[] mergeLevels = {new MergeLevel("/" + xmlRoot, ".")};
+                using (TextWriter writer = project.GetPluginDataWriter(this, savedDataId, mergeLevels))
                     dataSerializer.Serialize(writer, data);
             }
             catch
             {
-                MessageBox.Show("Unable to save the text. :(", TestPlugin.pluginName);
+                MessageBox.Show("Unable to save the text. :(", ProjectTextEditorPlugin.pluginName);
             }
-        }
+
+			lastSavedValue = text;
+		}
 
         [XmlRoot(xmlRoot)]
         public class ProjectTextData

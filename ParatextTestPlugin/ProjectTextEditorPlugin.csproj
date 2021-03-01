@@ -88,7 +88,7 @@
     <Compile Include="EditTextControl.Designer.cs">
       <DependentUpon>EditTextControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TestPlugin.cs" />
+    <Compile Include="ProjectTextEditorPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
