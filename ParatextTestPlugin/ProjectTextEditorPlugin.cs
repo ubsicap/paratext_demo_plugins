@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.XPath;
 using Paratext.PluginInterfaces;
 
 namespace ProjectTextEditorPlugin
@@ -15,13 +16,23 @@ namespace ProjectTextEditorPlugin
         public string Name => pluginName;
 
         public string Description => "Shows a text box into which the user can enter text, which" +
-                                     " is then saved with the other project data.";
+            " is then saved with the other project data.";
 
         public Version Version => new Version(1, 0);
 
         public string VersionString => Version.ToString();
 
         public string Publisher => "SIL/UBS";
+
+        public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo
+        {
+            get
+            {
+                yield return new KeyValuePair<string, XMLDataMergeInfo>(EditTextControl.savedDataId,
+                    new XMLDataMergeInfo(false, 
+                        new XMLListKeyDefinition(XPathExpression.Compile("/" + EditTextControl.xmlRoot), XPathExpression.Compile("."))));
+            }
+        }
 
         public IEnumerable<WindowPluginMenuEntry> PluginMenuEntries 
         {
@@ -44,7 +55,7 @@ namespace ProjectTextEditorPlugin
         /// <summary>
         /// Called by Paratext when the menu item created for this plugin was clicked.
         /// </summary>
-        private void Run(IWindowPluginHost ptHost, IParatextChildState activeProjectState)
+        private static void Run(IWindowPluginHost ptHost, IParatextChildState activeProjectState)
         {
             EditTextControl control = new EditTextControl(activeProjectState.Project);
             ptHost.ShowEmbeddedUi(control, activeProjectState.Project);

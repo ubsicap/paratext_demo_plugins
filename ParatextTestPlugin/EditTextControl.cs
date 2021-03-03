@@ -8,7 +8,7 @@ namespace ProjectTextEditorPlugin
 {
     public partial class EditTextControl : EmbeddedPluginControl
     {
-        private const string savedDataId = "savedTextData.xml";
+        public const string savedDataId = "savedTextData.xml";
         public const string xmlRoot = "ExtraProjectData";
 
         private readonly XmlSerializer dataSerializer = new XmlSerializer(typeof(ProjectTextData));
@@ -92,14 +92,25 @@ namespace ProjectTextEditorPlugin
             project = newProject;
 			label1.Text = string.Format((string)label1.Tag, project.ShortName);
 
-			TextReader reader = project.GetPluginDataReader(this, savedDataId);
-            if (reader == null)
-                return;
-
-            using (reader)
+            try
             {
-                ProjectTextData data = (ProjectTextData)dataSerializer.Deserialize(reader);
-                EditText = string.Join(Environment.NewLine, data.Lines);
+                TextReader reader = project.GetPluginDataReader(this, savedDataId);
+                if (reader == null)
+                {
+                    EditText = "";
+                    return;
+                }
+
+                using (reader)
+                {
+                    ProjectTextData data = (ProjectTextData)dataSerializer.Deserialize(reader);
+                    EditText = string.Join(Environment.NewLine, data.Lines);
+                }
+            }
+            catch (Exception e)
+            {
+                EditText = "";
+                MessageBox.Show($"Unable to load the text:\n{e.Message}", ProjectTextEditorPlugin.pluginName);
             }
         }
 
@@ -112,13 +123,12 @@ namespace ProjectTextEditorPlugin
             data.Lines = text.Split(new [] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
             try
             {
-                MergeLevel[] mergeLevels = {new MergeLevel("/" + xmlRoot, ".")};
-                using (TextWriter writer = project.GetPluginDataWriter(this, savedDataId, mergeLevels))
+                using (TextWriter writer = project.GetPluginDataWriter(this, savedDataId))
                     dataSerializer.Serialize(writer, data);
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("Unable to save the text. :(", ProjectTextEditorPlugin.pluginName);
+                MessageBox.Show($"Unable to save the text:\n{e.Message}", ProjectTextEditorPlugin.pluginName);
             }
 
 			lastSavedValue = text;

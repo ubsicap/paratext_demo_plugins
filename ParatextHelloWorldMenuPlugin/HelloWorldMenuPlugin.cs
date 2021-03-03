@@ -19,6 +19,8 @@ namespace ParatextHelloWorldMenuPlugin
         
         public string Publisher => "SIL/UBS";
         
+        public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
+
         public IEnumerable<PluginMenuEntry> PluginMenuEntries
         {
             get
@@ -33,9 +35,14 @@ namespace ParatextHelloWorldMenuPlugin
                     }
                 };
                 yield return entry;
+
+                // This is an example of how a plugin could throw an exception. Paratext should catch it and alert the user but
+                // not send in an exception report.
+                //yield return new PluginMenuEntry("Throw exception!",
+                //    (host, state) => throw new InvalidOperationException("Don't click that!"), PluginMenuLocation.ParatextAdvanced);
             }
         }
-
+        
         /// <summary>
         /// Called by Paratext when the menu item created for this plugin was clicked.
         /// </summary>

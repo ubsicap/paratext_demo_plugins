@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using Paratext.PluginInterfaces;
-using static System.String;
 
 namespace ChapterWordCloudPlugin
 {
@@ -19,8 +17,9 @@ namespace ChapterWordCloudPlugin
 		public Version Version => new Version(2, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";
+        public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
 
-		public IEnumerable<WindowPluginMenuEntry> PluginMenuEntries
+        public IEnumerable<WindowPluginMenuEntry> PluginMenuEntries
 		{
 			get
             {
