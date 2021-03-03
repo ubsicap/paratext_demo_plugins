@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using Paratext.PluginInterfaces;
+using ProjectTextEditorPlugin.Properties;
 
 namespace ProjectTextEditorPlugin
 {
@@ -44,11 +45,12 @@ namespace ProjectTextEditorPlugin
 		public override bool IncludeReferenceInTitleBar => false;
 
 		public override void OnAddedToParent(IPluginChildWindow parent)
-        {
-            parent.SaveRequested += Parent_SaveRequested;
-            parent.WindowClosing += Parent_WindowClosing;
-            parent.ProjectChanged += Parent_ProjectChanged;
-        }
+		{
+			parent.Icon = Resources.icon;
+			parent.SaveRequested += Parent_SaveRequested;
+			parent.WindowClosing += Parent_WindowClosing;
+			parent.ProjectChanged += Parent_ProjectChanged;
+		}
 
 		public override string GetState()
 		{
