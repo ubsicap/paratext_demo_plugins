@@ -12,9 +12,10 @@ namespace ProjectTextEditorPlugin
         public const string savedDataId = "savedTextData.xml";
         public const string xmlRoot = "ExtraProjectData";
 
-        private readonly XmlSerializer dataSerializer = new XmlSerializer(typeof(ProjectTextData));
+        private static readonly XmlSerializer dataSerializer = new XmlSerializer(typeof(ProjectTextData));
         private IProject project;
 		private string lastSavedValue;
+        private bool textChanged;
 
 		public EditTextControl()
 		{
@@ -50,9 +51,10 @@ namespace ProjectTextEditorPlugin
 			parent.SaveRequested += Parent_SaveRequested;
 			parent.WindowClosing += Parent_WindowClosing;
 			parent.ProjectChanged += Parent_ProjectChanged;
+            parent.MegaMenuShowing += Parent_MegaMenuShowing;
 		}
 
-		public override string GetState()
+        public override string GetState()
 		{
 			return null;
 		}
@@ -88,7 +90,22 @@ namespace ProjectTextEditorPlugin
 					break;
 			}
         }
+
+        private void Parent_MegaMenuShowing(IPluginChildWindow sender)
+        {
+            undoToolStripMenuItem.Enabled = textChanged;
+        }
         
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateProject(project); // Reload from disk
+        }
+        
+        private void txtText_TextChanged(object sender, EventArgs e)
+        {
+            textChanged = true;
+        }
+
         private void UpdateProject(IProject newProject)
         {
             project = newProject;
@@ -107,6 +124,7 @@ namespace ProjectTextEditorPlugin
                 {
                     ProjectTextData data = (ProjectTextData)dataSerializer.Deserialize(reader);
                     EditText = string.Join(Environment.NewLine, data.Lines);
+                    textChanged = false;
                 }
             }
             catch (Exception e)
@@ -134,6 +152,7 @@ namespace ProjectTextEditorPlugin
             }
 
 			lastSavedValue = text;
+            textChanged = false;
 		}
 
         [XmlRoot(xmlRoot)]
