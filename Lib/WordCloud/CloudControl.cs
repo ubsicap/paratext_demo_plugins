@@ -118,8 +118,17 @@ namespace Gma.CodeCloud.Controls
         }
 
         protected override void OnResize(EventArgs eventargs)
-        {
-            BuildLayout();
+		{
+			if (IsDisposed)
+				return;
+			try
+			{
+				BuildLayout();
+			}
+			catch
+			{
+                // This can crash during shutdown, and we don't care.
+			}
             base.OnResize(eventargs);
         }
 
