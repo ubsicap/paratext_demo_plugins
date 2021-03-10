@@ -32,8 +32,7 @@ namespace ChapterWordCloudPlugin
 		/// </summary>
 		private static void Run(IWindowPluginHost host, IParatextChildState windowState)
 		{
-			var wordle = new WordCloudControl(windowState.VerseRef, windowState.Project);
-			host.ShowEmbeddedUi(wordle, windowState.Project);
+			host.ShowEmbeddedUi(new WordCloudControl(), windowState.Project);
 		}
 	}
 }

@@ -57,7 +57,7 @@ namespace ProjectTextEditorPlugin
         /// </summary>
         private static void Run(IWindowPluginHost ptHost, IParatextChildState activeProjectState)
         {
-            EditTextControl control = new EditTextControl(activeProjectState.Project);
+            EditTextControl control = new EditTextControl();
             ptHost.ShowEmbeddedUi(control, activeProjectState.Project);
         }
     }

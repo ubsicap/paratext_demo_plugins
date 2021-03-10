@@ -10,7 +10,7 @@ namespace Gma.CodeCloud.Controls
 {
     public class CloudControl : Panel
     {
-        private IEnumerable<IWord> m_Words;
+        private List<IWord> m_Words;
         readonly Color[] m_DefaultPalette = new[] { Color.DarkRed, Color.DarkBlue, Color.DarkGreen, Color.Navy, Color.DarkCyan, Color.DarkOrange, Color.DarkGoldenrod, Color.DarkKhaki, Color.Blue, Color.Red, Color.Green };
         private Color[] m_Palette;
         private LayoutType m_LayoutType;
@@ -197,9 +197,9 @@ namespace Gma.CodeCloud.Controls
             get { return m_Words; }
             set
             {
-                m_Words = value;
                 if (value==null) {return;}
-
+                
+                m_Words = value.ToList();
                 IWord first = m_Words.First();
                 if (first!=null)
                 {

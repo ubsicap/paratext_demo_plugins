@@ -21,14 +21,8 @@ namespace ProjectTextEditorPlugin
 		{
             InitializeComponent();
 			label1.Tag = label1.Text;
-			Title = ProjectTextEditorPlugin.pluginName;
 		}
-
-		public EditTextControl(IProject project) : this()
-        {
-			UpdateProject(project);
-        }
-
+        
         /// <summary>
         /// Gets/sets the text in the textbox
         /// </summary>
@@ -43,11 +37,12 @@ namespace ProjectTextEditorPlugin
 			}
         }
 
-		public override bool IncludeReferenceInTitleBar => false;
-
-		public override void OnAddedToParent(IPluginChildWindow parent)
+		public override void OnAddedToParent(IPluginChildWindow parent, string state)
 		{
-			parent.Icon = Resources.icon;
+            parent.Icon = Resources.icon;
+            parent.SetTitle(ProjectTextEditorPlugin.pluginName, false);
+            UpdateProject(parent.CurrentState.Project);
+
 			parent.SaveRequested += Parent_SaveRequested;
 			parent.WindowClosing += Parent_WindowClosing;
 			parent.ProjectChanged += Parent_ProjectChanged;
@@ -59,12 +54,12 @@ namespace ProjectTextEditorPlugin
 			return null;
 		}
 
-		public override void RestoreFromState(IVerseRef reference, IProject proj, string state)
-		{
-			UpdateProject(proj);
-		}
+        public override void DoLoad()
+        {
+            // Nothing to do
+        }
 
-		private void Parent_ProjectChanged(IPluginChildWindow sender, IProject newProject)
+        private void Parent_ProjectChanged(IPluginChildWindow sender, IProject newProject)
         {
             UpdateProject(newProject);
         }

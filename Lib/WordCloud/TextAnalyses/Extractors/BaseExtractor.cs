@@ -28,17 +28,16 @@ namespace Gma.CodeCloud.Controls.TextAnalyses.Extractors
                     if (word.Length > 1)
                     {
                         yield return word.ToString();
-                        OnWordPorcessed(word);
+                        OnWordProcessed(word);
                     }
                     word.Length = 0;
                 }
-                OnCharPorcessed(ch);
+                OnCharProcessed(ch);
             }
         }
 
-        protected virtual void OnCharPorcessed(char ch) { }
-        protected virtual void OnWordPorcessed(StringBuilder word) { }
-        protected virtual void OnLinePorcessed(string line) { }
+        protected virtual void OnCharProcessed(char ch) { }
+        protected virtual void OnWordProcessed(StringBuilder word) { }
 
         public IEnumerator<string> GetEnumerator()
         {
