@@ -18,12 +18,12 @@ Welcome to the Paratext demo plugins.
 
 # Getting started
 
-* [Setup Instructions](docs/Setup%20Instructions.md)
+* [Setup Instructions](Setup%20Instructions.md)
 
-* [Linux Setup Instructions](docs/Linux%20Setup%20Instructions.md)
+* [Linux Setup Instructions](Linux%20Setup%20Instructions.md)
 
-* [Plugin Metadata Reference](docs/Plugin%20Metadata%20Reference.md)
+* [Plugin Metadata Reference](Plugin%20Metadata%20Reference.md)
 
-* [Plugin API Reference](docs/Plugin%20API%20Reference.md)
+* [Plugin API Reference](Plugin%20API%20Reference.md)
 
-* [Deployment](docs/Deployment.md)
+* [Deployment](Deployment.md)
