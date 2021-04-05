@@ -108,7 +108,7 @@ namespace ProjectTextEditorPlugin
 
             try
             {
-                TextReader reader = project.GetPluginDataReader(this, savedDataId);
+                TextReader reader = project.GetPluginData(this, savedDataId);
                 if (reader == null)
                 {
                     EditText = "";
@@ -138,8 +138,7 @@ namespace ProjectTextEditorPlugin
             data.Lines = text.Split(new [] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
             try
             {
-                using (TextWriter writer = project.GetPluginDataWriter(this, savedDataId))
-                    dataSerializer.Serialize(writer, data);
+                project.PutPluginData(this, savedDataId, writer => dataSerializer.Serialize(writer, data));
             }
             catch (Exception e)
             {
