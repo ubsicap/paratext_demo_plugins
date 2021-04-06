@@ -12,17 +12,22 @@ namespace ChapterWordCloudPlugin
 {
     public partial class WordCloudControl : EmbeddedPluginControl
     {
+        #region Member variables
 		private IVerseRef m_reference;
 		private IProject m_project;
-
+        private Thread m_updateThread;
+        #endregion
+        
+        #region Constructor
 		public WordCloudControl()
 		{
 			InitializeComponent();
             progressBar1.Hide();
 		}
+        #endregion
 
 		#region Implementation of EmbeddedPluginControl
-		public override void OnAddedToParent(IPluginChildWindow parent, string state)
+		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)
 		{
             parent.SetTitle(ChapterWordCloudPlugin.pluginName);
 
@@ -38,13 +43,14 @@ namespace ChapterWordCloudPlugin
 			return null;
 		}
 
-        public override void DoLoad()
+        public override void DoLoad(IProgressInfo progress)
         {
-            UpdateWordle(null);
+            UpdateWordle(new ProgressInfoWrapper(progress));
         }
 
         #endregion
 
+        #region Event handlers
         private void Parent_VerseRefChanged(IPluginChildWindow sender, IVerseRef oldReference, IVerseRef newReference)
 		{
             Debug.Assert(oldReference.Equals(m_reference));
@@ -58,20 +64,20 @@ namespace ChapterWordCloudPlugin
             m_project = newProject;
             UpdateWordleAsync();
         }
+        #endregion
 
-        private Thread updateThread;
-
+        #region Private helper methods
         private void UpdateWordleAsync()
         {
-            if (updateThread != null && updateThread.IsAlive)
+            if (m_updateThread != null && m_updateThread.IsAlive)
             {
-                updateThread.Abort();
-                updateThread.Join();
+                m_updateThread.Abort();
+                m_updateThread.Join();
             }
 
-            updateThread = new Thread(UpdateWordleWithProgress);
-            updateThread.IsBackground = true;
-            updateThread.Start();
+            m_updateThread = new Thread(UpdateWordleWithProgress);
+            m_updateThread.IsBackground = true;
+            m_updateThread.Start();
         }
 
         private void UpdateWordleWithProgress()
@@ -92,6 +98,35 @@ namespace ChapterWordCloudPlugin
 
             cloudControl.WeightedWords = terms.CountOccurences().SortByOccurences();
         }
+        #endregion
+
+        #region ProgressInfoWrapper class
+        private sealed class ProgressInfoWrapper : IProgressIndicator
+        {
+            private readonly IProgressInfo m_Progress;
+            private int m_Maximum;
+
+            public ProgressInfoWrapper(IProgressInfo progress)
+            {
+                m_Progress = progress;
+            }
+
+            public int Maximum
+            {
+                get => m_Maximum;
+                set
+                {
+                    m_Maximum = value;
+                    m_Progress.Initialize("Loading...", m_Maximum);
+                }
+            }
+
+            public void Increment(int value)
+            {
+                m_Progress.Value++;
+            }
+        }
+        #endregion
 
         #region ProgressBarWrapper class
         private class ProgressBarWrapper : IProgressIndicator

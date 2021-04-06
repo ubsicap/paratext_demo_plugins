@@ -37,7 +37,7 @@ namespace ProjectTextEditorPlugin
 			}
         }
 
-		public override void OnAddedToParent(IPluginChildWindow parent, string state)
+		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)
 		{
             parent.Icon = Resources.icon;
             parent.SetTitle(ProjectTextEditorPlugin.pluginName, false);
@@ -54,7 +54,7 @@ namespace ProjectTextEditorPlugin
 			return null;
 		}
 
-        public override void DoLoad()
+        public override void DoLoad(IProgressInfo progress)
         {
             // Nothing to do
         }
