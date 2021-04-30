@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -14,6 +15,7 @@ namespace ProjectTextEditorPlugin
 
         private static readonly XmlSerializer dataSerializer = new XmlSerializer(typeof(ProjectTextData));
         private IProject project;
+        private IWriteLock pluginFileLock;
 		private string lastSavedValue;
         private bool textChanged;
 
@@ -66,25 +68,33 @@ namespace ProjectTextEditorPlugin
 
         private void Parent_SaveRequested(IPluginChildWindow sender)
         {
-            SaveText(EditText);
+			if (lastSavedValue != EditText)
+				SaveText();
         }
 
         private void Parent_WindowClosing(IPluginChildWindow sender, System.ComponentModel.CancelEventArgs args)
         {
-            if (lastSavedValue == EditText)
-                return;
+            PromptAndSave(args);
+        }
+
+		private void PromptAndSave(System.ComponentModel.CancelEventArgs cancelEventArgs = null)
+		{
+			if (lastSavedValue == EditText)
+				return;
+
 			var result = MessageBox.Show(this, "Do you want to save the text?", ProjectTextEditorPlugin.pluginName,
-				MessageBoxButtons.YesNoCancel);
+				cancelEventArgs == null ? MessageBoxButtons.YesNo : MessageBoxButtons.YesNoCancel);
 			switch (result)
 			{
 				case DialogResult.Cancel:
-					args.Cancel = true;
+                    Debug.Assert(cancelEventArgs != null);
+					cancelEventArgs.Cancel = true;
 					break;
 				case DialogResult.Yes:
-					SaveText(EditText);
+					SaveText();
 					break;
 			}
-        }
+		}
 
         private void Parent_MegaMenuShowing(IPluginChildWindow sender)
         {
@@ -101,50 +111,96 @@ namespace ProjectTextEditorPlugin
             textChanged = true;
         }
 
-        private void UpdateProject(IProject newProject)
-        {
-            project = newProject;
-			label1.Text = string.Format((string)label1.Tag, project.ShortName);
+        private void DisposeLock(IWriteLock lockToDispose)
+		{
+            Debug.Assert(lockToDispose == pluginFileLock);
 
-            try
-            {
-                TextReader reader = project.GetPluginData(this, savedDataId);
-                if (reader == null)
-                {
-                    EditText = "";
-                    return;
-                }
+            PromptAndSave();
+			pluginFileLock?.Dispose();
+			pluginFileLock = null;
+		}
 
-                using (reader)
-                {
-                    ProjectTextData data = (ProjectTextData)dataSerializer.Deserialize(reader);
-                    EditText = string.Join(Environment.NewLine, data.Lines);
-                    textChanged = false;
-                }
-            }
-            catch (Exception e)
-            {
-                EditText = "";
-                MessageBox.Show($"Unable to load the text:\n{e.Message}", ProjectTextEditorPlugin.pluginName);
-            }
-        }
+		protected override void OnEnter(EventArgs e)
+		{
+			base.OnEnter(e);
+            if (project != null && pluginFileLock == null)
+				pluginFileLock = project.RequestWriteLock(this, DisposeLock, savedDataId);
+		}
 
-        /// <summary>
-        /// Saves the specified text to the Paratext settings directory.
+		private void UpdateProject(IProject newProject)
+		{
+			if (project != null)
+			{
+				PromptAndSave();
+				newProject.ProjectDataChanged -= NewProjectOnProjectDataChanged;
+			}
+
+			project = newProject;
+			pluginFileLock?.Dispose();
+			pluginFileLock = null;
+            newProject.ProjectDataChanged += NewProjectOnProjectDataChanged;
+
+			NewProjectOnProjectDataChanged(newProject, ProjectDataChangeType.WholeProject);
+		}
+
+		private void NewProjectOnProjectDataChanged(IProject sender, ProjectDataChangeType details)
+		{
+			Debug.Assert(pluginFileLock == null);
+			Debug.Assert(sender == project);
+
+			if (details != ProjectDataChangeType.WholeProject)
+				return;
+
+			pluginFileLock = project.RequestWriteLock(this, DisposeLock, savedDataId);
+			txtText.Enabled = pluginFileLock != null;
+
+			label1.Text = string.Format((txtText.Enabled ? (string)label1.Tag : "{0} project is not editable."), project.ShortName);
+
+			try
+			{
+				TextReader reader = project.GetPluginData(this, savedDataId);
+				if (reader == null)
+				{
+					EditText = "";
+					return;
+				}
+
+				using (reader)
+				{
+					ProjectTextData data = (ProjectTextData)dataSerializer.Deserialize(reader);
+					EditText = string.Join(Environment.NewLine, data.Lines);
+					textChanged = false;
+				}
+			}
+			catch (Exception e)
+			{
+				EditText = "";
+				MessageBox.Show($"Unable to load the text:\n{e.Message}", ProjectTextEditorPlugin.pluginName);
+			}
+		}
+
+		/// <summary>
+        /// Saves the current text.
         /// </summary>
-        private void SaveText(string text)
-        {
+        private void SaveText()
+		{
+			string text = EditText;
+
             ProjectTextData data = new ProjectTextData();
             data.Lines = text.Split(new [] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
             try
             {
-                project.PutPluginData(this, savedDataId, writer => dataSerializer.Serialize(writer, data));
-            }
+                if (pluginFileLock == null)
+					throw new Exception("Ack! We didn't get a lock!");
+                project.PutPluginData(pluginFileLock, this, savedDataId, writer => dataSerializer.Serialize(writer, data));
+			}
             catch (Exception e)
             {
                 MessageBox.Show($"Unable to save the text:\n{e.Message}", ProjectTextEditorPlugin.pluginName);
-            }
+				return;
+			}
 
+            pluginFileLock.SendNotifications();
 			lastSavedValue = text;
             textChanged = false;
 		}
