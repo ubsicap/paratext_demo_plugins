@@ -109,6 +109,7 @@ namespace ProjectTextEditorPlugin
         private void txtText_TextChanged(object sender, EventArgs e)
         {
             textChanged = true;
+			ObtainLock();
         }
 
         private void DisposeLock(IWriteLock lockToDispose)
@@ -123,7 +124,12 @@ namespace ProjectTextEditorPlugin
 		protected override void OnEnter(EventArgs e)
 		{
 			base.OnEnter(e);
-            if (project != null && pluginFileLock == null)
+			ObtainLock();
+		}
+
+		private void ObtainLock()
+		{
+			if (pluginFileLock == null && project != null)
 				pluginFileLock = project.RequestWriteLock(this, DisposeLock, savedDataId);
 		}
 
