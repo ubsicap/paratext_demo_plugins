@@ -92,6 +92,7 @@
 			// 
 			// currentChapterToolStripMenuItem
 			// 
+			this.currentChapterToolStripMenuItem.Checked = true;
 			this.currentChapterToolStripMenuItem.CheckOnClick = true;
 			this.currentChapterToolStripMenuItem.Name = "currentChapterToolStripMenuItem";
 			this.currentChapterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);

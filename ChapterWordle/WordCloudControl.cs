@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using Gma.CodeCloud.Controls.TextAnalyses.Extractors;
@@ -15,7 +16,8 @@ namespace ChapterWordCloudPlugin
         #region Member variables
 		private IVerseRef m_reference;
 		private IProject m_project;
-        private Thread m_updateThread;
+		private Regex m_regexWordExtractor;
+		private Thread m_updateThread;
 		private IWindowPluginHost m_host;
 		private string m_selectedText;
         #endregion
@@ -37,10 +39,25 @@ namespace ChapterWordCloudPlugin
 			parent.VerseRefChanged += Parent_VerseRefChanged;
             parent.ProjectChanged += Parent_ProjectChanged;
 
-            m_project = parent.CurrentState.Project;
-            m_reference = parent.CurrentState.VerseRef;
+            SetProject(parent.CurrentState.Project);
+			m_reference = parent.CurrentState.VerseRef;
 			m_selectedText = state;
 			selectedTextToolStripMenuItem.Checked = state != null;
+		}
+
+		private void SetProject(IProject project)
+		{
+			if (m_project != null)
+				m_project.ProjectDeleted -= HandleProjectDeleted;
+
+			m_project = project;
+            project.ProjectDeleted += HandleProjectDeleted;
+			m_regexWordExtractor = new Regex(m_project.Language.WordMatchRegex, RegexOptions.Compiled);
+		}
+
+		private void HandleProjectDeleted()
+		{
+			m_project = null;
 		}
 
 		public override string GetState()
@@ -66,7 +83,7 @@ namespace ChapterWordCloudPlugin
 
         private void Parent_ProjectChanged(IPluginChildWindow sender, IProject newProject)
         {
-            m_project = newProject;
+            SetProject(newProject);
             UpdateWordleAsync();
         }
 
@@ -162,7 +179,7 @@ namespace ChapterWordCloudPlugin
 				text = string.Join(" ", tokens);
 			}
 
-			IEnumerable<string> terms = new StringExtractor(text, progress);
+			IEnumerable<string> terms = m_regexWordExtractor.Matches(text).Cast<Match>().Select(m => m.Value).ToList(); //new StringExtractor(text, progress);
 			if (!terms.Any())
 			{
 				terms = selectedTextToolStripMenuItem.Checked ? new[] {"Nothing", "selected"} :
