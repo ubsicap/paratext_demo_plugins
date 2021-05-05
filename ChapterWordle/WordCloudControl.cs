@@ -122,7 +122,7 @@ namespace ChapterWordCloudPlugin
 
         private void SetSelectedText(IParatextChildState activeWindowState, IReadOnlyList<ISelection> selections = null)
 		{
-			if (!activeWindowState.Project.Equals(m_project))
+			if (activeWindowState.Project != null && !activeWindowState.Project.Equals(m_project))
 				m_selectedText = "Active window is for a different project";
 			else
 			{
@@ -131,6 +131,14 @@ namespace ChapterWordCloudPlugin
 				
 				if (selections == null)
 					m_selectedText = "Nothing selected";
+				else if (selections.Any(s => s is IReferenceListItem) && !m_host.ReferenceList.Project.Equals(m_project))
+                {
+                    // Note that while a reference list has its project set based on the one that originally "created"
+                    // it, more items can be added to later it based on a differnet project. While this is unusual, it
+                    // means that m_host.ReferenceList.Project is only kind of informative and it not 100% reliable. The
+                    // items themselves do not remember which project they were created for.
+					m_selectedText = "Reference list is for a different project";
+                }
 				else
 				{
 					// TODO: Only include whole words.
