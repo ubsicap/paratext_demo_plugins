@@ -16,6 +16,8 @@ namespace ChapterWordCloudPlugin
 		private IVerseRef m_reference;
 		private IProject m_project;
         private Thread m_updateThread;
+		private IWindowPluginHost m_host;
+		private string m_selectedText;
         #endregion
         
         #region Constructor
@@ -29,18 +31,21 @@ namespace ChapterWordCloudPlugin
 		#region Implementation of EmbeddedPluginControl
 		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)
 		{
-            parent.SetTitle(ChapterWordCloudPlugin.pluginName);
+			m_host = host;
+			parent.SetTitle(ChapterWordCloudPlugin.pluginName);
 
 			parent.VerseRefChanged += Parent_VerseRefChanged;
             parent.ProjectChanged += Parent_ProjectChanged;
 
             m_project = parent.CurrentState.Project;
             m_reference = parent.CurrentState.VerseRef;
+			m_selectedText = state;
+			selectedTextToolStripMenuItem.Checked = state != null;
 		}
 
 		public override string GetState()
 		{
-			return null;
+			return m_selectedText;
 		}
 
         public override void DoLoad(IProgressInfo progress)
@@ -64,10 +69,38 @@ namespace ChapterWordCloudPlugin
             m_project = newProject;
             UpdateWordleAsync();
         }
-        #endregion
 
-        #region Private helper methods
-        private void UpdateWordleAsync()
+		private void currentChapterToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+		{
+			selectedTextToolStripMenuItem.Checked = !currentChapterToolStripMenuItem.Checked;
+			if (currentChapterToolStripMenuItem.Checked)
+			{
+				m_host.ActiveWindowSelectionChanged -= ActiveWindowSelectionChanged;
+				m_selectedText = null;
+				UpdateWordleWithProgress();
+			}
+		}
+
+		private void selectedTextToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+		{
+			currentChapterToolStripMenuItem.Checked = !selectedTextToolStripMenuItem.Checked;
+			if (selectedTextToolStripMenuItem.Checked)
+			{
+				m_host.ActiveWindowSelectionChanged += ActiveWindowSelectionChanged;
+
+                if (m_selectedText == null)
+                    SetSelectedText(m_host.ActiveWindowState);
+			}
+		}
+
+		private void ActiveWindowSelectionChanged(IPluginHost sender, IParatextChildState activeWindowState, IReadOnlyList<ISelection> currentSelections)
+		{
+			SetSelectedText(activeWindowState, currentSelections);
+		}
+		#endregion
+
+		#region Private helper methods
+		private void UpdateWordleAsync()
         {
             if (m_updateThread != null && m_updateThread.IsAlive)
             {
@@ -87,16 +120,48 @@ namespace ChapterWordCloudPlugin
             Invoke(new Action(() => progressBar1.Hide()));
         }
 
-        private void UpdateWordle(IProgressIndicator progress)
-        {
-            var tokens = m_project.GetUSFMTokens(m_reference.BookNum, m_reference.ChapterNum).OfType<IUSFMTextToken>();
-            var text = string.Join(" ", tokens);
+        private void SetSelectedText(IParatextChildState activeWindowState, IReadOnlyList<ISelection> selections = null)
+		{
+			if (!activeWindowState.Project.Equals(m_project))
+				m_selectedText = "Active window is for a different project";
+			else
+			{
+				if (selections == null)
+					selections = m_host.ActiveWindowState.Selections;
+				
+				if (selections == null)
+					m_selectedText = "Nothing selected";
+				else
+				{
+					// TODO: Only include whole words.
+					m_selectedText = string.Join(" ", selections.OfType<IScriptureTextSelection>().Select(s => s.SelectedText));
+					if (string.IsNullOrWhiteSpace(m_selectedText))
+						m_selectedText = "No Scripture text selected";
+				}
+			}
 
-            IEnumerable<string> terms = new StringExtractor(text, progress);
-            if (!terms.Any())
-                terms = new[] {"Empty", "chapter"};
+			UpdateWordleWithProgress();
+		}
 
-            cloudControl.WeightedWords = terms.CountOccurences().SortByOccurences();
+		private void UpdateWordle(IProgressIndicator progress)
+		{
+			string text;
+			if (selectedTextToolStripMenuItem.Checked)
+				text = m_selectedText;
+			else
+			{
+				var tokens = m_project.GetUSFMTokens(m_reference.BookNum, m_reference.ChapterNum).OfType<IUSFMTextToken>();
+				text = string.Join(" ", tokens);
+			}
+
+			IEnumerable<string> terms = new StringExtractor(text, progress);
+			if (!terms.Any())
+			{
+				terms = selectedTextToolStripMenuItem.Checked ? new[] {"Nothing", "selected"} :
+					new[] {"Empty", "chapter"};
+			}
+
+			cloudControl.WeightedWords = terms.CountOccurences().SortByOccurences();
         }
         #endregion
 
@@ -157,6 +222,6 @@ namespace ChapterWordCloudPlugin
                 m_ProgressBar.Invoke(new Action(() => m_ProgressBar.Increment(value)));
             }
         }
-        #endregion
+		#endregion
 	}
 }

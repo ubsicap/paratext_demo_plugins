@@ -25,7 +25,7 @@ namespace Gma.CodeCloud.Controls.TextAnalyses.Extractors
                 }
                 else
                 {
-                    if (word.Length > 1)
+                    if (word.Length > 0)
                     {
                         yield return word.ToString();
                         OnWordProcessed(word);
@@ -34,6 +34,11 @@ namespace Gma.CodeCloud.Controls.TextAnalyses.Extractors
                 }
                 OnCharProcessed(ch);
             }
+			if (word.Length > 0)
+			{
+				yield return word.ToString();
+				OnWordProcessed(word);
+			}
         }
 
         protected virtual void OnCharProcessed(char ch) { }
