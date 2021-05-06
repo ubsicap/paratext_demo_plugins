@@ -33,7 +33,6 @@ namespace ReferencePluginB
 				yield return new PluginMenuEntry("I...", RunI, PluginMenuLocation.ScrTextInsert);
 				yield return new PluginMenuEntry("J...", RunJ, PluginMenuLocation.ScrTextTools);
 				yield return new PluginMenuEntry("K...", RunK, PluginMenuLocation.ScrTextToolsChecks);
-				// TODO: This location does not work yet...
 				//yield return new PluginMenuEntry("L...", RunL, PluginMenuLocation.ListDefault);
 			}
 		}
