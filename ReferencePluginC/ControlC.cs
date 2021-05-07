@@ -18,6 +18,7 @@ namespace ReferencePluginC
 		private IVerseRef m_Reference;
 		private IProject m_Project;
 		IWindowPluginHost m_Host;
+		IPluginChildWindow m_parent;
 
 		public ControlC()
 		{
@@ -27,13 +28,12 @@ namespace ReferencePluginC
 		{
 			parent.SetTitle(PluginC.pluginName);
 			m_Host = host;
+			m_parent = parent;
 			m_Project = parent.CurrentState.Project;
 			m_Reference = parent.CurrentState.VerseRef;
 
 			parent.ProjectChanged += ProjectChanged;
 			parent.VerseRefChanged += VerseRefChanged;
-
-			ShowCurrentInfo();
 		}
 
 		private void ShowCurrentInfo()
@@ -53,6 +53,7 @@ namespace ReferencePluginC
 
 		public override void DoLoad(IProgressInfo progressInfo)
 		{
+			ShowCurrentInfo();
 		}
 
 		public void ProjectChanged(IPluginChildWindow sender, IProject newProject)
@@ -71,14 +72,22 @@ namespace ReferencePluginC
 		public void NextVerse(Object sender, EventArgs e)
 		{
 			m_Reference = m_Reference.GetNextVerse(m_Project);
-			var syncGroup = m_Host.ActiveWindowState.SyncReferenceGroup;
+
+			// Get the sync group our window belongs to:
+			var syncGroup = m_parent.CurrentState.SyncReferenceGroup;
+
+			// Tell our sync group the reference has changed:
 			m_Host.SetReferenceForSyncGroup(m_Reference, syncGroup);
 		}
 
 		public void PreviousVerse(Object sender, EventArgs e)
 		{
 			m_Reference = m_Reference.GetPreviousVerse(m_Project);
-			var syncGroup = m_Host.ActiveWindowState.SyncReferenceGroup;
+
+			// Get the sync group our window belongs to:
+			var syncGroup = m_parent.CurrentState.SyncReferenceGroup;
+
+			// Tell our sync group the reference has changed:
 			m_Host.SetReferenceForSyncGroup(m_Reference, syncGroup);
 		}
 	}

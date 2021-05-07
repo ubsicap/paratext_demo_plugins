@@ -95,7 +95,10 @@ namespace ReferencePluginF
 			}
 			else
 			{
-				m_writeLock = m_project.RequestWriteLock(this, ReleaseRequested, savedDataId);
+				if (m_writeLock == null)
+				{
+					m_writeLock = m_project.RequestWriteLock(this, ReleaseRequested, savedDataId);
+				}
 				if (m_writeLock == null)
 				{
 					MessageBox.Show("Cannot get write lock; aborting loading data");

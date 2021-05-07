@@ -20,39 +20,31 @@ namespace ReferencePluginG
 		// m_Exists is used for two purposes:
 		// 1. So we don't create a second window if Paratext closed with one open.
 		// 2. So we don't update the text if the window is closing.
-		public static bool m_Exists;
+		public static bool s_exists;
 
-		IProject m_Project;
-		IVerseRef m_VerseRef;
-		IPluginHost m_Host;
+		IProject m_project;
+		IVerseRef m_verseRef;
+		IPluginChildWindow m_parent;
 
 		public ControlG()
 		{
 			InitializeComponent();
 
-			m_Exists = true;
+			s_exists = true;
 		}
 
 		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)
 		{
-			m_Host = host;
-			if (m_Host.ActiveWindowState == null)
+			m_parent = parent;
+			if (parent.CurrentState == null)
 			{
-				if (parent.CurrentState == null)
-				{
-					m_Project = null;
-					m_VerseRef = null;
-				}
-				else
-				{
-					m_Project = parent.CurrentState.Project;
-					m_VerseRef = parent.CurrentState.VerseRef;
-				}
+				m_project = null;
+				m_verseRef = null;
 			}
 			else
 			{
-				m_Project = m_Host.ActiveWindowState.Project;
-				m_VerseRef = m_Host.ActiveWindowState.VerseRef;
+				m_project = parent.CurrentState.Project;
+				m_verseRef = parent.CurrentState.VerseRef;
 			}
 
 			parent.SetTitle(PluginG.pluginName);
@@ -62,8 +54,6 @@ namespace ReferencePluginG
 
 			m_UpdateThread = new Thread(UpdateTimeWorker);
 			m_UpdateThread.Start();
-
-			ShowProjectInfo();
 		}
 
 		public override string GetState()
@@ -73,12 +63,12 @@ namespace ReferencePluginG
 
 		public override void DoLoad(IProgressInfo progressInfo)
 		{
-			if (m_Host != null)
+			if (m_parent != null)
 			{
-				if (m_Host.ActiveWindowState != null)
+				if (m_parent.CurrentState != null)
 				{
-					m_Project = m_Host.ActiveWindowState.Project;
-					m_VerseRef = m_Host.ActiveWindowState.VerseRef;
+					m_project = m_parent.CurrentState.Project;
+					m_verseRef = m_parent.CurrentState.VerseRef;
 					Invoke((Action)(() => ShowProjectInfo()));
 				}
 			}
@@ -86,21 +76,21 @@ namespace ReferencePluginG
 
 		public void ProjectChanged(IPluginChildWindow sender, IProject newProject)
 		{
-			m_Project = newProject;
-			m_VerseRef = sender.CurrentState.VerseRef;
+			m_project = newProject;
+			m_verseRef = sender.CurrentState.VerseRef;
 			ShowProjectInfo();
 		}
 
 		public void VerseRefChanged(IPluginChildWindow sender, IVerseRef oldReference, IVerseRef newReference)
 		{
-			m_Project = sender.CurrentState.Project;
-			m_VerseRef = newReference;
+			m_project = sender.CurrentState.Project;
+			m_verseRef = newReference;
 			ShowProjectInfo();
 		}
 
 		public void WindowClosing(IPluginChildWindow sender, CancelEventArgs args)
 		{
-			m_Exists = false;
+			s_exists = false;
 		}
 
 		public void UpdateTime()
@@ -113,7 +103,7 @@ namespace ReferencePluginG
 			while (true)
 			{
 				Thread.Sleep(1 * 1000);
-				if (m_Exists)
+				if (s_exists)
 				{
 					Invoke((Action)(() => UpdateTime()));
 				}
@@ -123,31 +113,31 @@ namespace ReferencePluginG
 		private void ShowProjectInfo()
 		{
 			List<string> lines = new List<string>();
-			if (m_Project == null)
+			if (m_project == null)
 			{
 				lines.Add("No Project");
 			}
 			else
 			{
 				lines.Add($"Project Information");
-				lines.Add($"ID: {m_Project.ID}");
-				lines.Add($"Name: {m_Project.ShortName}");
-				lines.Add($"Versification: {m_Project.Versification.Type}");
-				lines.Add($"Language: {m_Project.LanguageName}");
-				lines.Add($"Type: {m_Project.Type}");
-				if (m_Project.BaseProject != null)
+				lines.Add($"ID: {m_project.ID}");
+				lines.Add($"Name: {m_project.ShortName}");
+				lines.Add($"Versification: {m_project.Versification.Type}");
+				lines.Add($"Language: {m_project.LanguageName}");
+				lines.Add($"Type: {m_project.Type}");
+				if (m_project.BaseProject != null)
 				{
-					lines.Add($"Base Project: {m_Project.BaseProject.ShortName}");
+					lines.Add($"Base Project: {m_project.BaseProject.ShortName}");
 				}
-				lines.Add($"Number of available books: {m_Project.AvailableBooks.Count()}");
+				lines.Add($"Number of available books: {m_project.AvailableBooks.Count()}");
 				lines.Add("Permissions:");
-				lines.Add($"Can edit {m_VerseRef.BookCode}: {m_Project.CanEdit(this, m_VerseRef.BookNum)}");
-				lines.Add($"Can edit data: {m_Project.CanEdit(this, DataType.PluginData)}");
-				lines.Add($"Can edit spelling status: {m_Project.CanEdit(this, DataType.SpellingStatus)}");
-				lines.Add($"Can edit Biblical terms rendering: {m_Project.CanEdit(this, DataType.TermRenderings)}");
-				lines.Add($"Can edit Biblical terms list: {m_Project.CanEdit(this, DataType.TermsList)}");
-				lines.Add($"Can approve parallel passage status: {m_Project.CanEdit(this, DataType.ParallelPassageStatus)}");
-				lines.Add($"Can update project progress: {m_Project.CanEdit(this, DataType.ProjectProgress)}");
+				lines.Add($"Can edit {m_verseRef.BookCode}: {m_project.CanEdit(this, m_verseRef.BookNum)}");
+				lines.Add($"Can edit plugin data: {m_project.CanEdit(this, DataType.PluginData)}");
+				lines.Add($"Can edit spelling status: {m_project.CanEdit(this, DataType.SpellingStatus)}");
+				lines.Add($"Can edit Biblical terms renderings: {m_project.CanEdit(this, DataType.TermRenderings)}");
+				lines.Add($"Can edit Biblical terms list: {m_project.CanEdit(this, DataType.TermsList)}");
+				lines.Add($"Can approve parallel passage status: {m_project.CanEdit(this, DataType.ParallelPassageStatus)}");
+				lines.Add($"Can update project progress: {m_project.CanEdit(this, DataType.ProjectProgress)}");
 			}
 			projectTextBox.Lines = lines.ToArray();
 		}

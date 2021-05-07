@@ -30,10 +30,14 @@ namespace ReferencePluginB
 				yield return new PluginMenuEntry("F...", RunF, PluginMenuLocation.ScrTextProjectExportAndPrint);
 				yield return new PluginMenuEntry("G...", RunG, PluginMenuLocation.ScrTextProjectAdvanced);
 				yield return new PluginMenuEntry("H...", RunH, PluginMenuLocation.ScrTextEdit);
-				yield return new PluginMenuEntry("I...", RunI, PluginMenuLocation.ScrTextInsert);
+
+				// TODO: uncomment when fixed.
+				// This causes an exception to be thrown when creating a list window:
+				//yield return new PluginMenuEntry("I...", RunI, PluginMenuLocation.ScrTextInsert);
+
 				yield return new PluginMenuEntry("J...", RunJ, PluginMenuLocation.ScrTextTools);
 				yield return new PluginMenuEntry("K...", RunK, PluginMenuLocation.ScrTextToolsChecks);
-				//yield return new PluginMenuEntry("L...", RunL, PluginMenuLocation.ListDefault);
+				yield return new PluginMenuEntry("L...", RunL, PluginMenuLocation.ListDefault);
 			}
 		}
 

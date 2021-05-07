@@ -58,6 +58,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EmbeddedUiPluginInterfaces, Version=0.27.0.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\ParatextEmbeddedUiPluginInterfaces.0.27.0-alpha\lib\net461\EmbeddedUiPluginInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="JetBrains.Annotations, Version=2021.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.2021.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>

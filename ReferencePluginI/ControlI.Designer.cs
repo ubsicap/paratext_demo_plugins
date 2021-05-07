@@ -98,6 +98,7 @@ namespace ReferencePluginI
 			// UsfmRadioButton
 			// 
 			this.UsfmRadioButton.AutoSize = true;
+			this.UsfmRadioButton.Checked = true;
 			this.UsfmRadioButton.Location = new System.Drawing.Point(99, 43);
 			this.UsfmRadioButton.Name = "UsfmRadioButton";
 			this.UsfmRadioButton.Size = new System.Drawing.Size(98, 21);
@@ -122,7 +123,6 @@ namespace ReferencePluginI
 			this.UsfmTokensRadioButton.Name = "UsfmTokensRadioButton";
 			this.UsfmTokensRadioButton.Size = new System.Drawing.Size(118, 21);
 			this.UsfmTokensRadioButton.TabIndex = 6;
-			this.UsfmTokensRadioButton.TabStop = true;
 			this.UsfmTokensRadioButton.Text = "USFM Tokens";
 			this.UsfmTokensRadioButton.UseVisualStyleBackColor = true;
 			// 
@@ -133,7 +133,6 @@ namespace ReferencePluginI
 			this.UsxRadioButton.Name = "UsxRadioButton";
 			this.UsxRadioButton.Size = new System.Drawing.Size(88, 21);
 			this.UsxRadioButton.TabIndex = 7;
-			this.UsxRadioButton.TabStop = true;
 			this.UsxRadioButton.Text = "USX Text";
 			this.UsxRadioButton.UseVisualStyleBackColor = true;
 			// 

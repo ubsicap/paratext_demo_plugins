@@ -50,33 +50,47 @@ namespace ReferencePluginH
 		public void GenerateList(object sender, EventArgs e)
 		{
 			IVersification versification = m_Project.Versification;
-			IVerseRef start = versification.CreateReference(40, 1, 1);
-			IVerseRef end = versification.CreateReference(40, 1, 1);
-			Selection selection1 = new Selection(start, end, "Text", 0, "Before", "After");
-
 			List<RefItem> items = new List<RefItem>();
 
+			IVerseRef start = versification.CreateReference(40, 1, 1);
+			IVerseRef end = versification.CreateReference(40, 1, 1);
 			RefItem item1 = new RefItem()
 			{
-				Selection = selection1,
+				VerseRefStart = start,
+				VerseRefEnd = end,
+				SelectedText = "Text",
+				BeforeContext = "Before",
+				AfterContext = "After",
 				Message = "This is an information message",
 				MessageId = "Id1",
 				Severity = SeverityLevel.Information
 			};
 			items.Add(item1);
 
+			start = versification.CreateReference(40, 1, 2);
+			end = versification.CreateReference(40, 1, 2);
 			RefItem item2 = new RefItem()
 			{
-				Selection = selection1,
+				VerseRefStart = start,
+				VerseRefEnd = end,
+				SelectedText = "Text",
+				BeforeContext = "Before",
+				AfterContext = "After",
 				Message = "This is an error message",
 				MessageId = "Id2",
 				Severity = SeverityLevel.Error
 			};
 			items.Add(item2);
 
+			start = versification.CreateReference(40, 1, 3);
+			end = versification.CreateReference(40, 1, 3);
 			RefItem item3 = new RefItem()
 			{
-				Selection = selection1,
+				VerseRefStart = start,
+				VerseRefEnd = end,
+				SelectedText = "Text",
+				BeforeContext = "Before",
+				AfterContext = "After",
 				Message = "This is a warning message",
 				MessageId = "Id3",
 				Severity = SeverityLevel.Warning
@@ -130,9 +144,9 @@ namespace ReferencePluginH
 				foreach (var item in list)
 				{
 					string text = "";
-					if (item.Selection != null)	// Denied items might have null selection
+					if (item.VerseRefStart != null)	// Denied items might have null selection
 					{
-						text += $"{item.Selection.VerseRefStart} {item.Selection.SelectedText} ";
+						text += $"{item.VerseRefStart} {item.SelectedText} ";
 					}
 					text += $"{item.Severity} {item.Message}";
 					lines.Add(text);
@@ -175,7 +189,7 @@ namespace ReferencePluginH
 
 		public void ItemDoubleClicked(IReferenceList sender, IReferenceListItem item)
 		{
-			itemsText.Text = $"Item {item.Selection.VerseRefStart} {item.Selection.SelectedText}, {item.Message} double-clicked";
+			itemsText.Text = $"Item {item.VerseRefStart} {item.SelectedText}, {item.Message} double-clicked";
 		}
 
 		public void MenuClicked()
@@ -186,7 +200,16 @@ namespace ReferencePluginH
 
 	class RefItem : IReferenceListItem
 	{
-		public Selection Selection { get; set; }
+		public IVerseRef VerseRefStart { get; set; }
+		public IVerseRef VerseRefEnd { get; set; }
+		public string SelectedText { get; set; }
+		public int Offset { get; set; }
+		public string BeforeContext { get; set; }
+		public string AfterContext { get; set; }
+		bool IEquatable<ISelection>.Equals(ISelection other)
+		{
+			throw new NotImplementedException();
+		}
 		public string Message { get; set; }
 		public string MessageId { get; set; }
 		public SeverityLevel Severity { get; set; }

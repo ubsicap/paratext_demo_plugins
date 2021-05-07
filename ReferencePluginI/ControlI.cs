@@ -46,9 +46,9 @@ namespace ReferencePluginI
 			chapterText.Text = "";
 			chapterText.BringToFront();
 			changedCheckBox.Checked = false;
+			EnableRadioButtons();
 			UsfmRadioButton.Checked = true;
 			UsfmTokensRadioButton.Checked = false;
-			EnableRadioButtons();
 			UsxRadioButton.Checked = false;
 			m_WriteLock = null;
 			lockedCheckBox.Checked = false;
@@ -147,12 +147,10 @@ namespace ReferencePluginI
 
 			lockedCheckBox.Checked = true;
 
-			bool buttonchecked = true;
 			if (UsfmRadioButton.Checked)
 			{
 				m_WriteLock = m_Project.RequestWriteLock(this, ReleaseRequested, m_Reference.BookNum, m_Reference.ChapterNum);
-				string text = m_Project.GetUSFM(m_Reference.BookNum, m_Reference.ChapterNum);
-				chapterText.Text = text;
+				chapterText.Text = m_Project.GetUSFM(m_Reference.BookNum, m_Reference.ChapterNum);
 				chapterText.BringToFront();
 			}
 			else if (UsfmTokensRadioButton.Checked)
@@ -161,32 +159,24 @@ namespace ReferencePluginI
 				IEnumerable<IUSFMToken> tokens = m_Project.GetUSFMTokens(m_Reference.BookNum, m_Reference.ChapterNum);
 				GetUsfmTokens(tokens);
 			}
-			else if (UsxRadioButton.Checked)
+			else // UsxRadioButton.Checked
 			{
 				m_WriteLock = m_Project.RequestWriteLock(this, ReleaseRequested, m_Reference.BookNum);
-				string text = m_Project.GetUSX(m_Reference.BookNum);
-				chapterText.Text = text;
+				chapterText.Text = m_Project.GetUSX(m_Reference.BookNum);
 				chapterText.BringToFront();
 			}
-			else
-			{
-				MessageBox.Show("Please select one of the formats");
-				buttonchecked = false;
-			}
+
 			if (m_WriteLock == null)
 			{
 				Unlock();
 				MessageBox.Show("Unable to get a Write Lock");
-				buttonchecked = false;
-			}
-			if (buttonchecked)
-			{
-				DisableRadioButtons();
+				EnableRadioButtons();
 			}
 			else
 			{
-				EnableRadioButtons();
+				DisableRadioButtons();
 			}
+
 			changedCheckBox.Checked = false;
 		}
 
@@ -384,15 +374,13 @@ namespace ReferencePluginI
 
 		private void UpdateModifiedTokens()
 		{
-			int row = 0;
-			foreach (var token in m_Tokens)
+			for (int row=0; row < m_Tokens.Count; row++)
 			{
-				if (token is TextToken textToken)
+				if (m_Tokens[row] is TextToken textToken)
 				{
 					TextBox data = (TextBox)tableLayoutPanel.GetControlFromPosition(1, row);
 					textToken.Text = data.Text;
 				}
-				row++;
 			}
 		}
 	}

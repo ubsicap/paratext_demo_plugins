@@ -33,8 +33,6 @@ namespace ReferencePluginE
 
 			parent.ProjectChanged += ProjectChanged;
 			parent.VerseRefChanged += VerseRefChanged;
-
-			ShowScripture();
 		}
 
 		public override string GetState()
@@ -44,6 +42,9 @@ namespace ReferencePluginE
 
 		public override void DoLoad(IProgressInfo progressInfo)
 		{
+			// Since DoLoad is done on a different thread than what was used
+			// to create the control, we need to use the Invoke method.
+			Invoke((Action)(() => ShowScripture()));
 		}
 
 		public void ProjectChanged(IPluginChildWindow sender, IProject newProject)
@@ -67,21 +68,7 @@ namespace ReferencePluginE
 			{
 				if (token is IUSFMMarkerToken marker)
 				{
-					switch (marker.Type)
-					{
-						case MarkerType.Book:
-							lines.Add("Book Marker: " + marker.Data);
-							break;
-						case MarkerType.Chapter:
-							lines.Add("Chapter Marker: " + marker.Data);
-							break;
-						case MarkerType.Verse:
-							lines.Add("Verse Marker: " + marker.Data);
-							break;
-						default:
-							lines.Add("Other Marker: " + marker.Data);
-							break;
-					}
+					lines.Add($"{marker.Type} Marker: {marker.Data}");
 				}
 				else if (token is IUSFMTextToken textToken)
 				{
@@ -93,7 +80,7 @@ namespace ReferencePluginE
 				}
 				else
 				{
-					lines.Add("Other token type: " + token.ToString());
+					lines.Add("Unexpected token type: " + token.ToString());
 				}
 			}
 			textBox.Lines = lines.ToArray();
