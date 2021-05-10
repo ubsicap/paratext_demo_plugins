@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginH", "Referen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginI", "ReferencePluginI\ReferencePluginI.csproj", "{8E6809B9-F885-4260-85FF-AD2676A1B8DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginJ", "ReferencePluginJ\ReferencePluginJ.csproj", "{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,14 @@ Global
 		{8E6809B9-F885-4260-85FF-AD2676A1B8DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E6809B9-F885-4260-85FF-AD2676A1B8DB}.Release|x64.ActiveCfg = Release|Any CPU
 		{8E6809B9-F885-4260-85FF-AD2676A1B8DB}.Release|x64.Build.0 = Release|Any CPU
+		{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}.Debug|x64.Build.0 = Debug|Any CPU
+		{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}.Release|x64.ActiveCfg = Release|Any CPU
+		{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
