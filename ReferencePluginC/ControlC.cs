@@ -53,7 +53,7 @@ namespace ReferencePluginC
 
 		public override void DoLoad(IProgressInfo progressInfo)
 		{
-			ShowCurrentInfo();
+			Invoke((Action)(() => ShowCurrentInfo()));
 		}
 
 		public void ProjectChanged(IPluginChildWindow sender, IProject newProject)

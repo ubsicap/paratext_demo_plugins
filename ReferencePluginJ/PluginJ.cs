@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using Paratext.PluginInterfaces;
 
 
-namespace ReferencePluginI
+namespace ReferencePluginJ
 {
-    public class PluginI : IParatextWindowPlugin
+    public class PluginJ : IParatextWindowPlugin
     {
-		public const string pluginName = "Reference Plugin I";
+		public const string pluginName = "Reference Plugin J";
 		public string Name => pluginName;
-		public string Description => "Exercises reading and writing scripture data.";
+		public string Description => "Demonstrates receiving notifications of selection changes.";
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";
@@ -23,7 +23,7 @@ namespace ReferencePluginI
 		{
 			get
 			{
-				yield return new WindowPluginMenuEntry("PluginI...", Run, PluginMenuLocation.ScrTextTools);
+				yield return new WindowPluginMenuEntry("PluginJ...", Run, PluginMenuLocation.ScrTextEdit);
 			}
 		}
 
@@ -32,7 +32,7 @@ namespace ReferencePluginI
 		/// </summary>
 		private void Run(IWindowPluginHost host, IParatextChildState windowState)
 		{
-			host.ShowEmbeddedUi(new ControlI(), windowState.Project);
+			host.ShowEmbeddedUi(new ControlJ(), windowState.Project);
 		}
 	}
 }

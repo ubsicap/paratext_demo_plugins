@@ -8,6 +8,8 @@ namespace ReferencePluginA
 {
     public class PluginA : IParatextStartupAutomaticPlugin
 	{
+		IPluginHost m_host;
+
 		public const string pluginName = "Reference Plugin A";
 		public string Name => pluginName;
 		public string Description => "Demonstrates calling plugin at Paratext startup."+
@@ -18,6 +20,14 @@ namespace ReferencePluginA
 		public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
 
 		public void Run(IPluginHost host)
+		{
+			m_host = host;
+			ShowUserSettings(host);
+
+			host.UserSettings.UiLocaleChanged += UiLocaleChangedHandler;
+		}
+
+		private static void ShowUserSettings(IPluginHost host)
 		{
 			var settings = host.UserSettings;
 			string text = "";
@@ -36,6 +46,11 @@ namespace ReferencePluginA
 
 			MessageBox.Show(text, pluginName,
 				MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		void UiLocaleChangedHandler(string newLocale)
+		{
+			ShowUserSettings(m_host);
 		}
 	}
 }

@@ -16,20 +16,14 @@ namespace ReferencePluginI
 {
 	public partial class ControlI : EmbeddedPluginControl
 	{
-		private IWindowPluginHost m_Host;
 		private IVerseRef m_Reference;
-		private IProject m_Project;
+		private IProject m_project;
 		private List<IUSFMToken> m_Tokens;
 		private IWriteLock m_WriteLock;
 
 		public ControlI()
 		{
 			InitializeComponent();
-		}
-
-		public ControlI(IWindowPluginHost host) : this()
-		{
-			m_Host = host;
 			m_WriteLock = null;
 		}
 
@@ -37,8 +31,7 @@ namespace ReferencePluginI
 		{
 			parent.SetTitle(PluginI.pluginName);
 
-			m_Host = host;
-			m_Project = parent.CurrentState.Project;
+			SetProject(parent.CurrentState.Project);
 			m_Reference = parent.CurrentState.VerseRef;
 			chapterText.Text = "Click 'Get Chapter'";
 			bookName.Text = m_Reference.BookCode;
@@ -80,7 +73,8 @@ namespace ReferencePluginI
 			changedCheckBox.Checked = false;
 			if (m_WriteLock != null)
 			{
-				m_WriteLock.Dispose();
+				IWriteLock temp = m_WriteLock;
+				temp.Dispose();
 				m_WriteLock = null;
 			}
 			lockedCheckBox.Checked = false;
@@ -99,7 +93,10 @@ namespace ReferencePluginI
 
 		private void SaveRequested(IPluginChildWindow sender)
 		{
-			PutScripture();
+			if (changedCheckBox.Checked)
+			{
+				PutScripture();
+			}
 		}
 
 		private void WindowClosing(IPluginChildWindow sender, CancelEventArgs args)
@@ -113,14 +110,34 @@ namespace ReferencePluginI
 			PromptSaveAndUnlock();
 
 			// Then remember the new project
-			m_Project = newProject;
+			SetProject(newProject);
 		}
+
+		private void ScriptureDataChangedHandler(IProject sender, int bookNum, int chapterNum)
+		{
+			Unlock();
+		}
+
+		private void SetProject(IProject newProject)
+		{
+			if (m_project != null)
+			{
+				m_project.ScriptureDataChanged -= ScriptureDataChangedHandler;
+			}
+
+			m_project = newProject;
+			if (newProject != null)
+			{
+				newProject.ScriptureDataChanged += ScriptureDataChangedHandler;
+			}
+		}
+
 
 		private void PromptSaveAndUnlock()
 		{
 			if (changedCheckBox.Checked)
 			{
-				var response = MessageBox.Show("Save changed data?", "Plugin F", MessageBoxButtons.YesNo);
+				var response = MessageBox.Show("Save changed data?", "Plugin I", MessageBoxButtons.YesNo);
 				if (response == DialogResult.Yes)
 				{
 					PutScripture();
@@ -133,7 +150,7 @@ namespace ReferencePluginI
 
 		public void GetScripture(object sender, EventArgs e)
 		{
-			if (m_Project == null)
+			if (m_project == null)
 			{
 				MessageBox.Show("No project selected");
 				return;
@@ -149,20 +166,20 @@ namespace ReferencePluginI
 
 			if (UsfmRadioButton.Checked)
 			{
-				m_WriteLock = m_Project.RequestWriteLock(this, ReleaseRequested, m_Reference.BookNum, m_Reference.ChapterNum);
-				chapterText.Text = m_Project.GetUSFM(m_Reference.BookNum, m_Reference.ChapterNum);
+				m_WriteLock = m_project.RequestWriteLock(this, ReleaseRequested, m_Reference.BookNum, m_Reference.ChapterNum);
+				chapterText.Text = m_project.GetUSFM(m_Reference.BookNum, m_Reference.ChapterNum);
 				chapterText.BringToFront();
 			}
 			else if (UsfmTokensRadioButton.Checked)
 			{
-				m_WriteLock = m_Project.RequestWriteLock(this, ReleaseRequested, m_Reference.BookNum, m_Reference.ChapterNum);
-				IEnumerable<IUSFMToken> tokens = m_Project.GetUSFMTokens(m_Reference.BookNum, m_Reference.ChapterNum);
+				m_WriteLock = m_project.RequestWriteLock(this, ReleaseRequested, m_Reference.BookNum, m_Reference.ChapterNum);
+				IEnumerable<IUSFMToken> tokens = m_project.GetUSFMTokens(m_Reference.BookNum, m_Reference.ChapterNum);
 				GetUsfmTokens(tokens);
 			}
 			else // UsxRadioButton.Checked
 			{
-				m_WriteLock = m_Project.RequestWriteLock(this, ReleaseRequested, m_Reference.BookNum);
-				chapterText.Text = m_Project.GetUSX(m_Reference.BookNum);
+				m_WriteLock = m_project.RequestWriteLock(this, ReleaseRequested, m_Reference.BookNum);
+				chapterText.Text = m_project.GetUSX(m_Reference.BookNum);
 				chapterText.BringToFront();
 			}
 
@@ -290,7 +307,7 @@ namespace ReferencePluginI
 
 		private void PutScripture()
 		{
-			if (m_Project == null)
+			if (m_project == null)
 			{
 				MessageBox.Show("No project selected");
 				return;
@@ -314,7 +331,7 @@ namespace ReferencePluginI
 				string text = chapterText.Text;
 				try
 				{
-					m_Project.PutUSFM(m_WriteLock, text, m_Reference.BookNum);
+					m_project.PutUSFM(m_WriteLock, text, m_Reference.BookNum);
 					putSucceeded = true;
 				}
 				catch (Exception ex)
@@ -327,7 +344,7 @@ namespace ReferencePluginI
 				UpdateModifiedTokens();
 				try
 				{
-					m_Project.PutUSFMTokens(m_WriteLock, m_Tokens, m_Reference.BookNum);
+					m_project.PutUSFMTokens(m_WriteLock, m_Tokens, m_Reference.BookNum);
 					putSucceeded = true;
 				}
 				catch (Exception ex)
@@ -340,7 +357,7 @@ namespace ReferencePluginI
 				string text = chapterText.Text;
 				try
 				{
-					m_Project.PutUSX(m_WriteLock, text);
+					m_project.PutUSX(m_WriteLock, text);
 					putSucceeded = true;
 				}
 				catch (Exception ex)

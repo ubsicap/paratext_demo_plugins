@@ -51,6 +51,10 @@ namespace ReferencePluginG
 			parent.WindowClosing += WindowClosing;
 			parent.ProjectChanged += ProjectChanged;
 			parent.VerseRefChanged += VerseRefChanged;
+			if (m_project != null)
+			{
+				m_project.ProjectDataChanged += ProjectDataChanged;
+			}
 
 			m_UpdateThread = new Thread(UpdateTimeWorker);
 			m_UpdateThread.Start();
@@ -76,7 +80,16 @@ namespace ReferencePluginG
 
 		public void ProjectChanged(IPluginChildWindow sender, IProject newProject)
 		{
+			if (m_project != null)
+			{
+				m_project.ProjectDataChanged -= ProjectDataChanged;
+			}
 			m_project = newProject;
+			if (m_project != null)
+			{
+				m_project.ProjectDataChanged += ProjectDataChanged;
+			}
+
 			m_verseRef = sender.CurrentState.VerseRef;
 			ShowProjectInfo();
 		}
@@ -91,6 +104,12 @@ namespace ReferencePluginG
 		public void WindowClosing(IPluginChildWindow sender, CancelEventArgs args)
 		{
 			s_exists = false;
+		}
+
+		public void ProjectDataChanged(IProject sender, ProjectDataChangeType details)
+		{
+			MessageBox.Show($"Project has changed: {details}");
+			ShowProjectInfo();
 		}
 
 		public void UpdateTime()
