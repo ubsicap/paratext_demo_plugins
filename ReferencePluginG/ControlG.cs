@@ -31,6 +31,8 @@ namespace ReferencePluginG
 			InitializeComponent();
 
 			s_exists = true;
+			m_project = null;
+			m_verseRef = null;
 		}
 
 		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)

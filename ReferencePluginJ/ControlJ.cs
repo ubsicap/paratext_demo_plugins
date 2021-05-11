@@ -65,6 +65,8 @@ namespace ReferencePluginJ
 			List<string> lines = new List<string>();
 			foreach (var text in texts)
 			{
+				lines.Add($"Selection starts at {text.VerseRefStart.BookCode} {text.VerseRefStart.ChapterNum}:{text.VerseRefStart.VerseNum}");
+				lines.Add($"Selection ends at {text.VerseRefEnd.BookCode} {text.VerseRefEnd.ChapterNum}:{text.VerseRefEnd.VerseNum}");
 				lines.Add(text.SelectedText);
 			}
 
