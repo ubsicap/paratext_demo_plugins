@@ -15,6 +15,11 @@ namespace QuoteAnnotationPlugin
         public AnnotationSource(IProject project)
         {
             quotationMarks = project.Language.QuotationMarkInfo;
+            if (quotationMarks == null)
+			{
+                return;
+			}
+
             HashSet<string> allMarks = new HashSet<string>();
 
             // NOTE: This doesn't actually work correctly if multiple levels contain the same quotation marks,

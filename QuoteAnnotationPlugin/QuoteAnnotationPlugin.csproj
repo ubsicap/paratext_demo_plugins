@@ -9,7 +9,7 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="ParatextPluginInterfaces" Version="0.29.0-alpha" />
+    <PackageReference Include="ParatextPluginInterfaces" Version="0.30.0-alpha" />
   </ItemGroup>
 
 </Project>
