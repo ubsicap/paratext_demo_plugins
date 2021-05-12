@@ -27,7 +27,8 @@ namespace ReferencePluginD
             get
             {
                 PluginAnnotationMenuEntry entry = new PluginAnnotationMenuEntry("Highlight name of Jesus",
-                    proj => new AnnotationSource(proj));
+                    proj => new AnnotationSource(proj),
+                    "cross.png");
 
                 yield return entry;
             }

@@ -13,10 +13,14 @@ namespace ReferencePluginD
 {
 	class AnnotationSource : IPluginAnnotationSource
 	{
-        private Regex m_regex;
+        private Regex[] m_regexes;
 		public AnnotationSource(IProject project)
 		{
-            m_regex = new Regex("Jesus", RegexOptions.Compiled);
+            m_regexes = new Regex[]
+                {
+                new Regex("Jesus", RegexOptions.Compiled),
+                new Regex("Christ", RegexOptions.Compiled)
+                };
 		}
 
         public event EventHandler AnnotationsChanged;
@@ -27,18 +31,25 @@ namespace ReferencePluginD
         {
             return new[]
             {
-                new AnnotationStyle("jesus", "font-weight: bold;")
+                new AnnotationStyle("jesus", "font-weight: bold;"),
+                new AnnotationStyle("christ", "font-style: italic;")
             };
         }
 
         public IReadOnlyList<IPluginAnnotation> GetAnnotations(IVerseRef verseRef, string usfm)
         {
             List<IPluginAnnotation> annotations = new List<IPluginAnnotation>();
-            foreach (Match match in m_regex.Matches(usfm))
-            {
-                Selection sel = new Selection(match.Value, usfm.Substring(0, match.Index),
-                    usfm.Substring(match.Index + match.Length), verseRef, match.Index);
-                annotations.Add(new Annotation(sel, "jesus"));
+            var styles = GetStyleInfo(0.0);
+            for (int i=0; i < m_regexes.Count(); i++)
+			{
+                Regex regex = m_regexes[i];
+                string style = styles[i].Name;
+                foreach (Match match in regex.Matches(usfm))
+                {
+                    Selection sel = new Selection(match.Value, usfm.Substring(0, match.Index),
+                        usfm.Substring(match.Index + match.Length), verseRef, match.Index);
+                    annotations.Add(new Annotation(sel, style));
+                }
             }
 
             return annotations;
