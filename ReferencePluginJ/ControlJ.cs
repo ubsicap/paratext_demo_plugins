@@ -63,6 +63,8 @@ namespace ReferencePluginJ
 
 			var texts = currentSelections.OfType<IScriptureTextSelection>();
 			List<string> lines = new List<string>();
+			lines.Add($"There are {currentSelections.Count} current selections");
+			lines.Add($"There are {texts.Count()} text selections");
 			foreach (var text in texts)
 			{
 				lines.Add($"Selection starts at {text.VerseRefStart.BookCode} {text.VerseRefStart.ChapterNum}:{text.VerseRefStart.VerseNum}");

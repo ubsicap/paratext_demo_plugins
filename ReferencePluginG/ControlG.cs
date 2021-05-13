@@ -150,7 +150,7 @@ namespace ReferencePluginG
 				{
 					lines.Add($"Base Project: {m_project.BaseProject.ShortName}");
 				}
-				lines.Add($"Number of available books: {m_project.AvailableBooks.Count()}");
+				lines.Add("");
 				lines.Add("Permissions:");
 				lines.Add($"Can edit {m_verseRef.BookCode}: {m_project.CanEdit(this, m_verseRef.BookNum)}");
 				lines.Add($"Can edit plugin data: {m_project.CanEdit(this, DataType.PluginData)}");
@@ -159,6 +159,16 @@ namespace ReferencePluginG
 				lines.Add($"Can edit Biblical terms list: {m_project.CanEdit(this, DataType.TermsList)}");
 				lines.Add($"Can approve parallel passage status: {m_project.CanEdit(this, DataType.ParallelPassageStatus)}");
 				lines.Add($"Can update project progress: {m_project.CanEdit(this, DataType.ProjectProgress)}");
+				lines.Add("");
+				lines.Add($"Number of available books: {m_project.AvailableBooks.Count()}");
+				lines.Add("Available Books:");
+				foreach (var book in m_project.AvailableBooks)
+				{
+					string editable = m_project.CanEdit(this, book.Number) ?
+						"editable" : "not editable";
+					string scope = book.InProjectScope ? "in scope" : "not in scope";
+					lines.Add($"{book.Code} is {editable} and is {scope}");
+				}
 			}
 			projectTextBox.Lines = lines.ToArray();
 		}
