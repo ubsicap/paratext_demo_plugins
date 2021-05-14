@@ -21,7 +21,7 @@ namespace ParatextTipOfTheDayPlugin
 
 		public string Name => "Tip-of-the-Day";
 		
-        public string Description => "Displays a tip whenever Paratext's main form is displayed.";
+        public string GetDescription(string locale) => "Displays a tip whenever Paratext's main form is displayed.";
 		
         public Version Version => new Version(2, 0);
 		

@@ -13,7 +13,7 @@ namespace ReferencePluginB
     {
 		public const string pluginName = "Reference Plugin B";
 		public string Name => pluginName;
-		public string Description => "Demonstrates creating menu entries at various locations.";
+		public string GetDescription(string locale) => "Demonstrates creating menu entries at various locations.";
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";

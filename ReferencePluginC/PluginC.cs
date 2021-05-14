@@ -13,7 +13,7 @@ namespace ReferencePluginC
     {
 		public const string pluginName = "Reference Plugin C";
 		public string Name => pluginName;
-		public string Description => "Demonstrates Synchronizing Scripture reference; tab menus.";
+		public string GetDescription(string locale) => "Demonstrates Synchronizing Scripture reference; tab menus.";
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";

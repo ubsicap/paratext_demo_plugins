@@ -9,7 +9,7 @@ namespace ReferencePluginG
     {
 		public const string pluginName = "Reference Plugin G";
 		public string Name => pluginName;
-		public string Description => "Demonstrates starting plugin when Paratext main window opens.\n"+
+		public string GetDescription(string locale) => "Demonstrates starting plugin when Paratext main window opens.\n"+
 			"The plugin opens a Paratext window that displays project settings and user permissions.";
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();
