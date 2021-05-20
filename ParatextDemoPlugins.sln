@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginJ", "Referen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginD", "ReferencePluginD\ReferencePluginD.csproj", "{089E10DA-4E20-4EED-925C-420AB5F49189}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginK", "ReferencePluginK\ReferencePluginK.csproj", "{AC326C91-AC5C-43A9-9F54-6551572A45B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -189,6 +191,14 @@ Global
 		{089E10DA-4E20-4EED-925C-420AB5F49189}.Release|Any CPU.Build.0 = Release|Any CPU
 		{089E10DA-4E20-4EED-925C-420AB5F49189}.Release|x64.ActiveCfg = Release|Any CPU
 		{089E10DA-4E20-4EED-925C-420AB5F49189}.Release|x64.Build.0 = Release|Any CPU
+		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Debug|x64.Build.0 = Debug|Any CPU
+		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Release|x64.ActiveCfg = Release|Any CPU
+		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
