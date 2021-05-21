@@ -90,7 +90,7 @@ namespace ReferencePluginK
 			m_termsListBox.EndUpdate();
 		}
 
-		private void HighlightTerm(object sender, EventArgs e)
+		private void OpenBiblicalTermsTool(object sender, EventArgs e)
 		{
 			var window = m_host.BiblicalTermsWindow;
 			window.Load(m_project, (IBiblicalTerm)m_termsListBox.SelectedItem, m_list);
@@ -100,23 +100,21 @@ namespace ReferencePluginK
 		{
 			m_referencesListBox.BeginUpdate();
 			m_referencesListBox.Items.Clear();
-			if (m_termsListBox.SelectedItem == null)
-			{
-				m_lemmaTextBox.Text = "";
-				m_glossTextBox.Text = "";
-			}
-			else
-			{
-				m_lemmaTextBox.Text = ((IBiblicalTerm)m_termsListBox.SelectedItem).Lemma;
-				m_glossTextBox.Text = ((IBiblicalTerm)m_termsListBox.SelectedItem).Gloss("en");
+			m_lemmaTextBox.Text = "";
+			m_glossTextBox.Text = "";
 
-				m_referencesListBox.BeginUpdate();
-				m_referencesListBox.Items.Clear();
+			if (m_termsListBox.SelectedItem != null)
+			{
+				IBiblicalTerm term = (IBiblicalTerm)m_termsListBox.SelectedItem;
+				m_lemmaTextBox.Text = term.Lemma;
+				m_glossTextBox.Text = term.Gloss(m_localeTextBox.Text);
+
 				foreach (var r in ((IBiblicalTerm)m_termsListBox.SelectedItem).Occurrences)
 				{
 					m_referencesListBox.Items.Add($"{r.BookCode} {r.ChapterNum}:{r.VerseNum}");
 				}
 			}
+
 			m_referencesListBox.EndUpdate();
 		}
 

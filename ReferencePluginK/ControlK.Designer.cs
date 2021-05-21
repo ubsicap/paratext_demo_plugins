@@ -41,6 +41,8 @@ namespace ReferencePluginK
 			this.m_highlightTermButton = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.m_localeTextBox = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// m_termsListBox
@@ -51,7 +53,7 @@ namespace ReferencePluginK
 			this.m_termsListBox.ItemHeight = 16;
 			this.m_termsListBox.Location = new System.Drawing.Point(0, 58);
 			this.m_termsListBox.Name = "m_termsListBox";
-			this.m_termsListBox.Size = new System.Drawing.Size(154, 276);
+			this.m_termsListBox.Size = new System.Drawing.Size(154, 292);
 			this.m_termsListBox.TabIndex = 0;
 			this.m_termsListBox.SelectedIndexChanged += new System.EventHandler(this.TermSelectionChanged);
 			// 
@@ -78,15 +80,16 @@ namespace ReferencePluginK
 			// 
 			this.m_lemmaTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.m_lemmaTextBox.Location = new System.Drawing.Point(267, 117);
+			this.m_lemmaTextBox.Location = new System.Drawing.Point(267, 139);
 			this.m_lemmaTextBox.Name = "m_lemmaTextBox";
+			this.m_lemmaTextBox.ReadOnly = true;
 			this.m_lemmaTextBox.Size = new System.Drawing.Size(370, 22);
 			this.m_lemmaTextBox.TabIndex = 3;
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(160, 117);
+			this.label1.Location = new System.Drawing.Point(160, 139);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(94, 17);
 			this.label1.TabIndex = 4;
@@ -95,7 +98,7 @@ namespace ReferencePluginK
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(160, 145);
+			this.label2.Location = new System.Drawing.Point(160, 167);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(48, 17);
 			this.label2.TabIndex = 5;
@@ -105,15 +108,16 @@ namespace ReferencePluginK
 			// 
 			this.m_glossTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.m_glossTextBox.Location = new System.Drawing.Point(214, 145);
+			this.m_glossTextBox.Location = new System.Drawing.Point(214, 167);
 			this.m_glossTextBox.Name = "m_glossTextBox";
+			this.m_glossTextBox.ReadOnly = true;
 			this.m_glossTextBox.Size = new System.Drawing.Size(422, 22);
 			this.m_glossTextBox.TabIndex = 6;
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(160, 176);
+			this.label3.Location = new System.Drawing.Point(160, 198);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(85, 17);
 			this.label3.TabIndex = 7;
@@ -126,20 +130,20 @@ namespace ReferencePluginK
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.m_referencesListBox.FormattingEnabled = true;
 			this.m_referencesListBox.ItemHeight = 16;
-			this.m_referencesListBox.Location = new System.Drawing.Point(160, 202);
+			this.m_referencesListBox.Location = new System.Drawing.Point(160, 218);
 			this.m_referencesListBox.Name = "m_referencesListBox";
 			this.m_referencesListBox.Size = new System.Drawing.Size(473, 132);
 			this.m_referencesListBox.TabIndex = 8;
 			// 
 			// m_highlightTermButton
 			// 
-			this.m_highlightTermButton.Location = new System.Drawing.Point(160, 58);
+			this.m_highlightTermButton.Location = new System.Drawing.Point(163, 58);
 			this.m_highlightTermButton.Name = "m_highlightTermButton";
-			this.m_highlightTermButton.Size = new System.Drawing.Size(171, 38);
+			this.m_highlightTermButton.Size = new System.Drawing.Size(196, 38);
 			this.m_highlightTermButton.TabIndex = 9;
-			this.m_highlightTermButton.Text = "Highlight Term";
+			this.m_highlightTermButton.Text = "Open Biblical Terms Tool";
 			this.m_highlightTermButton.UseVisualStyleBackColor = true;
-			this.m_highlightTermButton.Click += new System.EventHandler(this.HighlightTerm);
+			this.m_highlightTermButton.Click += new System.EventHandler(this.OpenBiblicalTermsTool);
 			// 
 			// label4
 			// 
@@ -153,16 +157,36 @@ namespace ReferencePluginK
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(345, 58);
+			this.label5.Location = new System.Drawing.Point(375, 58);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(90, 17);
 			this.label5.TabIndex = 11;
 			this.label5.Text = "So does this.";
 			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(160, 106);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(54, 17);
+			this.label6.TabIndex = 12;
+			this.label6.Text = "Locale:";
+			// 
+			// m_localeTextBox
+			// 
+			this.m_localeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.m_localeTextBox.Location = new System.Drawing.Point(225, 106);
+			this.m_localeTextBox.Name = "m_localeTextBox";
+			this.m_localeTextBox.Size = new System.Drawing.Size(411, 22);
+			this.m_localeTextBox.TabIndex = 13;
+			// 
 			// ControlK
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.m_localeTextBox);
+			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.m_highlightTermButton);
@@ -176,7 +200,7 @@ namespace ReferencePluginK
 			this.Controls.Add(this.m_getTermsButton);
 			this.Controls.Add(this.m_termsListBox);
 			this.Name = "ControlK";
-			this.Size = new System.Drawing.Size(637, 337);
+			this.Size = new System.Drawing.Size(637, 358);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -196,5 +220,7 @@ namespace ReferencePluginK
 		private System.Windows.Forms.Button m_highlightTermButton;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.TextBox m_localeTextBox;
 	}
 }
