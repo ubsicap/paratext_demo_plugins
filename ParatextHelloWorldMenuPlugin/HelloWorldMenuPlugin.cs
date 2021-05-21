@@ -11,7 +11,7 @@ namespace ParatextHelloWorldMenuPlugin
     {
         public string Name => "Hello World";
         
-        public string Description => "Displays a message box when a menu item is clicked.";
+        public string GetDescription(string locale) => "Displays a message box when a menu item is clicked.";
         
         public Version Version => new Version(2, 0);
         

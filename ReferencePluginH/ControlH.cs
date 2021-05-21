@@ -32,7 +32,7 @@ namespace ReferencePluginH
 			m_Project = parent.CurrentState.Project;
 			m_Reference = parent.CurrentState.VerseRef;
 
-			IReferenceList refList = host.ReferenceList;
+			IReferenceListWindow refList = host.ReferenceList;
 			refList.ListChanged += ListChanged;
 			refList.SelectedItemChanged += SelectedItemChanged;
 			refList.ItemDoubleClicked += ItemDoubleClicked;
@@ -97,7 +97,7 @@ namespace ReferencePluginH
 			};
 			items.Add(item3);
 
-			IReferenceList refList = m_Host.ReferenceList;
+			IReferenceListWindow refList = m_Host.ReferenceList;
 			Action<IProgressInfo> rerunAction = null;
 			if (enableRerunCheckBox.Checked)
 			{
@@ -108,21 +108,21 @@ namespace ReferencePluginH
 
 		public void GetAllItems(object sender, EventArgs e)
 		{
-			IReferenceList refList = m_Host.ReferenceList;
+			IReferenceListWindow refList = m_Host.ReferenceList;
 			IReadOnlyList<IReferenceListItem> mylist = refList.AllListItems;
 			ShowItems(mylist);
 		}
 
 		public void GetDisplayedItems(object sender, EventArgs e)
 		{
-			IReferenceList refList = m_Host.ReferenceList;
+			IReferenceListWindow refList = m_Host.ReferenceList;
 			IReadOnlyList<IReferenceListItem> mylist = refList.DisplayedListItems;
 			ShowItems(mylist);
 		}
 
 		public void GetSelectedItems(object sender, EventArgs e)
 		{
-			IReferenceList refList = m_Host.ReferenceList;
+			IReferenceListWindow refList = m_Host.ReferenceList;
 			IEnumerable<IReferenceListItem> mylist = refList.SelectedItems;
 			ShowItems(mylist);
 		}
@@ -168,26 +168,26 @@ namespace ReferencePluginH
 					return;
 				}
 			}
-			IReferenceList refList = m_Host.ReferenceList;
+			IReferenceListWindow refList = m_Host.ReferenceList;
 			IReadOnlyList<IReferenceListItem> mylist = refList.AllListItems;
 		}
 
 		public void ListChanged()
 		{
-			IReferenceList refList = m_Host.ReferenceList;
+			IReferenceListWindow refList = m_Host.ReferenceList;
 			IReadOnlyList<IReferenceListItem> mylist = refList.AllListItems;
 			ShowItems(mylist, "List changed to:");
 		}
 
 		public void SelectedItemChanged()
 		{
-			IReferenceList refList = m_Host.ReferenceList;
+			IReferenceListWindow refList = m_Host.ReferenceList;
 			IEnumerable<IReferenceListItem> mylist = refList.SelectedItems;
 			ShowItems(mylist, "Selected item changed to:");
 
 		}
 
-		public void ItemDoubleClicked(IReferenceList sender, IReferenceListItem item)
+		public void ItemDoubleClicked(IReferenceListWindow sender, IReferenceListItem item)
 		{
 			itemsText.Text = $"Item {item.VerseRefStart} {item.SelectedText}, {item.Message} double-clicked";
 		}

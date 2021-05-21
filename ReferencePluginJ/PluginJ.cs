@@ -13,7 +13,7 @@ namespace ReferencePluginJ
     {
 		public const string pluginName = "Reference Plugin J";
 		public string Name => pluginName;
-		public string Description => "Demonstrates receiving notifications of selection changes.";
+		public string GetDescription(string locale) => "Demonstrates receiving notifications of selection changes.";
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";

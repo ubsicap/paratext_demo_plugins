@@ -13,7 +13,7 @@ namespace ChapterWordCloudPlugin
     {
         public const string pluginName = "Chapter Word Cloud";
 		public string Name => pluginName;
-		public string Description => "Shows a \"Word Cloud\" of the current chapter.";
+		public string GetDescription(string locale) => "Shows a \"Word Cloud\" of the current chapter.";
 		public Version Version => new Version(2, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";

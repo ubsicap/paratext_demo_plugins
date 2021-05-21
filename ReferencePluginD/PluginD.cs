@@ -12,7 +12,7 @@ namespace ReferencePluginD
     {
         public string Name => "ReferencePluginD";
 
-        public string Description => "Demonstrates how to annotate scripture text.";
+        public string GetDescription(string locale) => "Demonstrates how to annotate scripture text.";
 
         public Version Version => new Version(1, 0);
 

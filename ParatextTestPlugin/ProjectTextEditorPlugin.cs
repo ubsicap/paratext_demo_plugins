@@ -15,7 +15,7 @@ namespace ProjectTextEditorPlugin
         
         public string Name => pluginName;
 
-        public string Description => "Shows a text box into which the user can enter text, which" +
+        public string GetDescription(string locale) => "Shows a text box into which the user can enter text, which" +
             " is then saved with the other project data.";
 
         public Version Version => new Version(1, 0);

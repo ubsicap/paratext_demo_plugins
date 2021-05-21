@@ -13,7 +13,7 @@ namespace QuoteAnnotationPlugin
     {
         public string Name => "Quote Marking Plugin";
 
-        public string Description => "Highlights the quotation marks of a project in the project text.";
+        public string GetDescription(string locale) => "Highlights the quotation marks of a project in the project text.";
 
         public Version Version => new Version(1, 0);
 

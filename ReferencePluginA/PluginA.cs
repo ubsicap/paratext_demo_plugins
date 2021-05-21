@@ -12,7 +12,7 @@ namespace ReferencePluginA
 
 		public const string pluginName = "Reference Plugin A";
 		public string Name => pluginName;
-		public string Description => "Demonstrates calling plugin at Paratext startup."+
+		public string GetDescription(string locale) => "Demonstrates calling plugin at Paratext startup."+
 			" as well as getting user settings";
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();

@@ -14,7 +14,7 @@ namespace ReferencePluginF
     {
 		public const string pluginName = "Reference Plugin F";
 		public string Name => pluginName;
-		public string Description => "Demonstrates saving plugin data with Paratext data.";
+		public string GetDescription(string locale) => "Demonstrates saving plugin data with Paratext data.";
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";
