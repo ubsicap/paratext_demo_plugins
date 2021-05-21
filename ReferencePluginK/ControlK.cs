@@ -32,8 +32,8 @@ namespace ReferencePluginK
 		}
 
 		private ListType ProjectList = new ListType("Project", true, BiblicalTermListType.All );
-		private ListType AllList = new ListType("Project", false, BiblicalTermListType.All );
-		private ListType MajorList = new ListType("Project", false, BiblicalTermListType.Major );
+		private ListType AllList = new ListType("All", false, BiblicalTermListType.All );
+		private ListType MajorList = new ListType("Major", false, BiblicalTermListType.Major );
 
 
 		private IWindowPluginHost m_host;
@@ -46,6 +46,8 @@ namespace ReferencePluginK
 		}
 		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)
 		{
+			parent.SetTitle(PluginK.pluginName);
+
 			m_host = host;
 			m_project = parent.CurrentState.Project;
 
@@ -79,9 +81,9 @@ namespace ReferencePluginK
 			}
 
 			m_termsListBox.BeginUpdate();
+			m_termsListBox.DataSource = null;
 			m_termsListBox.Items.Clear();
-			
-			m_termsListBox.DataSource = m_list;
+			m_termsListBox.DataSource = m_list.ToArray();
 			m_termsListBox.DisplayMember = "Lemma";
 
 			m_termsListBox.SetSelected(0, true);
@@ -96,14 +98,24 @@ namespace ReferencePluginK
 
 		private void TermSelectionChanged(object sender, EventArgs e)
 		{
-			m_lemmaTextBox.Text = ((IBiblicalTerm)m_termsListBox.SelectedItem).Lemma;
-			m_glossTextBox.Text = ((IBiblicalTerm)m_termsListBox.SelectedItem).Gloss();
-
 			m_referencesListBox.BeginUpdate();
 			m_referencesListBox.Items.Clear();
-			foreach (var r in ((IBiblicalTerm)m_termsListBox.SelectedItem).Occurrences)
+			if (m_termsListBox.SelectedItem == null)
 			{
-				m_referencesListBox.Items.Add($"{r.BookCode} {r.ChapterNum}:{r.VerseNum}");
+				m_lemmaTextBox.Text = "";
+				m_glossTextBox.Text = "";
+			}
+			else
+			{
+				m_lemmaTextBox.Text = ((IBiblicalTerm)m_termsListBox.SelectedItem).Lemma;
+				m_glossTextBox.Text = ((IBiblicalTerm)m_termsListBox.SelectedItem).Gloss("en");
+
+				m_referencesListBox.BeginUpdate();
+				m_referencesListBox.Items.Clear();
+				foreach (var r in ((IBiblicalTerm)m_termsListBox.SelectedItem).Occurrences)
+				{
+					m_referencesListBox.Items.Add($"{r.BookCode} {r.ChapterNum}:{r.VerseNum}");
+				}
 			}
 			m_referencesListBox.EndUpdate();
 		}

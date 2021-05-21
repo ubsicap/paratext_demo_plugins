@@ -39,6 +39,8 @@ namespace ReferencePluginK
 			this.label3 = new System.Windows.Forms.Label();
 			this.m_referencesListBox = new System.Windows.Forms.ListBox();
 			this.m_highlightTermButton = new System.Windows.Forms.Button();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// m_termsListBox
@@ -74,9 +76,11 @@ namespace ReferencePluginK
 			// 
 			// m_lemmaTextBox
 			// 
+			this.m_lemmaTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.m_lemmaTextBox.Location = new System.Drawing.Point(267, 117);
 			this.m_lemmaTextBox.Name = "m_lemmaTextBox";
-			this.m_lemmaTextBox.Size = new System.Drawing.Size(156, 22);
+			this.m_lemmaTextBox.Size = new System.Drawing.Size(370, 22);
 			this.m_lemmaTextBox.TabIndex = 3;
 			// 
 			// label1
@@ -99,9 +103,11 @@ namespace ReferencePluginK
 			// 
 			// m_glossTextBox
 			// 
+			this.m_glossTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.m_glossTextBox.Location = new System.Drawing.Point(214, 145);
 			this.m_glossTextBox.Name = "m_glossTextBox";
-			this.m_glossTextBox.Size = new System.Drawing.Size(208, 22);
+			this.m_glossTextBox.Size = new System.Drawing.Size(422, 22);
 			this.m_glossTextBox.TabIndex = 6;
 			// 
 			// label3
@@ -122,7 +128,7 @@ namespace ReferencePluginK
 			this.m_referencesListBox.ItemHeight = 16;
 			this.m_referencesListBox.Location = new System.Drawing.Point(160, 202);
 			this.m_referencesListBox.Name = "m_referencesListBox";
-			this.m_referencesListBox.Size = new System.Drawing.Size(259, 132);
+			this.m_referencesListBox.Size = new System.Drawing.Size(473, 132);
 			this.m_referencesListBox.TabIndex = 8;
 			// 
 			// m_highlightTermButton
@@ -135,10 +141,30 @@ namespace ReferencePluginK
 			this.m_highlightTermButton.UseVisualStyleBackColor = true;
 			this.m_highlightTermButton.Click += new System.EventHandler(this.HighlightTerm);
 			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(345, 7);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(171, 17);
+			this.label4.TabIndex = 10;
+			this.label4.Text = "This takes a few seconds.";
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(345, 58);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(90, 17);
+			this.label5.TabIndex = 11;
+			this.label5.Text = "So does this.";
+			// 
 			// ControlK
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.label4);
 			this.Controls.Add(this.m_highlightTermButton);
 			this.Controls.Add(this.m_referencesListBox);
 			this.Controls.Add(this.label3);
@@ -150,7 +176,7 @@ namespace ReferencePluginK
 			this.Controls.Add(this.m_getTermsButton);
 			this.Controls.Add(this.m_termsListBox);
 			this.Name = "ControlK";
-			this.Size = new System.Drawing.Size(423, 337);
+			this.Size = new System.Drawing.Size(637, 337);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -168,5 +194,7 @@ namespace ReferencePluginK
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.ListBox m_referencesListBox;
 		private System.Windows.Forms.Button m_highlightTermButton;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label label5;
 	}
 }
