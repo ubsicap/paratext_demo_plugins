@@ -203,8 +203,8 @@ namespace ReferencePluginI
 			this.Controls.Add(this.bookName);
 			this.Controls.Add(this.putButton);
 			this.Controls.Add(this.getButton);
-			this.Controls.Add(this.chapterText);
 			this.Controls.Add(this.tableLayoutPanel);
+			this.Controls.Add(this.chapterText);
 			this.Name = "ControlI";
 			this.Size = new System.Drawing.Size(670, 279);
 			this.ResumeLayout(false);

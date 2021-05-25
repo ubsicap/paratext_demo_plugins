@@ -43,6 +43,10 @@ namespace ReferencePluginK
 			this.label5 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.m_localeTextBox = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.m_guessCheckBox = new System.Windows.Forms.CheckBox();
+			this.m_guessLabel = new System.Windows.Forms.Label();
+			this.m_renderingsTextBox = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// m_termsListBox
@@ -125,14 +129,13 @@ namespace ReferencePluginK
 			// 
 			// m_referencesListBox
 			// 
-			this.m_referencesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.m_referencesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.m_referencesListBox.FormattingEnabled = true;
 			this.m_referencesListBox.ItemHeight = 16;
 			this.m_referencesListBox.Location = new System.Drawing.Point(160, 218);
 			this.m_referencesListBox.Name = "m_referencesListBox";
-			this.m_referencesListBox.Size = new System.Drawing.Size(473, 132);
+			this.m_referencesListBox.Size = new System.Drawing.Size(147, 132);
 			this.m_referencesListBox.TabIndex = 8;
 			// 
 			// m_highlightTermButton
@@ -181,10 +184,54 @@ namespace ReferencePluginK
 			this.m_localeTextBox.Size = new System.Drawing.Size(411, 22);
 			this.m_localeTextBox.TabIndex = 13;
 			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(326, 218);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(85, 17);
+			this.label7.TabIndex = 14;
+			this.label7.Text = "Renderings:";
+			// 
+			// m_guessCheckBox
+			// 
+			this.m_guessCheckBox.AutoSize = true;
+			this.m_guessCheckBox.Location = new System.Drawing.Point(329, 199);
+			this.m_guessCheckBox.Name = "m_guessCheckBox";
+			this.m_guessCheckBox.Size = new System.Drawing.Size(108, 21);
+			this.m_guessCheckBox.TabIndex = 16;
+			this.m_guessCheckBox.Text = "OK to guess";
+			this.m_guessCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// m_guessLabel
+			// 
+			this.m_guessLabel.AutoSize = true;
+			this.m_guessLabel.Location = new System.Drawing.Point(457, 199);
+			this.m_guessLabel.Name = "m_guessLabel";
+			this.m_guessLabel.Size = new System.Drawing.Size(136, 17);
+			this.m_guessLabel.TabIndex = 17;
+			this.m_guessLabel.Text = "Guess or Rendering";
+			// 
+			// m_renderingsTextBox
+			// 
+			this.m_renderingsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.m_renderingsTextBox.Location = new System.Drawing.Point(332, 239);
+			this.m_renderingsTextBox.Multiline = true;
+			this.m_renderingsTextBox.Name = "m_renderingsTextBox";
+			this.m_renderingsTextBox.ReadOnly = true;
+			this.m_renderingsTextBox.Size = new System.Drawing.Size(303, 110);
+			this.m_renderingsTextBox.TabIndex = 18;
+			// 
 			// ControlK
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.m_renderingsTextBox);
+			this.Controls.Add(this.m_guessLabel);
+			this.Controls.Add(this.m_guessCheckBox);
+			this.Controls.Add(this.label7);
 			this.Controls.Add(this.m_localeTextBox);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
@@ -222,5 +269,9 @@ namespace ReferencePluginK
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.TextBox m_localeTextBox;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.CheckBox m_guessCheckBox;
+		private System.Windows.Forms.Label m_guessLabel;
+		private System.Windows.Forms.TextBox m_renderingsTextBox;
 	}
 }

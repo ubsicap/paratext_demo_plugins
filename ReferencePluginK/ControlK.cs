@@ -102,16 +102,30 @@ namespace ReferencePluginK
 			m_referencesListBox.Items.Clear();
 			m_lemmaTextBox.Text = "";
 			m_glossTextBox.Text = "";
+			m_guessLabel.Text = "";
+			m_renderingsTextBox.Text = "";
 
 			if (m_termsListBox.SelectedItem != null)
 			{
 				IBiblicalTerm term = (IBiblicalTerm)m_termsListBox.SelectedItem;
 				m_lemmaTextBox.Text = term.Lemma;
-				m_glossTextBox.Text = term.Gloss(m_localeTextBox.Text);
+				string locale = null;
+				if (m_localeTextBox.Text != "")
+				{
+					locale = m_localeTextBox.Text;
+				}
+				m_glossTextBox.Text = term.Gloss(locale);
 
 				foreach (var r in ((IBiblicalTerm)m_termsListBox.SelectedItem).Occurrences)
 				{
 					m_referencesListBox.Items.Add($"{r.BookCode} {r.ChapterNum}:{r.VerseNum}");
+				}
+
+				var renderings = m_project.GetBiblicalTermRenderings(term, m_guessCheckBox.Checked);
+				if (renderings != null)
+				{
+					m_guessLabel.Text = renderings.IsGuess ? "Is a guess" : "Is from rendering";
+					m_renderingsTextBox.Lines = renderings.Renderings.ToArray();
 				}
 			}
 
