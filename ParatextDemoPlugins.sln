@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginD", "Referen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginK", "ReferencePluginK\ReferencePluginK.csproj", "{AC326C91-AC5C-43A9-9F54-6551572A45B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginL", "ReferencePluginL\ReferencePluginL.csproj", "{ACC31F77-86A2-45F2-B202-8F6DFD263698}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +201,14 @@ Global
 		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Release|x64.ActiveCfg = Release|Any CPU
 		{AC326C91-AC5C-43A9-9F54-6551572A45B9}.Release|x64.Build.0 = Release|Any CPU
+		{ACC31F77-86A2-45F2-B202-8F6DFD263698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC31F77-86A2-45F2-B202-8F6DFD263698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC31F77-86A2-45F2-B202-8F6DFD263698}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ACC31F77-86A2-45F2-B202-8F6DFD263698}.Debug|x64.Build.0 = Debug|Any CPU
+		{ACC31F77-86A2-45F2-B202-8F6DFD263698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC31F77-86A2-45F2-B202-8F6DFD263698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC31F77-86A2-45F2-B202-8F6DFD263698}.Release|x64.ActiveCfg = Release|Any CPU
+		{ACC31F77-86A2-45F2-B202-8F6DFD263698}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
