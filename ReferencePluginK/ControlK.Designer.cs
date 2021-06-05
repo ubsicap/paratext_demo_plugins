@@ -137,6 +137,7 @@ namespace ReferencePluginK
 			this.m_referencesListBox.Name = "m_referencesListBox";
 			this.m_referencesListBox.Size = new System.Drawing.Size(147, 132);
 			this.m_referencesListBox.TabIndex = 8;
+			this.m_referencesListBox.SelectedIndexChanged += new System.EventHandler(this.ReferenceSelected);
 			// 
 			// m_highlightTermButton
 			// 
@@ -198,15 +199,15 @@ namespace ReferencePluginK
 			this.m_guessCheckBox.AutoSize = true;
 			this.m_guessCheckBox.Location = new System.Drawing.Point(329, 199);
 			this.m_guessCheckBox.Name = "m_guessCheckBox";
-			this.m_guessCheckBox.Size = new System.Drawing.Size(108, 21);
+			this.m_guessCheckBox.Size = new System.Drawing.Size(167, 21);
 			this.m_guessCheckBox.TabIndex = 16;
-			this.m_guessCheckBox.Text = "OK to guess";
+			this.m_guessCheckBox.Text = "Guess if no rendering";
 			this.m_guessCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// m_guessLabel
 			// 
 			this.m_guessLabel.AutoSize = true;
-			this.m_guessLabel.Location = new System.Drawing.Point(457, 199);
+			this.m_guessLabel.Location = new System.Drawing.Point(446, 218);
 			this.m_guessLabel.Name = "m_guessLabel";
 			this.m_guessLabel.Size = new System.Drawing.Size(136, 17);
 			this.m_guessLabel.TabIndex = 17;

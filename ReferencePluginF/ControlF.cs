@@ -139,6 +139,20 @@ namespace ReferencePluginF
 
 		private void SaveRequested(IPluginChildWindow sender)
 		{
+			if (m_writeLock == null)
+			{
+				m_writeLock = m_project.RequestWriteLock(this, ReleaseRequested, savedDataId);
+			}
+			if (m_writeLock == null)
+			{
+				MessageBox.Show("Cannot get write lock; aborting loading data");
+				m_savedText = "";
+				m_currentText = "";
+				textBox.Text = "";
+				textBox.ReadOnly = true;
+				return;
+			}
+
 			m_currentText = textBox.Text;
 			ProjectTextData data = new ProjectTextData();
 			data.Lines = m_currentText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);

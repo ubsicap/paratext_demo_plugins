@@ -14,25 +14,14 @@ namespace ReferencePluginL
 {
 	public partial class AddNoteDialog : Form
 	{
-		private IVerseRef m_startVerse;
-		private IVerseRef m_endVerse;
-		public IVerseRef StartVerse
+		private IVerseRef m_Verse;
+		public IVerseRef Verse
 		{
-			get => m_startVerse; 
+			get => m_Verse; 
 			set
 			{
-				m_startVerse = value;
-				m_startTextBox.Text = FormText(m_startVerse);
-			} 
-		}
-
-		public IVerseRef EndVerse
-		{
-			get => m_endVerse; 
-			set
-			{
-				m_endVerse = value;
-				m_endTextBox.Text = FormText(m_endVerse);
+				m_Verse = value;
+				m_VerseTextBox.Text = FormText(m_Verse);
 			} 
 		}
 
@@ -40,13 +29,23 @@ namespace ReferencePluginL
 		{
 			get
 			{
-				int index = m_assigneeListBox.SelectedIndex;
+				int index = m_assigneeComboBox.SelectedIndex;
 				if (index <= 0) // Not selected or "<none>"
 				{
 					return null;
 				}
-				return (IUserInfo)m_assigneeListBox.SelectedItem;
+				return (IUserInfo)m_assigneeComboBox.SelectedItem;
 			}
+		}
+
+		public string SelectedText
+		{
+			get => m_selectTextTextBox.Text;
+		}
+
+		public bool WholeWord
+		{
+			get => m_wholeWordCheckBox.Checked;
 		}
 
 		private string FormText(IVerseRef r) =>
@@ -59,26 +58,12 @@ namespace ReferencePluginL
 		{
 			InitializeComponent();
 			m_project = project;
-			m_assigneeListBox.Items.Clear();
-			m_assigneeListBox.Items.Add("<none>");
+			m_assigneeComboBox.Items.Clear();
+			m_assigneeComboBox.Items.Add("<none>");
 			foreach (var user in m_project.NonObserverUsers)
 			{
-				m_assigneeListBox.Items.Add(user);
+				m_assigneeComboBox.Items.Add(user);
 			}
 		}
-
-		private void OnIncrVerseClicked(object sender, EventArgs e)
-		{
-			m_endVerse = m_endVerse.GetNextVerse(m_project);
-			m_endTextBox.Text = FormText(m_endVerse);
-		}
-
-		private void OnDecrVerseClicked(object sender, EventArgs e)
-		{
-			m_endVerse = m_endVerse.GetPreviousVerse(m_project);
-			m_endTextBox.Text = FormText(m_endVerse);
-		}
-
-		
 	}
 }

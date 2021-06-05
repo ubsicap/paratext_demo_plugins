@@ -17,8 +17,9 @@ namespace ReferencePluginL
 		private IProject m_project;
 		private int m_booknum;
 		private IVerseRef m_verseRef;
+		private IReadOnlyList<IProjectNote> m_noteList;
 
-        public ControlL()
+		public ControlL()
         {
             InitializeComponent();
 		}
@@ -105,19 +106,50 @@ namespace ReferencePluginL
 
 		private void OnBookSelectionChanged(object sender, EventArgs e)
 		{
+			m_NotesListBox.Items.Clear();
+			int index = m_BookComboBox.SelectedIndex;
+			if (index < 0)
+			{
+				return;
+			}
+			m_booknum = m_project.AvailableBooks[index].Number;
+			int chapters = m_project.Versification.GetLastChapter(m_booknum);
+			m_ChapterComboBox.Items.Clear();
+			m_ChapterComboBox.Items.Add("All");
+			for (int i=1; i <= chapters; i++)
+			{
+				m_ChapterComboBox.Items.Add(i.ToString());
+			}
+			m_ChapterComboBox.SelectedIndex = 0;
 			UpdateNotesList();
 		}
 
 		private void UpdateNotesList()
 		{
 			m_NotesListBox.Items.Clear();
-			int index = m_BookComboBox.SelectedIndex;
-			m_booknum = m_project.AvailableBooks[index].Number;
-			var notelist = m_project.GetNotes(m_booknum);
-			foreach (var note in notelist)
+			bool refreshed = RefreshNoteList();
+			if (refreshed)
 			{
-				m_NotesListBox.Items.Add(note.Anchor.VerseRefStart);
+				foreach (var note in m_noteList)
+				{
+					m_NotesListBox.Items.Add(note.Anchor.VerseRefStart);
+				}
+				UpdateNoteDisplay();
 			}
+		}
+
+		private bool RefreshNoteList()
+		{
+			int index = m_BookComboBox.SelectedIndex;
+			if (index < 0)
+			{
+				return false;
+			}
+			m_booknum = m_project.AvailableBooks[index].Number;
+			int chapter = m_ChapterComboBox.SelectedIndex;
+			bool onlyUnresolved = !m_includeResolvedCheckBox.Checked;
+			m_noteList = m_project.GetNotes(m_booknum, chapter, onlyUnresolved);
+			return true;
 		}
 
 		private void OnVerseSelectionChanged(object sender, EventArgs e)
@@ -133,7 +165,7 @@ namespace ReferencePluginL
 				return;
 			}
 
-			var note = m_project.GetNotes(m_booknum)[index];
+			var note = m_noteList[index];
 
 			if (note.AssignedUser == null)
 			{
@@ -153,6 +185,7 @@ namespace ReferencePluginL
 			}
 
 			m_commentsReadCheckBox.Checked = note.IsRead;
+			m_resolvedCheckBox.Checked = note.IsResolved;
 
 			m_tableLayoutPanel.Controls.Clear();
 			AddHeaderRow();
@@ -227,7 +260,7 @@ namespace ReferencePluginL
 					else
 					{
 						int index = m_NotesListBox.SelectedIndex;
-						var note = m_project.GetNotes(m_booknum)[index];
+						var note = m_noteList[index];
 						IUserInfo assignee = dialog.Assignee;
 
 						note.AddNewComment(writeLock, paragraphs, assignedUser: assignee);
@@ -235,6 +268,7 @@ namespace ReferencePluginL
 						writeLock.Dispose();
 					}
 				}
+				RefreshNoteList();
 				UpdateNoteDisplay();
 			}
 
@@ -261,8 +295,7 @@ namespace ReferencePluginL
 		private void AddNewNote(object sender, EventArgs e)
 		{
 			AddNoteDialog dialog = new AddNoteDialog(m_project);
-			dialog.StartVerse = m_verseRef;
-			dialog.EndVerse = m_verseRef;
+			dialog.Verse = m_verseRef;
 			dialog.ShowDialog();
 			if (dialog.DialogResult == DialogResult.OK)
 			{
@@ -283,25 +316,77 @@ namespace ReferencePluginL
 					}
 					else
 					{
-						Selection anchor = new Selection
+						string text = dialog.SelectedText;
+						IScriptureTextSelection anchor = null;
+						if (string.IsNullOrEmpty(text))
 						{
-							VerseRefStart = dialog.StartVerse,
-							VerseRefEnd = dialog.EndVerse,
-						};
+							anchor = m_project.GetScriptureSelectionForVerse(dialog.Verse);
+						}
+						else
+						{
+							IReadOnlyList<IScriptureTextSelection> anchors;
+							anchors = m_project.FindMatchingScriptureSelections(dialog.Verse, text, wholeWord:dialog.WholeWord);
+							if (anchors.Count != 0)
+							{
+								anchor = anchors[0];
+							}
+						}
+						if (anchor == null)
+						{
+							MessageBox.Show("Nothing matches selection");
+						}
+						else
+						{
+							List<CommentParagraph> paragraphs = FormParagraphs(dialog.m_comment.Lines);
 
-						List<CommentParagraph> paragraphs = FormParagraphs(dialog.m_comment.Lines);
+							IUserInfo assignee = dialog.Assignee;
 
-						IUserInfo assignee = dialog.Assignee;
-
-						m_project.AddNote(writeLock, anchor, paragraphs, assignedUser: assignee);
-
+							m_project.AddNote(writeLock, anchor, paragraphs, assignedUser: assignee);
+						}
 						writeLock.Dispose();
 					}
 				}
 				UpdateNotesList();
-				UpdateNoteDisplay();
 			}
 			dialog.Dispose();
+		}
+
+		private void ResolveClicked(object sender, EventArgs e)
+		{
+			int index = m_NotesListBox.SelectedIndex;
+			if (index < 0)  // Nothing selected
+			{
+				MessageBox.Show("Select a note first.");
+				return;
+			}
+			var note = m_noteList[index];
+			if (note.IsResolved == false)
+			{
+				IWriteLock writeLock = m_project.RequestWriteLock(
+					this,
+					WriteLockReleaseRequested,
+					WriteLockScope.ProjectNotes);
+				if (writeLock == null)
+				{
+					MessageBox.Show("Can't get a write lock");
+				}
+				else
+				{
+					note.Resolve(writeLock);
+					writeLock.Dispose();
+					UpdateNotesList();
+				}
+			}
+		}
+
+		private void IncludeResolvedChanged(object sender, EventArgs e)
+		{
+			UpdateNotesList();
+		}
+
+		private void SelectedChapterChanged(object sender, EventArgs e)
+		{
+			UpdateNotesList();
 		}
 	}
 }

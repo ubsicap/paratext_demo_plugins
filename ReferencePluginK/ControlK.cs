@@ -39,6 +39,7 @@ namespace ReferencePluginK
 		private IWindowPluginHost m_host;
 		private IProject m_project;
 		private IBiblicalTermList m_list;
+		IPluginChildWindow m_parent;
 
 		public ControlK()
 		{
@@ -50,6 +51,7 @@ namespace ReferencePluginK
 
 			m_host = host;
 			m_project = parent.CurrentState.Project;
+			m_parent = parent;
 
 			m_whichListListBox.BeginUpdate();
 			m_whichListListBox.Items.Add(ProjectList);
@@ -132,5 +134,20 @@ namespace ReferencePluginK
 			m_referencesListBox.EndUpdate();
 		}
 
+		private void ReferenceSelected(object sender, EventArgs e)
+		{
+			int index = m_referencesListBox.SelectedIndex;
+			if (index >= 0)
+			{
+				IVerseRef verseRef = ((IBiblicalTerm)m_termsListBox.SelectedItem).Occurrences[index];
+
+				// Get the sync group our window belongs to:
+				var syncGroup = m_parent.CurrentState.SyncReferenceGroup;
+
+				// Tell our sync group the reference has changed:
+				m_host.SetReferenceForSyncGroup(verseRef, syncGroup);
+
+			}
+		}
 	}
 }
