@@ -16,9 +16,9 @@ namespace QuoteAnnotationPlugin
         {
             quotationMarks = project.Language.QuotationMarkInfo;
             if (quotationMarks == null)
-			{
+            {
                 return;
-			}
+            }
 
             HashSet<string> allMarks = new HashSet<string>();
 

@@ -24,7 +24,7 @@ namespace ReferencePluginB
 			{
 				yield return new PluginMenuEntry("A...", RunA, PluginMenuLocation.MainDefault);
 				yield return new PluginMenuEntry("B...", RunB, PluginMenuLocation.ParatextAdvanced);
-				yield return new PluginMenuEntry("C...", RunC, PluginMenuLocation.Help);
+				yield return new PluginMenuEntry("C...", RunC, PluginMenuLocation.Help, imagePath: "Plugin.bmp");
 				yield return new PluginMenuEntry("D...", RunD, PluginMenuLocation.ScrTextDefault);
 				yield return new PluginMenuEntry("E...", RunE, PluginMenuLocation.ScrTextProject);
 				yield return new PluginMenuEntry("F...", RunF, PluginMenuLocation.ScrTextProjectExportAndPrint);
@@ -34,6 +34,13 @@ namespace ReferencePluginB
 				yield return new PluginMenuEntry("J...", RunJ, PluginMenuLocation.ScrTextTools);
 				yield return new PluginMenuEntry("K...", RunK, PluginMenuLocation.ScrTextToolsChecks);
 				yield return new PluginMenuEntry("L...", RunL, PluginMenuLocation.ListDefault);
+				yield return new PluginMenuEntry("M...", RunM, PluginMenuLocation.ScrTextContextMenuDefault);
+				yield return new PluginMenuEntry("N...", RunN, PluginMenuLocation.NotesListDefault);
+				yield return new PluginMenuEntry("O...", RunO, PluginMenuLocation.BiblicalTermsToolDefault);
+				yield return new PluginMenuEntry("P...", RunP, PluginMenuLocation.BiblicalTermsListDefault);
+				yield return new PluginMenuEntry("Q...", RunQ, PluginMenuLocation.MainDefault,
+					imagePath: "Plugin.bmp",
+					customLocation: new CustomMenuLocation(WindowType.Main, new string[] { "Window", "Go to book"}));
 			}
 		}
 
@@ -106,6 +113,36 @@ namespace ReferencePluginB
 		private static void RunL(IPluginHost host, IParatextChildState windowState)
 		{
 			MessageBox.Show("Menu Entry L clicked", pluginName,
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private static void RunM(IPluginHost host, IParatextChildState windowState)
+		{
+			MessageBox.Show("Menu Entry M clicked", pluginName,
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private static void RunN(IPluginHost host, IParatextChildState windowState)
+		{
+			MessageBox.Show("Menu Entry N clicked", pluginName,
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private static void RunO(IPluginHost host, IParatextChildState windowState)
+		{
+			MessageBox.Show("Menu Entry O clicked", pluginName,
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private static void RunP(IPluginHost host, IParatextChildState windowState)
+		{
+			MessageBox.Show("Menu Entry P clicked", pluginName,
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private static void RunQ(IPluginHost host, IParatextChildState windowState)
+		{
+			MessageBox.Show("Menu Entry Q clicked", pluginName,
 				MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 

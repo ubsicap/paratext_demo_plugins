@@ -32,11 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EmbeddedUiPluginInterfaces, Version=0.49.0.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
-      <HintPath>..\packages\ParatextEmbeddedUiPluginInterfaces.0.49.0-alpha\lib\net461\EmbeddedUiPluginInterfaces.dll</HintPath>
+    <Reference Include="EmbeddedUiPluginInterfaces, Version=0.59.0.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\ParatextEmbeddedUiPluginInterfaces.0.59.0-alpha\lib\net461\EmbeddedUiPluginInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="PluginInterfaces, Version=0.49.0.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
-      <HintPath>..\packages\ParatextPluginInterfaces.0.49.0-alpha\lib\netstandard2.0\PluginInterfaces.dll</HintPath>
+    <Reference Include="PluginInterfaces, Version=0.59.0.0, Culture=neutral, PublicKeyToken=583bede96b7c94a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\ParatextPluginInterfaces.0.59.0-alpha\lib\netstandard2.0\PluginInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
