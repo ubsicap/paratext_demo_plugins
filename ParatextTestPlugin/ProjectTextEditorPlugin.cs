@@ -12,11 +12,8 @@ namespace ProjectTextEditorPlugin
     public class ProjectTextEditorPlugin : IParatextWindowPlugin
     {
         public const string pluginName = "Project Text Editor";
-        
-        public string Name => pluginName;
 
-        public string GetDescription(string locale) => "Shows a text box into which the user can enter text, which" +
-            " is then saved with the other project data.";
+        public string Name => pluginName;
 
         public Version Version => new Version(1, 0);
 
@@ -50,6 +47,12 @@ namespace ProjectTextEditorPlugin
                 };
                 yield return entry;
             }
+        }
+
+        public string GetDescription(string locale)
+        {
+            return "Shows a text box into which the user can enter text, which" +
+                " is then saved with the other project data.";
         }
         
         /// <summary>

@@ -19,9 +19,7 @@ namespace ParatextTipOfTheDayPlugin
             "If you want to do a back translation, create a new project and choose the Back Translation project type."
         };
 
-		public string Name => "Tip-of-the-Day";
-		
-        public string GetDescription(string locale) => "Displays a tip whenever Paratext's main form is displayed.";
+        public string Name => "Tip-of-the-Day";
 		
         public Version Version => new Version(2, 0);
 		
@@ -30,6 +28,11 @@ namespace ParatextTipOfTheDayPlugin
         public string Publisher => "SIL/UBS";
 
         public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
+
+        public string GetDescription(string locale)
+        {
+            return "Displays a tip whenever Paratext's main form is displayed.";
+        }
         
         /// <summary>
         /// Shows the tip-of-the-day (automatically run by Paratext).
