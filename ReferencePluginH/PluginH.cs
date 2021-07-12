@@ -6,8 +6,8 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginH
 {
-    public class PluginH : IParatextWindowPlugin
-    {
+	public class PluginH : IParatextWindowPlugin
+	{
 		private ControlH theControl;
 		public const string pluginName = "Reference Plugin H";
 		public string Name => pluginName;

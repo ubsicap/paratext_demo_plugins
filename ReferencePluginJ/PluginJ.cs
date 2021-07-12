@@ -9,8 +9,8 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginJ
 {
-    public class PluginJ : IParatextWindowPlugin
-    {
+	public class PluginJ : IParatextWindowPlugin
+	{
 		public const string pluginName = "Reference Plugin J";
 		public string Name => pluginName;
 		public string GetDescription(string locale) => "Demonstrates receiving notifications of selection changes.";

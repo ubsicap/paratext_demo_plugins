@@ -52,7 +52,7 @@ namespace ReferencePluginK
 			// m_termsListBox
 			// 
 			this.m_termsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+				| System.Windows.Forms.AnchorStyles.Left)));
 			this.m_termsListBox.FormattingEnabled = true;
 			this.m_termsListBox.ItemHeight = 16;
 			this.m_termsListBox.Location = new System.Drawing.Point(0, 58);
@@ -83,7 +83,7 @@ namespace ReferencePluginK
 			// m_lemmaTextBox
 			// 
 			this.m_lemmaTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.m_lemmaTextBox.Location = new System.Drawing.Point(267, 139);
 			this.m_lemmaTextBox.Name = "m_lemmaTextBox";
 			this.m_lemmaTextBox.ReadOnly = true;
@@ -111,7 +111,7 @@ namespace ReferencePluginK
 			// m_glossTextBox
 			// 
 			this.m_glossTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.m_glossTextBox.Location = new System.Drawing.Point(214, 167);
 			this.m_glossTextBox.Name = "m_glossTextBox";
 			this.m_glossTextBox.ReadOnly = true;
@@ -130,7 +130,7 @@ namespace ReferencePluginK
 			// m_referencesListBox
 			// 
 			this.m_referencesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+				| System.Windows.Forms.AnchorStyles.Left)));
 			this.m_referencesListBox.FormattingEnabled = true;
 			this.m_referencesListBox.ItemHeight = 16;
 			this.m_referencesListBox.Location = new System.Drawing.Point(160, 218);
@@ -179,7 +179,7 @@ namespace ReferencePluginK
 			// m_localeTextBox
 			// 
 			this.m_localeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.m_localeTextBox.Location = new System.Drawing.Point(225, 106);
 			this.m_localeTextBox.Name = "m_localeTextBox";
 			this.m_localeTextBox.Size = new System.Drawing.Size(411, 22);
@@ -216,8 +216,8 @@ namespace ReferencePluginK
 			// m_renderingsTextBox
 			// 
 			this.m_renderingsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.m_renderingsTextBox.Location = new System.Drawing.Point(332, 239);
 			this.m_renderingsTextBox.Multiline = true;
 			this.m_renderingsTextBox.Name = "m_renderingsTextBox";

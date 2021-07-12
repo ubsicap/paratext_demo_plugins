@@ -10,8 +10,8 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginF
 {
-    public class PluginF : IParatextWindowPlugin
-    {
+	public class PluginF : IParatextWindowPlugin
+	{
 		public const string pluginName = "Reference Plugin F";
 		public string Name => pluginName;
 		public string GetDescription(string locale) => "Demonstrates saving plugin data with Paratext data.";

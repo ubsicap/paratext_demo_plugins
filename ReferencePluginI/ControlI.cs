@@ -224,12 +224,13 @@ namespace ReferencePluginI
 
 			foreach (var token in tokens)
 			{
-				TextBox labelTextBox = new TextBox();
-				labelTextBox.ReadOnly = true;
+				TextBox labelTextBox = new TextBox { ReadOnly = true };
 
-				TextBox dataTextBox = new TextBox();
-				dataTextBox.ReadOnly = true;
-				dataTextBox.Width = width;
+				TextBox dataTextBox = new TextBox
+										{
+											ReadOnly = true,
+											Width = width
+										};
 
 				if (token is IUSFMMarkerToken marker)
 				{

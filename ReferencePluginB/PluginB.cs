@@ -9,8 +9,8 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginB
 {
-    public class PluginB : IParatextStandalonePlugin
-    {
+	public class PluginB : IParatextStandalonePlugin
+	{
 		public const string pluginName = "Reference Plugin B";
 		public string Name => pluginName;
 		public string GetDescription(string locale) => "Demonstrates creating menu entries at various locations.";

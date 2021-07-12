@@ -6,7 +6,7 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginA
 {
-    public class PluginA : IParatextStartupAutomaticPlugin
+	public class PluginA : IParatextStartupAutomaticPlugin
 	{
 		IPluginHost m_host;
 

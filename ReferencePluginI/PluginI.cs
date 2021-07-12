@@ -9,8 +9,8 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginI
 {
-    public class PluginI : IParatextWindowPlugin
-    {
+	public class PluginI : IParatextWindowPlugin
+	{
 		public const string pluginName = "Reference Plugin I";
 		public string Name => pluginName;
 		public string GetDescription(string locale) => "Exercises reading and writing scripture data.";

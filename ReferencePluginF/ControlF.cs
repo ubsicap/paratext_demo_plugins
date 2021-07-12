@@ -154,8 +154,11 @@ namespace ReferencePluginF
 			}
 
 			m_currentText = textBox.Text;
-			ProjectTextData data = new ProjectTextData();
-			data.Lines = m_currentText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+			ProjectTextData data = new ProjectTextData
+			{
+				Lines = m_currentText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+			};
+
 			try
 			{
 				m_project.PutPluginData(m_writeLock, this, savedDataId, writer => m_Serializer.Serialize(writer, data));

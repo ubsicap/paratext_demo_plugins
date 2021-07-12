@@ -17,17 +17,15 @@ namespace ReferencePluginE
 	{
 		private IVerseRef m_Reference;
 		private IProject m_Project;
-		IWindowPluginHost m_Host;
 
 		public ControlE()
 		{
 			InitializeComponent();
-			m_Host = null;
 		}
+
 		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)
 		{
 			parent.SetTitle(PluginE.pluginName);
-			m_Host = host;
 			m_Project = parent.CurrentState.Project;
 			m_Reference = parent.CurrentState.VerseRef;
 

@@ -9,8 +9,8 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginC
 {
-    public class PluginC : IParatextWindowPlugin
-    {
+	public class PluginC : IParatextWindowPlugin
+	{
 		public const string pluginName = "Reference Plugin C";
 		public string Name => pluginName;
 		public string GetDescription(string locale) => "Demonstrates Synchronizing Scripture reference; tab menus.";

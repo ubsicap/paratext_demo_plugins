@@ -13,101 +13,101 @@ namespace ReferencePluginD
 {
 	class AnnotationSource : IPluginAnnotationSource
 	{
-        private Regex[] m_regexes;
-		public AnnotationSource(IProject project)
+		private Regex[] m_regexes;
+		public AnnotationSource()
 		{
-            m_regexes = new Regex[]
-                {
-                new Regex("Jesus", RegexOptions.Compiled),
-                new Regex("Christ", RegexOptions.Compiled)
-                };
+			m_regexes = new Regex[]
+				{
+				new Regex("Jesus", RegexOptions.Compiled),
+				new Regex("Christ", RegexOptions.Compiled)
+				};
 		}
 
-        public event EventHandler AnnotationsChanged;
+		public event EventHandler AnnotationsChanged;
 
-        public bool MaintainSelectionsOnWordBoundaries => false;
+		public bool MaintainSelectionsOnWordBoundaries => false;
 
-        public IReadOnlyList<AnnotationStyle> GetStyleInfo(double zoom)
-        {
-            return new[]
-            {
-                new AnnotationStyle("jesus", "font-weight: bold;"),
-                new AnnotationStyle("christ", "font-style: italic;")
-            };
-        }
-
-        public IReadOnlyList<IPluginAnnotation> GetAnnotations(IVerseRef verseRef, string usfm)
-        {
-            List<IPluginAnnotation> annotations = new List<IPluginAnnotation>();
-            var styles = GetStyleInfo(0.0);
-            for (int i=0; i < m_regexes.Count(); i++)
+		public IReadOnlyList<AnnotationStyle> GetStyleInfo(double zoom)
+		{
+			return new[]
 			{
-                Regex regex = m_regexes[i];
-                string style = styles[i].Name;
-                foreach (Match match in regex.Matches(usfm))
-                {
-                    Selection sel = new Selection(match.Value, usfm.Substring(0, match.Index),
-                        usfm.Substring(match.Index + match.Length), verseRef, match.Index);
-                    annotations.Add(new Annotation(sel, style));
-                }
-            }
+				new AnnotationStyle("jesus", "font-weight: bold;"),
+				new AnnotationStyle("christ", "font-style: italic;")
+			};
+		}
 
-            return annotations;
-        }
+		public IReadOnlyList<IPluginAnnotation> GetAnnotations(IVerseRef verseRef, string usfm)
+		{
+			List<IPluginAnnotation> annotations = new List<IPluginAnnotation>();
+			var styles = GetStyleInfo(0.0);
+			for (int i=0; i < m_regexes.Count(); i++)
+			{
+				Regex regex = m_regexes[i];
+				string style = styles[i].Name;
+				foreach (Match match in regex.Matches(usfm))
+				{
+					Selection sel = new Selection(match.Value, usfm.Substring(0, match.Index),
+						usfm.Substring(match.Index + match.Length), verseRef, match.Index);
+					annotations.Add(new Annotation(sel, style));
+				}
+			}
 
-        private sealed class Annotation : IPluginAnnotation
-        {
-            public Annotation(IScriptureTextSelection selection, string styleName)
-            {
-                ScriptureSelection = selection;
-                StyleName = styleName;
-            }
-            public IScriptureTextSelection ScriptureSelection { get; }
+			return annotations;
+		}
 
-            public string StyleName { get; }
+		private sealed class Annotation : IPluginAnnotation
+		{
+			public Annotation(IScriptureTextSelection selection, string styleName)
+			{
+				ScriptureSelection = selection;
+				StyleName = styleName;
+			}
+			public IScriptureTextSelection ScriptureSelection { get; }
 
-            public string Icon => "cross.png";
+			public string StyleName { get; }
 
-            public string IconToolTipText => null;
+			public string Icon => "cross.png";
 
-            public bool Click(MouseButton button, bool onIcon, Point location)
-            {
-                string icon = onIcon ? "on icon" : "off icon";
-                MessageBox.Show($"Clicked with {button} button {icon} at {location}");
-                return true;
-            }
-        }
+			public string IconToolTipText => null;
 
-        private sealed class Selection : IScriptureTextSelection
-        {
-            public Selection(string selectedText, string beforeContext, string afterContext,
-                IVerseRef verseRef, int offset)
-            {
-                SelectedText = selectedText;
-                BeforeContext = beforeContext;
-                AfterContext = afterContext;
-                VerseRefStart = verseRef;
-                VerseRefEnd = verseRef;
-                Offset = offset;
-            }
+			public bool Click(MouseButton button, bool onIcon, Point location)
+			{
+				string icon = onIcon ? "on icon" : "off icon";
+				MessageBox.Show($"Clicked with {button} button {icon} at {location}");
+				return true;
+			}
+		}
 
-            public IVerseRef VerseRefStart { get; }
+		private sealed class Selection : IScriptureTextSelection
+		{
+			public Selection(string selectedText, string beforeContext, string afterContext,
+				IVerseRef verseRef, int offset)
+			{
+				SelectedText = selectedText;
+				BeforeContext = beforeContext;
+				AfterContext = afterContext;
+				VerseRefStart = verseRef;
+				VerseRefEnd = verseRef;
+				Offset = offset;
+			}
 
-            public IVerseRef VerseRefEnd { get; }
+			public IVerseRef VerseRefStart { get; }
 
-            public string SelectedText { get; }
+			public IVerseRef VerseRefEnd { get; }
 
-            public int Offset { get; }
+			public string SelectedText { get; }
 
-            public string BeforeContext { get; }
+			public int Offset { get; }
 
-            public string AfterContext { get; }
+			public string BeforeContext { get; }
 
-            public bool Equals(ISelection other)
-            {
-                throw new NotImplementedException();
-            }
-        }
+			public string AfterContext { get; }
 
-    }
+			public bool Equals(ISelection other)
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+	}
 }

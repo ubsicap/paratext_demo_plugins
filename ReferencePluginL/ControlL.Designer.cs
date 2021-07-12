@@ -1,34 +1,34 @@
 ﻿
 namespace ReferencePluginL
 {
-    partial class ControlL
-    {
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class ControlL
+	{
+		/// <summary> 
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary> 
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary> 
+		/// Required method for Designer support - do not modify 
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			this.label1 = new System.Windows.Forms.Label();
 			this.m_BookComboBox = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
@@ -84,7 +84,7 @@ namespace ReferencePluginL
 			// m_NotesListBox
 			// 
 			this.m_NotesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+				| System.Windows.Forms.AnchorStyles.Left)));
 			this.m_NotesListBox.FormattingEnabled = true;
 			this.m_NotesListBox.ItemHeight = 16;
 			this.m_NotesListBox.Location = new System.Drawing.Point(9, 113);
@@ -157,8 +157,8 @@ namespace ReferencePluginL
 			// m_tableLayoutPanel
 			// 
 			this.m_tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.m_tableLayoutPanel.ColumnCount = 5;
 			this.m_tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
 			this.m_tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
@@ -273,22 +273,22 @@ namespace ReferencePluginL
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox m_BookComboBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox m_NotesListBox;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox m_commentsReadCheckBox;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox m_assignedToTextBox;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox m_replyToTextBox;
-        private System.Windows.Forms.TableLayoutPanel m_tableLayoutPanel;
-        private System.Windows.Forms.Button m_AddCommentButton;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.ComboBox m_BookComboBox;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.ListBox m_NotesListBox;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.CheckBox m_commentsReadCheckBox;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox m_assignedToTextBox;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.TextBox m_replyToTextBox;
+		private System.Windows.Forms.TableLayoutPanel m_tableLayoutPanel;
+		private System.Windows.Forms.Button m_AddCommentButton;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button m_resolvedButton;
 		private System.Windows.Forms.CheckBox m_resolvedCheckBox;

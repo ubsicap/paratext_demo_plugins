@@ -42,8 +42,8 @@ namespace ReferencePluginH
 			// itemsText
 			// 
 			this.itemsText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.itemsText.Location = new System.Drawing.Point(6, 170);
 			this.itemsText.Multiline = true;
 			this.itemsText.Name = "itemsText";

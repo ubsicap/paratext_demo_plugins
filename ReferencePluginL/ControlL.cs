@@ -12,16 +12,16 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginL
 {
-    public partial class ControlL : EmbeddedPluginControl
-    {
+	public partial class ControlL : EmbeddedPluginControl
+	{
 		private IProject m_project;
 		private int m_booknum;
 		private IVerseRef m_verseRef;
 		private IReadOnlyList<IProjectNote> m_noteList;
 
 		public ControlL()
-        {
-            InitializeComponent();
+		{
+			InitializeComponent();
 		}
 		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)
 		{

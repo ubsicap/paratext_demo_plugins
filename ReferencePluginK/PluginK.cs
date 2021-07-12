@@ -8,8 +8,8 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginK
 {
-    public class PluginK : IParatextWindowPlugin
-    {
+	public class PluginK : IParatextWindowPlugin
+	{
 		public const string pluginName = "Reference Plugin K";
 		public string Name => pluginName;
 		public string GetDescription(string locale) => "Demonstrates accessing Biblical Terms.";

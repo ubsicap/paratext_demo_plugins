@@ -40,8 +40,8 @@ namespace ReferencePluginL
 			// 
 			this.m_comment.AcceptsReturn = true;
 			this.m_comment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.m_comment.Location = new System.Drawing.Point(5, 58);
 			this.m_comment.Multiline = true;
 			this.m_comment.Name = "m_comment";

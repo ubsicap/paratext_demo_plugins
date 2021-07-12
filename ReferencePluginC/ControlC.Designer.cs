@@ -41,7 +41,7 @@ namespace ReferencePluginC
 			// 
 			this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.moveToolStripMenuItem});
+			this.moveToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(610, 30);
@@ -51,8 +51,8 @@ namespace ReferencePluginC
 			// moveToolStripMenuItem
 			// 
 			this.moveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.previousVerseToolStripMenuItem,
-            this.nextVerseToolStripMenuItem});
+			this.previousVerseToolStripMenuItem,
+			this.nextVerseToolStripMenuItem});
 			this.moveToolStripMenuItem.Name = "moveToolStripMenuItem";
 			this.moveToolStripMenuItem.Size = new System.Drawing.Size(60, 26);
 			this.moveToolStripMenuItem.Text = "&Move";
@@ -74,8 +74,8 @@ namespace ReferencePluginC
 			// textBox
 			// 
 			this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox.Location = new System.Drawing.Point(5, 34);
 			this.textBox.Multiline = true;
 			this.textBox.Name = "textBox";

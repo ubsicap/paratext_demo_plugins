@@ -5,8 +5,8 @@ using Paratext.PluginInterfaces;
 
 namespace ReferencePluginG
 {
-    public class PluginG : IParatextMainWindowAutomaticPlugin
-    {
+	public class PluginG : IParatextMainWindowAutomaticPlugin
+	{
 		public const string pluginName = "Reference Plugin G";
 		public string Name => pluginName;
 		public string GetDescription(string locale) => "Demonstrates starting plugin when Paratext main window opens.\n"+

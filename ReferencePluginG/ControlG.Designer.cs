@@ -44,8 +44,8 @@ namespace ReferencePluginG
 			// projectTextBox
 			// 
 			this.projectTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.projectTextBox.Location = new System.Drawing.Point(5, 43);
 			this.projectTextBox.Multiline = true;
 			this.projectTextBox.Name = "projectTextBox";

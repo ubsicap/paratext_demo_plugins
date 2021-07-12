@@ -38,11 +38,13 @@ namespace ReferencePluginC
 
 		private void ShowCurrentInfo()
 		{
-			List<string> lines = new List<string>();
-			lines.Add($"Project name: {m_Project.ShortName}");
-			lines.Add($"Current Book: {m_Reference.BookCode}");
-			lines.Add($"Current Chapter: {m_Reference.ChapterNum}");
-			lines.Add($"Current Verse: {m_Reference.VerseNum}");
+			List<string> lines = new List<string>
+			{
+				$"Project name: {m_Project.ShortName}",
+				$"Current Book: {m_Reference.BookCode}",
+				$"Current Chapter: {m_Reference.ChapterNum}",
+				$"Current Verse: {m_Reference.VerseNum}"
+			};
 			textBox.Lines = lines.ToArray();
 		}
 
