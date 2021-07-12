@@ -35,14 +35,12 @@ Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "Paratext", "%ParatextInstal
 	ProjectSection(DebuggerProjectSystem) = preProject
 		PortSupplier = 00000000-0000-0000-0000-000000000000
 		Executable = %ParatextInstallDir%\Paratext.exe
-		RemoteMachine = FOOLRUNNING-LT
 		StartingDirectory = %ParatextInstallDir%
 		Environment = Default
 		LaunchingEngine = 00000000-0000-0000-0000-000000000000
 		UseLegacyDebugEngines = No
 		LaunchSQLEngine = No
 		AttachLaunchAction = No
-		IORedirection = Auto
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginJ", "ReferencePluginJ\ReferencePluginJ.csproj", "{864E8DA8-7B4D-4955-A4A3-180B95FCD12A}"
