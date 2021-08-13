@@ -13,23 +13,23 @@ namespace ChapterWordCloudPlugin
     {
         public const string pluginName = "Chapter Word Cloud";
 
-        public string Name => pluginName;
+		public string Name => pluginName;
 		
         public Version Version => new Version(2, 0);
 		
         public string VersionString => Version.ToString();
 		
         public string Publisher => "SIL/UBS";
-        
-        public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
 
-        public IEnumerable<WindowPluginMenuEntry> PluginMenuEntries
+		public IEnumerable<WindowPluginMenuEntry> PluginMenuEntries
 		{
 			get
             {
                 yield return new WindowPluginMenuEntry("&" + pluginName + "...", Run, PluginMenuLocation.ScrTextTools);
 			}
 		}
+        
+        public IDataFileMerger GetMerger(IPluginHost host, string dataIdentifier) => throw new NotImplementedException();
 
         public string GetDescription(string locale)
         {

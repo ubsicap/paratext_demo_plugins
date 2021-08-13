@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-
 using Paratext.PluginInterfaces;
 
 namespace ReferencePluginA
@@ -17,7 +15,7 @@ namespace ReferencePluginA
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";
-		public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
+		public IDataFileMerger GetMerger(IPluginHost host, string dataIdentifier) => throw new NotImplementedException();
 
 		public void Run(IPluginHost host)
 		{

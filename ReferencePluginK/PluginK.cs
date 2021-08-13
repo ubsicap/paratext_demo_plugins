@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Paratext.PluginInterfaces;
 
@@ -16,7 +13,6 @@ namespace ReferencePluginK
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";
-		public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
 
 		public IEnumerable<WindowPluginMenuEntry> PluginMenuEntries
 		{
@@ -25,6 +21,8 @@ namespace ReferencePluginK
 				yield return new WindowPluginMenuEntry("PluginK...", Run, PluginMenuLocation.ScrTextDefault);
 			}
 		}
+
+		public IDataFileMerger GetMerger(IPluginHost host, string dataIdentifier) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Called by Paratext when the menu item created for this plugin was clicked.

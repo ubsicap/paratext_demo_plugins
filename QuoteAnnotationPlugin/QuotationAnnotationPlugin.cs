@@ -18,7 +18,7 @@ namespace QuoteAnnotationPlugin
 
         public string Publisher => "SIL/UBS";
 
-        public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
+        public IDataFileMerger GetMerger(IPluginHost host, string dataIdentifier) => throw new NotImplementedException();
         
         public IEnumerable<PluginAnnotationMenuEntry> PluginAnnotationMenuEntries 
         {
