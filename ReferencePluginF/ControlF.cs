@@ -68,8 +68,9 @@ namespace ReferencePluginF
 				{
 					m_writeLock.Dispose();
 					m_writeLock = null;
-					textBox.Text = "";
-					textBox.ReadOnly = true;
+					m_DataTextBox.Text = "";
+					m_DataTextBox.ReadOnly = true;
+					m_ModTimeTextBox.Text = "";
 				}
 				Thread.Sleep(20);
 				progressInfo.Value = i;
@@ -80,7 +81,7 @@ namespace ReferencePluginF
 		{
 			writeLock.Dispose();
 			m_writeLock = null;
-			textBox.ReadOnly = true;
+			m_DataTextBox.ReadOnly = true;
 		}
 
 		private void LoadSavedText()
@@ -90,8 +91,9 @@ namespace ReferencePluginF
 				MessageBox.Show("Project not provided");
 				m_savedText = "";
 				m_currentText = "";
-				textBox.Text = "";
-				textBox.ReadOnly = true;
+				m_DataTextBox.Text = "";
+				m_DataTextBox.ReadOnly = true;
+				m_ModTimeTextBox.Text = "";
 			}
 			else
 			{
@@ -104,8 +106,9 @@ namespace ReferencePluginF
 					MessageBox.Show("Cannot get write lock; aborting loading data");
 					m_savedText = "";
 					m_currentText = "";
-					textBox.Text = "";
-					textBox.ReadOnly = true;
+					m_DataTextBox.Text = "";
+					m_DataTextBox.ReadOnly = true;
+					m_ModTimeTextBox.Text = "";
 					return;
 				}
 
@@ -131,9 +134,18 @@ namespace ReferencePluginF
 					m_savedText = "";
 				}
 				m_currentText = m_savedText;
-				textBox.ReadOnly = false;
-				textBox.Text = m_currentText;
-				textBox.Select(0, 0);
+				try
+				{
+					DateTime modDate = m_project.GetPluginDataModifiedTime(this, savedDataId);
+					m_ModTimeTextBox.Text = modDate.ToString();
+				}
+				catch
+				{
+					m_ModTimeTextBox.Text = "";
+				}
+				m_DataTextBox.ReadOnly = false;
+				m_DataTextBox.Text = m_currentText;
+				m_DataTextBox.Select(0, 0);
 			}
 		}
 
@@ -148,12 +160,13 @@ namespace ReferencePluginF
 				MessageBox.Show("Cannot get write lock; aborting loading data");
 				m_savedText = "";
 				m_currentText = "";
-				textBox.Text = "";
-				textBox.ReadOnly = true;
+				m_DataTextBox.Text = "";
+				m_DataTextBox.ReadOnly = true;
+				m_ModTimeTextBox.Text = "";
 				return;
 			}
 
-			m_currentText = textBox.Text;
+			m_currentText = m_DataTextBox.Text;
 			ProjectTextData data = new ProjectTextData
 			{
 				Lines = m_currentText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
@@ -168,6 +181,15 @@ namespace ReferencePluginF
 				MessageBox.Show($"Unable to save data:\n{e.Message}");
 			}
 			m_savedText = m_currentText;
+			try
+			{
+				DateTime modDate = m_project.GetPluginDataModifiedTime(this, savedDataId);
+				m_ModTimeTextBox.Text = modDate.ToString();
+			}
+			catch
+			{
+				m_ModTimeTextBox.Text = "";
+			}
 		}
 
 		private void Reload(object sender, EventArgs e)
@@ -182,7 +204,7 @@ namespace ReferencePluginF
 
 		private void PromptSaveAndDispose(IPluginChildWindow sender)
 		{
-			if (textBox.Text != m_savedText)
+			if (m_DataTextBox.Text != m_savedText)
 			{
 				var response = MessageBox.Show("Save changed data?", "Plugin F", MessageBoxButtons.YesNo);
 				if (response == DialogResult.Yes)
@@ -214,5 +236,5 @@ namespace ReferencePluginF
 			[XmlElement("LineOfTextualData")]
 			public string[] Lines { get; set; }
 		}
-	}
+    }
 }
