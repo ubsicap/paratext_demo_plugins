@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Paratext.PluginInterfaces;
@@ -17,7 +14,6 @@ namespace ReferencePluginB
 		public Version Version => new Version(1, 0);
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";
-		public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
 		public IEnumerable<PluginMenuEntry> PluginMenuEntries
 		{
 			get
@@ -43,6 +39,8 @@ namespace ReferencePluginB
 					customLocation: new CustomMenuLocation(WindowType.Main, new string[] { "Window", "Go to book"}));
 			}
 		}
+
+		public IDataFileMerger GetMerger(IPluginHost host, string dataIdentifier) => throw new NotImplementedException();
 
 		private static void RunA(IPluginHost host, IParatextChildState windowState)
 		{

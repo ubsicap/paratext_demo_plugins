@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.XPath;
-
 using Paratext.PluginInterfaces;
-
 
 namespace ReferencePluginF
 {
@@ -19,22 +14,20 @@ namespace ReferencePluginF
 		public string VersionString => Version.ToString();
 		public string Publisher => "SIL/UBS";
 
-		public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo
-		{
-			get
-			{
-				yield return new KeyValuePair<string, XMLDataMergeInfo>(ControlF.savedDataId,
-					new XMLDataMergeInfo(false,
-						new XMLListKeyDefinition(XPathExpression.Compile("/" + ControlF.xmlRoot), XPathExpression.Compile("."))));
-			}
-		}
-
 		public IEnumerable<WindowPluginMenuEntry> PluginMenuEntries
 		{
 			get
 			{
 				yield return new WindowPluginMenuEntry("PluginF...", Run, PluginMenuLocation.ScrTextEdit);
 			}
+		}
+
+		public IDataFileMerger GetMerger(IPluginHost ptHost, string dataIdentifier)
+		{
+			if (dataIdentifier != ControlF.savedDataId)
+				throw new NotImplementedException($"Cannot get a merger for {dataIdentifier}.");
+			return ptHost.GetXmlMerger(new XMLDataMergeInfo(false,
+				new XMLListKeyDefinition(XPathExpression.Compile("/" + ControlF.xmlRoot), XPathExpression.Compile("."))));
 		}
 
 		public void Run(IWindowPluginHost host, IParatextChildState windowState)

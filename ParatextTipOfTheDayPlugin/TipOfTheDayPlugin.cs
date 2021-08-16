@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 using Paratext.PluginInterfaces;
@@ -27,7 +26,7 @@ namespace ParatextTipOfTheDayPlugin
 		
         public string Publisher => "SIL/UBS";
 
-        public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
+        public IDataFileMerger GetMerger(IPluginHost host, string dataIdentifier) => throw new NotImplementedException();
 
         public string GetDescription(string locale)
         {

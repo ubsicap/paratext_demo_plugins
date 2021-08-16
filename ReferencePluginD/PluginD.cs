@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Paratext.PluginInterfaces;
 
@@ -20,8 +17,6 @@ namespace ReferencePluginD
 
 		public string Publisher => "SIL/UBS";
 
-		public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
-
 		public IEnumerable<PluginAnnotationMenuEntry> PluginAnnotationMenuEntries
 		{
 			get
@@ -33,5 +28,7 @@ namespace ReferencePluginD
 				yield return entry;
 			}
 		}
+
+		public IDataFileMerger GetMerger(IPluginHost host, string dataIdentifier) => throw new NotImplementedException();
 	}
 }

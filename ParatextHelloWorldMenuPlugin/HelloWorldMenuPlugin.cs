@@ -16,8 +16,6 @@ namespace ParatextHelloWorldMenuPlugin
         public string VersionString => Version.ToString();
         
         public string Publisher => "SIL/UBS";
-        
-        public IEnumerable<KeyValuePair<string, XMLDataMergeInfo>> MergeDataInfo => null;
 
         public IEnumerable<PluginMenuEntry> PluginMenuEntries
         {
@@ -40,6 +38,8 @@ namespace ParatextHelloWorldMenuPlugin
                 //    (host, state) => throw new InvalidOperationException("Don't click that!"), PluginMenuLocation.ParatextAdvanced);
             }
         }
+        
+        public IDataFileMerger GetMerger(IPluginHost host, string dataIdentifier) => throw new NotImplementedException();
         
         public string GetDescription(string locale)
         {
