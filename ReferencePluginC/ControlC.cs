@@ -64,8 +64,14 @@ namespace ReferencePluginC
 
 		public void NextVerse(Object sender, EventArgs e)
 		{
-			m_Reference = m_Reference.GetNextVerse(m_Project);
-
+			var versification = m_Project.Versification;
+			int bbbcccvvv = 0;
+			do
+			{
+				m_Reference = m_Reference.GetNextVerse(m_Project);
+				bbbcccvvv = m_Reference.BBBCCCVVV;
+			} while (versification.IsExcluded(bbbcccvvv));
+			
 			// Get the sync group our window belongs to:
 			var syncGroup = m_parent.CurrentState.SyncReferenceGroup;
 
@@ -75,7 +81,14 @@ namespace ReferencePluginC
 
 		public void PreviousVerse(Object sender, EventArgs e)
 		{
-			m_Reference = m_Reference.GetPreviousVerse(m_Project);
+			var versification = m_Project.Versification;
+			int bbbcccvvv = 0;
+			do
+			{
+				m_Reference = m_Reference.GetPreviousVerse(m_Project);
+				bbbcccvvv = m_Reference.BBBCCCVVV;
+			} while (versification.IsExcluded(bbbcccvvv));
+			
 
 			// Get the sync group our window belongs to:
 			var syncGroup = m_parent.CurrentState.SyncReferenceGroup;
