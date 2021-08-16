@@ -18,9 +18,6 @@ namespace ReferencePluginF
 		private IWriteLock m_writeLock;
 		private IProject m_project;
 
-
-		private static readonly XmlSerializer m_Serializer = new XmlSerializer(typeof(ProjectTextData));
-
 		public ControlF()
 		{
 			InitializeComponent();
@@ -109,8 +106,9 @@ namespace ReferencePluginF
 				{
 					try
 					{
-						ProjectTextData data = (ProjectTextData)m_Serializer.Deserialize(reader);
-						m_savedText = string.Join(Environment.NewLine, data.Lines);
+						//ProjectTextData data = (ProjectTextData)m_Serializer.Deserialize(reader);
+						//m_savedText = string.Join(Environment.NewLine, data.Lines);
+						m_savedText = reader.ReadToEnd();
 					}
 					catch (Exception e)
 					{
@@ -149,7 +147,7 @@ namespace ReferencePluginF
 			}
 			if (m_writeLock == null)
 			{
-				MessageBox.Show("Cannot get write lock; aborting loading data");
+				MessageBox.Show("Cannot get write lock; aborting saving data");
 				m_savedText = "";
 				m_currentText = "";
 				m_DataTextBox.Text = "";
@@ -159,14 +157,10 @@ namespace ReferencePluginF
 			}
 
 			m_currentText = m_DataTextBox.Text;
-			ProjectTextData data = new ProjectTextData
-			{
-				Lines = m_currentText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
-			};
 
 			try
 			{
-				m_project.PutPluginData(m_writeLock, this, savedDataId, writer => m_Serializer.Serialize(writer, data));
+				m_project.PutPluginData(m_writeLock, this, savedDataId, writer => writer.Write(m_currentText));
 			}
 			catch (Exception e)
 			{
@@ -222,11 +216,5 @@ namespace ReferencePluginF
 			LoadSavedText();
 		}
 
-		[XmlRoot(xmlRoot)]
-		public class ProjectTextData
-		{
-			[XmlElement("LineOfTextualData")]
-			public string[] Lines { get; set; }
-		}
-    }
+	}
 }
