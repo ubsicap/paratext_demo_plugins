@@ -79,7 +79,7 @@ namespace ProjectTextEditorPlugin
 
 		private void PromptAndSave(System.ComponentModel.CancelEventArgs cancelEventArgs = null)
 		{
-			if (lastSavedValue == EditText)
+			if (!IsDisposed && lastSavedValue == EditText)
 				return;
 
 			var result = MessageBox.Show(this, "Do you want to save the text?", ProjectTextEditorPlugin.pluginName,
@@ -125,6 +125,14 @@ namespace ProjectTextEditorPlugin
 		{
 			base.OnEnter(e);
 			ObtainLock();
+		}
+
+		protected override void OnHandleDestroyed(EventArgs e)
+		{
+			pluginFileLock?.Dispose();
+			pluginFileLock = null;
+			lastSavedValue = null;
+			base.OnHandleDestroyed(e);
 		}
 
 		private void ObtainLock()
