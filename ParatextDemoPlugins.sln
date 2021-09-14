@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginM", "Referen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginN", "ReferencePluginN\ReferencePluginN.csproj", "{D3AFDB38-9B97-4D5D-AB8C-910B81D815C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginO", "ReferencePluginO\ReferencePluginO.csproj", "{D0CA0A07-A72B-4144-85E3-CFE340107E75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -229,6 +231,14 @@ Global
 		{D3AFDB38-9B97-4D5D-AB8C-910B81D815C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3AFDB38-9B97-4D5D-AB8C-910B81D815C5}.Release|x64.ActiveCfg = Release|x64
 		{D3AFDB38-9B97-4D5D-AB8C-910B81D815C5}.Release|x64.Build.0 = Release|x64
+		{D0CA0A07-A72B-4144-85E3-CFE340107E75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0CA0A07-A72B-4144-85E3-CFE340107E75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0CA0A07-A72B-4144-85E3-CFE340107E75}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D0CA0A07-A72B-4144-85E3-CFE340107E75}.Debug|x64.Build.0 = Debug|Any CPU
+		{D0CA0A07-A72B-4144-85E3-CFE340107E75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0CA0A07-A72B-4144-85E3-CFE340107E75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0CA0A07-A72B-4144-85E3-CFE340107E75}.Release|x64.ActiveCfg = Release|Any CPU
+		{D0CA0A07-A72B-4144-85E3-CFE340107E75}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
