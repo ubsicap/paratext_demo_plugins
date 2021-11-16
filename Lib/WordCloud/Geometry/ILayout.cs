@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using Gma.CodeCloud.Controls.TextAnalyses.Processing;
 
 namespace Gma.CodeCloud.Controls.Geometry
