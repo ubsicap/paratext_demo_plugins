@@ -55,7 +55,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginL", "Referen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginM", "ReferencePluginM\ReferencePluginM.csproj", "{C89E4F9E-B999-4814-936C-D39AE6FD1B68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginN", "ReferencePluginN\ReferencePluginN.csproj", "{D3AFDB38-9B97-4D5D-AB8C-910B81D815C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginP", "ReferencePluginP\ReferencePluginP.csproj", "{D3AFDB38-9B97-4D5D-AB8C-910B81D815C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencePluginO", "ReferencePluginO\ReferencePluginO.csproj", "{D0CA0A07-A72B-4144-85E3-CFE340107E75}"
 EndProject

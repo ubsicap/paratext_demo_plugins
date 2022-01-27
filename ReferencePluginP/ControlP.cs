@@ -11,21 +11,21 @@ using System.Windows.Forms;
 using Paratext.PluginInterfaces;
 
 
-namespace ReferencePluginN
+namespace ReferencePluginP
 {
-	public partial class ControlN : EmbeddedPluginControl
+	public partial class ControlP : EmbeddedPluginControl
 	{
 		private IVerseRef m_Reference;
 		private IProject m_Project;
 
-		public ControlN()
+		public ControlP()
 		{
 			InitializeComponent();
 		}
 
 		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)
 		{
-			parent.SetTitle(PluginN.pluginName);
+			parent.SetTitle(PluginP.pluginName);
 			m_Project = parent.CurrentState.Project;
 			m_Reference = parent.CurrentState.VerseRef;
 

@@ -7,8 +7,8 @@
     <ProjectGuid>{D3AFDB38-9B97-4D5D-AB8C-910B81D815C5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReferencePluginN</RootNamespace>
-    <AssemblyName>ReferencePluginN</AssemblyName>
+    <RootNamespace>ReferencePluginP</RootNamespace>
+    <AssemblyName>ReferencePluginP</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -69,18 +69,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlN.cs">
+    <Compile Include="ControlP.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlN.Designer.cs">
-      <DependentUpon>ControlN.cs</DependentUpon>
+    <Compile Include="ControlP.Designer.cs">
+      <DependentUpon>ControlP.cs</DependentUpon>
     </Compile>
-    <Compile Include="PluginN.cs" />
+    <Compile Include="PluginP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ControlN.resx">
-      <DependentUpon>ControlN.cs</DependentUpon>
+    <EmbeddedResource Include="ControlP.resx">
+      <DependentUpon>ControlP.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

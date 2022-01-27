@@ -8,11 +8,11 @@ using System.Windows.Forms;
 using Paratext.PluginInterfaces;
 
 
-namespace ReferencePluginN
+namespace ReferencePluginP
 {
-    public class PluginN : IParatextWindowPlugin
+    public class PluginP : IParatextWindowPlugin
     {
-		public const string pluginName = "Reference Plugin N";
+		public const string pluginName = "Reference Plugin P";
 		public string Name => pluginName;
 		public string GetDescription(string locale) => "Demonstrates accessing style info.";
 		public Version Version => new Version(1, 0);
@@ -24,13 +24,13 @@ namespace ReferencePluginN
 		{
 			get
 			{
-				yield return new WindowPluginMenuEntry("PluginN...", Run, PluginMenuLocation.ScrTextProject);
+				yield return new WindowPluginMenuEntry("PluginP...", Run, PluginMenuLocation.ScrTextProject);
 			}
 		}
 
 		public void Run(IWindowPluginHost host, IParatextChildState windowState)
 		{
-			ControlN theControl = new ControlN();
+			ControlP theControl = new ControlP();
 			host.ShowEmbeddedUi(theControl, windowState.Project);
 		}
 	}

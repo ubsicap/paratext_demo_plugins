@@ -1,7 +1,7 @@
 ﻿
-namespace ReferencePluginN
+namespace ReferencePluginP
 {
-	partial class ControlN
+	partial class ControlP
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -45,12 +45,12 @@ namespace ReferencePluginN
 			this.textBox.Size = new System.Drawing.Size(955, 447);
 			this.textBox.TabIndex = 0;
 			// 
-			// ControlN
+			// ControlP
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.textBox);
-			this.Name = "ControlN";
+			this.Name = "ControlP";
 			this.Size = new System.Drawing.Size(955, 447);
 			this.ResumeLayout(false);
 			this.PerformLayout();
