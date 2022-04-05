@@ -29,36 +29,51 @@ namespace ReferencePluginE
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.textBox = new System.Windows.Forms.TextBox();
-			this.SuspendLayout();
-			// 
-			// textBox
-			// 
-			this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox.Location = new System.Drawing.Point(0, 0);
-			this.textBox.Multiline = true;
-			this.textBox.Name = "textBox";
-			this.textBox.ReadOnly = true;
-			this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.textBox.Size = new System.Drawing.Size(955, 447);
-			this.textBox.TabIndex = 0;
-			// 
-			// ControlE
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.textBox);
-			this.Name = "ControlE";
-			this.Size = new System.Drawing.Size(955, 447);
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            this.textBox = new System.Windows.Forms.TextBox();
+            this.ProjectListBox = new System.Windows.Forms.ListBox();
+            this.SuspendLayout();
+            // 
+            // textBox
+            // 
+            this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox.Location = new System.Drawing.Point(167, 0);
+            this.textBox.Multiline = true;
+            this.textBox.Name = "textBox";
+            this.textBox.ReadOnly = true;
+            this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox.Size = new System.Drawing.Size(788, 447);
+            this.textBox.TabIndex = 0;
+            // 
+            // ProjectListBox
+            // 
+            this.ProjectListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ProjectListBox.FormattingEnabled = true;
+            this.ProjectListBox.ItemHeight = 16;
+            this.ProjectListBox.Location = new System.Drawing.Point(4, 4);
+            this.ProjectListBox.Name = "ProjectListBox";
+            this.ProjectListBox.Size = new System.Drawing.Size(157, 436);
+            this.ProjectListBox.TabIndex = 1;
+            this.ProjectListBox.SelectedIndexChanged += new System.EventHandler(this.ProjectListBox_SelectedIndexChanged);
+            // 
+            // ControlE
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ProjectListBox);
+            this.Controls.Add(this.textBox);
+            this.Name = "ControlE";
+            this.Size = new System.Drawing.Size(955, 447);
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
 		#endregion
 
 		private System.Windows.Forms.TextBox textBox;
-	}
+        private System.Windows.Forms.ListBox ProjectListBox;
+    }
 }
