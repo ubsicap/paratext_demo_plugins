@@ -38,7 +38,11 @@ namespace ReferencePluginN
             dialog.ShowDialog();
             if (dialog.DialogResult == DialogResult.OK)
             {
-                if (dialog.SelectedResourceCategory == OpenProjectDialog.ResourceCategory.Standard)
+                if (dialog.SelectedResourceCategory == OpenProjectDialog.ResourceCategory.Standard && dialog.SelectedProject.Type == ProjectType.EnhancedResource)
+                {
+                    host.OpenEnhancedResourceWindowFor(dialog.SelectedProject, dialog.SelectedOpenWindowBehavior, dialog.SelectedVerseRef);
+                }
+                else if (dialog.SelectedResourceCategory == OpenProjectDialog.ResourceCategory.Standard)
                 {
                     host.OpenTextWindowFor(dialog.SelectedProject, dialog.SelectedOpenWindowBehavior, dialog.SelectedVerseRef);
                 }

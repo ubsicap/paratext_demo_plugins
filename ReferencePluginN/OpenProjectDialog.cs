@@ -53,7 +53,7 @@ namespace ReferencePluginN
         {
             m_host = host;
             m_project = project;
-            selectableProjectList = m_host.AllResources.ToList();
+            selectableProjectList = m_host.AllResources.Union(m_host.AllEnhancedResources).ToList();
             LoadOpenOptionCombo();
             LoadReferenceList();
 
@@ -98,7 +98,7 @@ namespace ReferencePluginN
             var gcn = selectableProjectList.FirstOrDefault(x => x.LongName.Contains("Global Consultant"));
 
             var standardResource = selectableProjectList.Where(x =>
-                (x.Type == ProjectType.Standard && !x.LongName.Contains("Global Consultant")) || (x.Type == ProjectType.Xml && string.Equals(x.ShortName, "attributetest", StringComparison.OrdinalIgnoreCase)));
+                (x.Type == ProjectType.Standard && !x.LongName.Contains("Global Consultant")) || (x.Type == ProjectType.Xml && string.Equals(x.ShortName, "attributetest", StringComparison.OrdinalIgnoreCase)) || x.Type == ProjectType.EnhancedResource);
             
             var dictionary = selectableProjectList.Where(x =>
                 x.Type == ProjectType.Dictionary || (x.Type == ProjectType.Xml &&
