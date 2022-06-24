@@ -54,6 +54,7 @@ namespace ReferencePluginG
 			}
 
 			m_UpdateThread = new Thread(UpdateTimeWorker);
+            m_UpdateThread.IsBackground = true;
 			m_UpdateThread.Start();
 		}
 
