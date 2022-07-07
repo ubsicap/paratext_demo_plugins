@@ -72,6 +72,14 @@ namespace ChapterWordCloudPlugin
 
         #endregion
 
+		#region Overridden Form methods
+		protected override void OnHandleDestroyed(EventArgs e)
+		{
+			m_host.ActiveWindowSelectionChanged -= ActiveWindowSelectionChanged;
+			base.OnHandleDestroyed(e);
+		}
+		#endregion
+
         #region Event handlers
         private void Parent_VerseRefChanged(IPluginChildWindow sender, IVerseRef oldReference, IVerseRef newReference)
 		{
