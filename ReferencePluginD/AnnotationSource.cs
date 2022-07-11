@@ -70,7 +70,7 @@ namespace ReferencePluginD
 			public bool Click(MouseButton button, bool onIcon, Point location)
 			{
 				string icon = onIcon ? "on icon" : "off icon";
-				MessageBox.Show($"Clicked with {button} button {icon} at {location}");
+				MessageBox.Show($"...at {location}", $"Clicked with {button} button {icon}");
 				return true;
 			}
 		}
