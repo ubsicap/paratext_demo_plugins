@@ -18,9 +18,6 @@ namespace ReferencePluginF
 		private IWriteLock m_writeLock;
 		private IProject m_project;
 
-
-		private static readonly XmlSerializer m_Serializer = new XmlSerializer(typeof(ProjectTextData));
-
 		public ControlF()
 		{
 			InitializeComponent();
@@ -60,8 +57,9 @@ namespace ReferencePluginF
 				{
 					m_writeLock.Dispose();
 					m_writeLock = null;
-					textBox.Text = "";
-					textBox.ReadOnly = true;
+					m_DataTextBox.Text = "";
+					m_DataTextBox.ReadOnly = true;
+					m_ModTimeTextBox.Text = "";
 				}
 				Thread.Sleep(20);
 				progressInfo.Value = i;
@@ -72,7 +70,7 @@ namespace ReferencePluginF
 		{
 			writeLock.Dispose();
 			m_writeLock = null;
-			textBox.ReadOnly = true;
+			m_DataTextBox.ReadOnly = true;
 		}
 
 		private void LoadSavedText()
@@ -82,8 +80,9 @@ namespace ReferencePluginF
 				MessageBox.Show("Project not provided");
 				m_savedText = "";
 				m_currentText = "";
-				textBox.Text = "";
-				textBox.ReadOnly = true;
+				m_DataTextBox.Text = "";
+				m_DataTextBox.ReadOnly = true;
+				m_ModTimeTextBox.Text = "";
 			}
 			else
 			{
@@ -96,8 +95,9 @@ namespace ReferencePluginF
 					MessageBox.Show("Cannot get write lock; aborting loading data");
 					m_savedText = "";
 					m_currentText = "";
-					textBox.Text = "";
-					textBox.ReadOnly = true;
+					m_DataTextBox.Text = "";
+					m_DataTextBox.ReadOnly = true;
+					m_ModTimeTextBox.Text = "";
 					return;
 				}
 
@@ -106,8 +106,9 @@ namespace ReferencePluginF
 				{
 					try
 					{
-						ProjectTextData data = (ProjectTextData)m_Serializer.Deserialize(reader);
-						m_savedText = string.Join(Environment.NewLine, data.Lines);
+						//ProjectTextData data = (ProjectTextData)m_Serializer.Deserialize(reader);
+						//m_savedText = string.Join(Environment.NewLine, data.Lines);
+						m_savedText = reader.ReadToEnd();
 					}
 					catch (Exception e)
 					{
@@ -123,9 +124,18 @@ namespace ReferencePluginF
 					m_savedText = "";
 				}
 				m_currentText = m_savedText;
-				textBox.ReadOnly = false;
-				textBox.Text = m_currentText;
-				textBox.Select(0, 0);
+				try
+				{
+					DateTime modDate = m_project.GetPluginDataModifiedTime(this, savedDataId);
+					m_ModTimeTextBox.Text = modDate.ToString();
+				}
+				catch
+				{
+					m_ModTimeTextBox.Text = "";
+				}
+				m_DataTextBox.ReadOnly = false;
+				m_DataTextBox.Text = m_currentText;
+				m_DataTextBox.Select(0, 0);
 			}
 		}
 
@@ -137,29 +147,35 @@ namespace ReferencePluginF
 			}
 			if (m_writeLock == null)
 			{
-				MessageBox.Show("Cannot get write lock; aborting loading data");
+				MessageBox.Show("Cannot get write lock; aborting saving data");
 				m_savedText = "";
 				m_currentText = "";
-				textBox.Text = "";
-				textBox.ReadOnly = true;
+				m_DataTextBox.Text = "";
+				m_DataTextBox.ReadOnly = true;
+				m_ModTimeTextBox.Text = "";
 				return;
 			}
 
-			m_currentText = textBox.Text;
-			ProjectTextData data = new ProjectTextData
-			{
-				Lines = m_currentText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
-			};
+			m_currentText = m_DataTextBox.Text;
 
 			try
 			{
-				m_project.PutPluginData(m_writeLock, this, savedDataId, writer => m_Serializer.Serialize(writer, data));
+				m_project.PutPluginData(m_writeLock, this, savedDataId, writer => writer.Write(m_currentText));
 			}
 			catch (Exception e)
 			{
 				MessageBox.Show($"Unable to save data:\n{e.Message}");
 			}
 			m_savedText = m_currentText;
+			try
+			{
+				DateTime modDate = m_project.GetPluginDataModifiedTime(this, savedDataId);
+				m_ModTimeTextBox.Text = modDate.ToString();
+			}
+			catch
+			{
+				m_ModTimeTextBox.Text = "";
+			}
 		}
 
 		private void Reload(object sender, EventArgs e)
@@ -174,7 +190,7 @@ namespace ReferencePluginF
 
 		private void PromptSaveAndDispose(IPluginChildWindow sender)
 		{
-			if (textBox.Text != m_savedText)
+			if (m_DataTextBox.Text != m_savedText)
 			{
 				var response = MessageBox.Show("Save changed data?", "Plugin F", MessageBoxButtons.YesNo);
 				if (response == DialogResult.Yes)
@@ -200,11 +216,5 @@ namespace ReferencePluginF
 			LoadSavedText();
 		}
 
-		[XmlRoot(xmlRoot)]
-		public class ProjectTextData
-		{
-			[XmlElement("LineOfTextualData")]
-			public string[] Lines { get; set; }
-		}
 	}
 }

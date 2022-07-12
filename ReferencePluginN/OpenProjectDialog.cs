@@ -231,7 +231,7 @@ namespace ReferencePluginN
             if (cbSelect_SLT.SelectedItem != null)
             {
                 SelectedResourceCategory = ResourceCategory.SLT;
-                SelectedSLTResource = cbSelect_SLT.SelectedItem == _hebGrk ? SLTResource.HEB : SLTResource.LXX;
+                SelectedSLTResource = (string)(cbSelect_SLT.SelectedItem) == _hebGrk ? SLTResource.HEB : SLTResource.LXX;
                 SelectedSLTProject = ConvertSltResource(SelectedSLTResource);
                 SelectedOpenWindowBehavior = ConvertOpenWindowBehavior((string)cbOpenOption_SLT.SelectedItem);
                 if (txtBook_SLT.Text.Trim() == "" ||

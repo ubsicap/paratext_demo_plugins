@@ -117,12 +117,21 @@ namespace ReferencePluginG
 
 		public void UpdateTimeWorker()
 		{
+			bool wasActive = false;
 			while (true)
 			{
 				Thread.Sleep(1 * 1000);
 				if (s_exists)
 				{
 					Invoke((Action)(() => UpdateTime()));
+					wasActive = true;
+				}
+				else
+				{
+					if (wasActive)
+					{
+						return;
+					}
 				}
 			}
 		}

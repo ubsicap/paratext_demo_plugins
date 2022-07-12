@@ -26,14 +26,26 @@ namespace ReferencePluginF
 		{
 			if (dataIdentifier != ControlF.savedDataId)
 				throw new NotImplementedException($"Cannot get a merger for {dataIdentifier}.");
-			return ptHost.GetXmlMerger(new XMLDataMergeInfo(false,
-				new XMLListKeyDefinition(XPathExpression.Compile("/" + ControlF.xmlRoot), XPathExpression.Compile("."))));
+			//return ptHost.GetXmlMerger(new XMLDataMergeInfo(false,
+			//	new XMLListKeyDefinition(XPathExpression.Compile("/" + ControlF.xmlRoot), XPathExpression.Compile("."))));
+			return new MyMerger();
 		}
 
 		public void Run(IWindowPluginHost host, IParatextChildState windowState)
 		{
 			ControlF theControl = new ControlF();
 			host.ShowEmbeddedUi(theControl, windowState.Project);
+		}
+	}
+
+	public class MyMerger : IDataFileMerger
+	{
+		public string Merge(string theirs, string mine, string parent)
+		{
+			string merged = mine;
+			if (theirs.Length > mine.Length)
+				merged = theirs;
+			return merged;
 		}
 	}
 }

@@ -8,20 +8,46 @@ namespace ReferencePluginE
 	{
 		private IVerseRef m_Reference;
 		private IProject m_Project;
+		private IReadOnlyList<IProject> m_ProjectList;
+		private int m_SelectedProjectNumber;
+		private IWindowPluginHost m_Host;
 
 		public ControlE()
 		{
 			InitializeComponent();
+			m_SelectedProjectNumber = -1;
 		}
 
 		public override void OnAddedToParent(IPluginChildWindow parent, IWindowPluginHost host, string state)
 		{
+			m_Host = host;
 			parent.SetTitle(PluginE.pluginName);
 			m_Project = parent.CurrentState.Project;
 			m_Reference = parent.CurrentState.VerseRef;
+			UpdateProjectList();
 
 			parent.ProjectChanged += ProjectChanged;
 			parent.VerseRefChanged += VerseRefChanged;
+		}
+
+		private void UpdateProjectList()
+		{
+			m_ProjectList = m_Host.GetAllProjects(IncResourcesCheckBox.Checked);
+			ProjectListBox.Items.Clear();
+			int item = 0;
+			foreach (var proj in m_ProjectList)
+			{
+				ProjectListBox.Items.Add(proj.ShortName);
+				if (proj == m_Project)
+				{
+					m_SelectedProjectNumber = item;
+				}
+				item++;
+			}
+			if (m_SelectedProjectNumber >= 0)
+			{
+				ProjectListBox.SelectedIndex = m_SelectedProjectNumber;
+			}
 		}
 
 		public override string GetState()
@@ -52,6 +78,12 @@ namespace ReferencePluginE
 		private void ShowScripture()
 		{
 			IEnumerable<IUSFMToken> tokens = m_Project.GetUSFMTokens(m_Reference.BookNum, m_Reference.ChapterNum);
+			if (tokens == null)
+			{
+				textBox.Text = "Cannot get the USFM Tokens for this project";
+				return;
+			}
+
 			List<string> lines = new List<string>();
 			foreach (var token in tokens)
 			{
@@ -73,6 +105,32 @@ namespace ReferencePluginE
 				}
 			}
 			textBox.Lines = lines.ToArray();
+		}
+
+		private void ProjectListBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string name = ProjectListBox.SelectedItem.ToString();
+			bool found = false;
+			foreach (var proj in m_ProjectList)
+			{
+				if (name == proj.ShortName)
+				{
+					m_Project = proj;
+					ShowScripture();
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+			{
+				textBox.Text = $"Cannot find project named {name}";
+			}
+
+		}
+
+		private void IncludeResourcesCheckBox_Click(object sender, EventArgs e)
+		{
+			UpdateProjectList();
 		}
 	}
 }
