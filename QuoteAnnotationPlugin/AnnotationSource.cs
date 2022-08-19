@@ -43,7 +43,7 @@ namespace QuoteAnnotationPlugin
                     bldr.Append(Regex.Escape(lev.Closer));
                 }
 
-                if (!allMarks.Contains(lev.Continuer))
+                if (!string.IsNullOrEmpty(lev.Continuer) && !allMarks.Contains(lev.Continuer))
                 {
                     allMarks.Add(lev.Continuer);
                     if (bldr.Length > 0)
