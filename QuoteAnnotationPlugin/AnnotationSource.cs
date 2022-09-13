@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Paratext.PluginInterfaces;
@@ -9,12 +10,13 @@ namespace QuoteAnnotationPlugin
 {
     internal class AnnotationSource : IPluginAnnotationSource
     {
-        private readonly IQuotationMarkInfo quotationMarks;
-        private readonly List<Regex> findMarksRegexes = new List<Regex>();
+	    private readonly IProject m_project;
+	    private readonly List<Regex> findMarksRegexes = new List<Regex>();
         
         public AnnotationSource(IProject project)
         {
-            quotationMarks = project.Language.QuotationMarkInfo;
+	        m_project = project;
+	        var quotationMarks = project.Language.QuotationMarkInfo;
             if (quotationMarks == null)
                 return;
 
@@ -76,8 +78,18 @@ namespace QuoteAnnotationPlugin
             List<IPluginAnnotation> annotations = new List<IPluginAnnotation>();
             for (int level = 0; level < findMarksRegexes.Count; level++)
             {
-                if (findMarksRegexes[level] == null)
+	            var tokens = m_project.ConvertToUSFMTokens(usfm, verseRef.BookNum,
+		            verseRef.ChapterNum, verseRef.VerseNum);
+
+	            if (findMarksRegexes[level] == null)
+					continue;
+
+                // If this is in intro material or the verse only has section heads or other
+                // non-Scripture text, let's not annotate it. (In real life, this would probably
+                // not be the most sensible thing to do.)
+                if (tokens.OfType<IUSFMTextToken>().All(t => !t.IsScripture))
                     continue;
+
                 foreach (Match match in findMarksRegexes[level].Matches(usfm))
                 {
                     Selection sel = new Selection(match.Value, usfm.Substring(0, match.Index),
